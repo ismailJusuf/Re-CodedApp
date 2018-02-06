@@ -78,7 +78,7 @@
             android:layout_marginLeft="63dp"
             android:layout_marginRight="63dp"
             android:layout_marginTop="60dp"
-            android:hint="email"
+            android:hint="E-mail Address"
             android:visibility="visible"
             app:met_baseColor="#ffffff"
             app:met_floatingLabel="highlight" />
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="63dp"
             android:layout_marginRight="63dp"
-            android:hint="password"
+            android:hint="Password"
             android:visibility="visible"
             app:met_baseColor="#ffffff"
             app:met_floatingLabel="highlight" />
