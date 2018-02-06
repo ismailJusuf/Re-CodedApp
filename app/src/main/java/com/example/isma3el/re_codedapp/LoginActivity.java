@@ -21,13 +21,19 @@ public class LoginActivity extends AppCompatActivity {
 
     String passwordText, emailText;
 
-    @BindView( R.id.log_in_image_view ) ImageView loginImage;
-    @BindView( R.id.sign_up_text_view ) TextView signUpTextView;
-    @BindView( R.id.forget_password_text_view ) TextView forgotPasswordTextView;
-    @BindView( R.id.email_edit_text ) MaterialEditText emailEditText;
-    @BindView( R.id.password_edit_text ) MaterialEditText passwordEditText;
+    @BindView(R.id.log_in_image_view)
+    ImageView loginImage;
+    @BindView(R.id.sign_up_text_view)
+    TextView signUpTextView;
+    @BindView(R.id.forget_password_text_view)
+    TextView forgotPasswordTextView;
+    @BindView(R.id.email_edit_text)
+    MaterialEditText emailEditText;
+    @BindView(R.id.password_edit_text)
+    MaterialEditText passwordEditText;
 
-    @OnClick(R.id.log_in_image_view) void login() {
+    @OnClick(R.id.log_in_image_view)
+    void login() {
 
         emailText = emailEditText.getText().toString().trim();
         passwordText = passwordEditText.getText().toString().trim();
@@ -65,7 +71,9 @@ public class LoginActivity extends AppCompatActivity {
             startActivity( intent );
         }
     }
-    @OnClick(R.id.sign_up_text_view) void goToSignUp(){
+
+    @OnClick(R.id.sign_up_text_view)
+    void goToSignUp() {
         Intent intent = new Intent( LoginActivity.this, SignUpActivity.class );
         startActivity( intent );
 
@@ -76,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_login );
-        ButterKnife.bind( this);
+        ButterKnife.bind( this );
 
     }
 }

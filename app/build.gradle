@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.isma3el.re_codedapp"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -19,6 +19,8 @@ android {
 }
 
 dependencies {
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.myhexaville:smart-image-picker:1.0.2'
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
