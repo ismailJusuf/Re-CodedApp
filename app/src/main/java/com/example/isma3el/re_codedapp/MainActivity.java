@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setUpTabIcons () {
-        tabLayout.getTabAt(0).setIcon(R.drawable.icon);
+        tabLayout.getTabAt(0).setIcon(R.drawable.post);
         tabLayout.getTabAt(1).setIcon(R.drawable.news_paper);
         tabLayout.getTabAt(2).setIcon(R.drawable.post);
     }
