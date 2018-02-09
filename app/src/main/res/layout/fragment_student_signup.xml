@@ -1,0 +1,118 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context="com.example.android.tab.CityFragment"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp">
+
+        <!-- TODO: Update blank fragment layout -->
+
+        <TextView
+            android:id="@+id/teacher_sign_up_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="SIGN UP"
+            android:textColor="#ffffff"
+            android:textSize="50sp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/add_image_student_image_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/add_photo_image"
+            app:civ_border_width="0.25dp"
+            app:civ_border_color="#FF000000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="serif-monospace"
+            android:text="Please add a photo"
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/full_name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:drawableLeft="@drawable/icon"
+            android:drawablePadding="12.7dp"
+            android:hint="Full name"
+            android:paddingLeft="5dp"
+            app:met_baseColor="#fff"
+            app:met_errorColor="#ffba00"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="#ffba00" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/email_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:drawableLeft="@drawable/ic_email"
+            android:drawablePadding="12.7dp"
+            android:hint="E-mail"
+            android:paddingLeft="5dp"
+            app:met_baseColor="#fff"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="#ffba00" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/password_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:drawableLeft="@drawable/ic_lock"
+            android:drawablePadding="12.7dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:paddingLeft="5dp"
+            app:met_baseColor="#fff"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="#ffba00" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/bootcamp_location_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:drawableLeft="@drawable/ic_location"
+            android:drawablePadding="12.7dp"
+            android:hint="Bootcamp Location"
+            android:paddingLeft="5dp"
+            app:met_baseColor="#fff"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="#ffba00" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/nationality_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:drawableLeft="@drawable/icon"
+            android:drawablePadding="12.7dp"
+            android:hint="Nationality"
+            android:paddingLeft="5dp"
+            app:met_baseColor="#fff"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="#ffba00" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/login_button" />
+    </LinearLayout>
+
+</ScrollView>
