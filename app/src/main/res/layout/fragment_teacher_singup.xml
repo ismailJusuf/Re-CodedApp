@@ -15,19 +15,12 @@
 
         <!-- TODO: Update blank fragment layout -->
 
-        <TextView
-            android:id="@+id/teacher_sign_up_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="SIGN UP"
-            android:textColor="#ffffff"
-            android:textSize="50sp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/add_image_teacher_image_view"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_marginTop="45dp"
+            android:id="@+id/teacher_add_image_image_view"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:src="@drawable/add_photo_image"
             app:civ_border_width="0.25dp"
             app:civ_border_color="#FF000000"/>
@@ -35,18 +28,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="serif-monospace"
             android:text="Please add a photo"
             android:textColor="#ffffff"
             android:textSize="15sp" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/full_name_edit_text"
+            android:id="@+id/teacher_full_name_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:drawableLeft="@drawable/icon"
+            android:layout_marginTop="45dp"
+            android:drawableLeft="@drawable/ic_user"
             android:drawablePadding="12.7dp"
             android:hint="Full name"
             android:paddingLeft="5dp"
@@ -56,13 +49,14 @@
             app:met_primaryColor="#ffba00" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/email_edit_text"
+            android:id="@+id/teacher_email_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:drawableLeft="@drawable/ic_email"
             android:drawablePadding="12.7dp"
             android:hint="E-mail"
+            android:inputType="textEmailAddress"
             android:paddingLeft="5dp"
             app:met_baseColor="#fff"
             app:met_errorColor="#ffffff"
@@ -70,11 +64,11 @@
             app:met_primaryColor="#ffba00" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/password_edit_text"
+            android:id="@+id/teacher_phone_number_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
-            android:drawableLeft="@drawable/ic_lock"
+            android:drawableLeft="@drawable/ic_phone"
             android:drawablePadding="12.7dp"
             android:hint="Password"
             android:inputType="textPassword"
@@ -84,39 +78,13 @@
             app:met_floatingLabel="highlight"
             app:met_primaryColor="#ffba00" />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/bootcamp_location_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:drawableLeft="@drawable/ic_location"
-            android:drawablePadding="12.7dp"
-            android:hint="Bootcamp Location"
-            android:paddingLeft="5dp"
-            app:met_baseColor="#fff"
-            app:met_errorColor="#ffffff"
-            app:met_floatingLabel="highlight"
-            app:met_primaryColor="#ffba00" />
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/nationality_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:drawableLeft="@drawable/icon"
-            android:drawablePadding="12.7dp"
-            android:hint="Nationality"
-            android:paddingLeft="5dp"
-            app:met_baseColor="#fff"
-            app:met_errorColor="#ffffff"
-            app:met_floatingLabel="highlight"
-            app:met_primaryColor="#ffba00" />
-
         <ImageView
+            android:id="@+id/teacher_login_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="80dp"
             android:src="@drawable/login_button" />
+
     </LinearLayout>
 
 </ScrollView>

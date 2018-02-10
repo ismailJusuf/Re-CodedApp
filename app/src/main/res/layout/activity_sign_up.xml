@@ -7,11 +7,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="#696969"
+    android:background="@drawable/background"
     tools:context="com.example.isma3el.re_codedapp.SignUpActivity"
     android:orientation="vertical">
 
     <android.support.design.widget.TabLayout
+        android:paddingTop="5dp"
         android:id="@+id/tabs"
         app:tabIndicatorColor="#ffba00"
         app:tabTextColor="#ccffffff"

@@ -50,7 +50,7 @@ public class StudentSignupFragment extends Fragment {
         View view = inflater.inflate( R.layout.fragment_student_signup, container, false );
         ButterKnife.bind( view );
 
-        profilePicture = view.findViewById( R.id.add_image_student_image_view );
+        profilePicture = view.findViewById( R.id.student_add_image_image_view );
 
         profilePicture.setOnClickListener( new View.OnClickListener() {
             @Override

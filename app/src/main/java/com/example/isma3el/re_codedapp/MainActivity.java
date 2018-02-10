@@ -1,15 +1,16 @@
 package com.example.isma3el.re_codedapp;
 
-import android.media.Image;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import com.example.isma3el.re_codedapp.Fragments.FeedFragment;
+import com.example.isma3el.re_codedapp.Fragments.ProfileFragment;
+import com.example.isma3el.re_codedapp.Fragments.SharePostFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setUpTabIcons () {
-        tabLayout.getTabAt(0).setIcon(R.drawable.post);
+        tabLayout.getTabAt(0).setIcon(R.drawable.tab_user );
         tabLayout.getTabAt(1).setIcon(R.drawable.news_paper);
         tabLayout.getTabAt(2).setIcon(R.drawable.post);
     }
