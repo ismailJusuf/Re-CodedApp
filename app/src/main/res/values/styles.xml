@@ -3,8 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimaryDark">#FF9800</item>
-        <item name="colorPrimary">#607D8B</item>
+        <item name="colorPrimaryDark">#202020</item>
+        <item name="colorPrimary">#242424</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 

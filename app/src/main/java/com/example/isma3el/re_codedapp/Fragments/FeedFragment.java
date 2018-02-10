@@ -1,4 +1,4 @@
-package com.example.isma3el.re_codedapp;
+package com.example.isma3el.re_codedapp.Fragments;
 
 /**
  * Created by Recodedharran on 7.2.2018.
@@ -9,6 +9,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.isma3el.re_codedapp.R;
 
 public class FeedFragment extends Fragment {
 
@@ -23,7 +25,7 @@ public class FeedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_feed, container, false);
+        return inflater.inflate( R.layout.fragment_feed, container, false);
     }
 
 

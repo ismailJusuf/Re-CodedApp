@@ -68,7 +68,7 @@ public class SignUpActivity extends AppCompatActivity {
                 case 0:
                     return "Student";
                 case 1:
-                    return "Teacher";
+                    return "Trainer";
                 default:
                     return "Student";
             }

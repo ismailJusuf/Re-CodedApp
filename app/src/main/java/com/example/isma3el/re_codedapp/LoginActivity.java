@@ -31,8 +31,6 @@ public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.log_in_image_view)
     ImageView loginImage;
-    @BindView(R.id.sign_up_text_view)
-    TextView signUpTextView;
     @BindView(R.id.forget_password_text_view)
     TextView forgotPasswordTextView;
     @BindView(R.id.email_edit_text)
@@ -93,7 +91,7 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.sign_up_text_view)
+    @OnClick(R.id.sign_up_linear_layout)
     void goToSignUp() {
         Intent intent = new Intent( LoginActivity.this, SignUpActivity.class );
         startActivity( intent );
