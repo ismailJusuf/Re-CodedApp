@@ -21,7 +21,7 @@
             android:id="@+id/logo_image_view"
             android:layout_width="165dp"
             android:layout_height="155dp"
-            android:src="@drawable/logo" />
+            android:src="@drawable/yellow_logo" />
 
         <TextView
             android:layout_width="wrap_content"

@@ -38,8 +38,8 @@
 
                 <ImageView
                     android:id="@+id/card_user_icon"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="6dp"
@@ -100,12 +100,12 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/emoji_icon_heart"
+                    <CheckBox
+                        android:id="@+id/emoji_heart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/heart"
-                        android:layout_marginLeft="7dp" />
+                        android:layout_marginLeft="7dp"
+                        android:button="@drawable/heart_check_box"/>
 
                     <TextView
                         android:id="@+id/heart_counter_text_view"
@@ -125,13 +125,12 @@
                     android:orientation="horizontal">
 
 
-                    <ImageView
-                        android:id="@+id/emoji_icon_happy"
+                    <CheckBox
+                        android:id="@+id/emoji_happy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:layout_marginLeft="7dp"
-                        android:src="@drawable/happy" />
+                        android:button="@drawable/happy_check_box"/>
 
                     <TextView
                         android:id="@+id/happy_counter_text_view"
@@ -151,13 +150,12 @@
                     android:orientation="horizontal">
 
 
-                    <ImageView
-                        android:id="@+id/emoji_icon_wink"
+                    <CheckBox
+                        android:id="@+id/emoji_wink"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:layout_marginLeft="7dp"
-                        android:src="@drawable/wink" />
+                        android:button="@drawable/wink_ckeck_box"/>
 
                     <TextView
                         android:id="@+id/wink_counter_text_view"
@@ -176,12 +174,12 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/emoji_icon_nerd"
+                    <CheckBox
+                        android:id="@+id/emoji_nerd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="7dp"
-                        android:src="@drawable/nerd" />
+                        android:button="@drawable/nerd_check_box"/>
 
                     <TextView
                         android:id="@+id/nerd_counter_text_view"
@@ -200,12 +198,12 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/emoji_icon_inlove"
+                    <CheckBox
+                        android:id="@+id/emoji_inlove"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="7dp"
-                        android:src="@drawable/in_love" />
+                        android:button="@drawable/in_love_check_box"/>
 
                     <TextView
                         android:id="@+id/inlove_counter_text_view"
@@ -224,12 +222,12 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/emoji_icon_thumbs_up"
+                    <CheckBox
+                        android:id="@+id/emoji_thumbs_up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="7dp"
-                        android:src="@drawable/thumbs_up" />
+                        android:button="@drawable/thumbs_up_check_box"/>
 
                     <TextView
                         android:id="@+id/thumbs_up_counter_text_view"

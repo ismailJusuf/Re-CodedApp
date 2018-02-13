@@ -13,12 +13,16 @@ import android.widget.Toolbar;
 import com.example.isma3el.re_codedapp.Fragments.FeedFragment;
 import com.example.isma3el.re_codedapp.Fragments.ProfileFragment;
 import com.example.isma3el.re_codedapp.Fragments.SharePostFragment;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,27 +48,39 @@ public class MainActivity extends AppCompatActivity {
 
         setUpTabIcons();
 
-        //if you want to update the items at a later time it is recommended to keep it in a variable
-        PrimaryDrawerItem primaryDrawerItem = new PrimaryDrawerItem().withIdentifier( 1 )
-                .withName( "test" );
-
+        //PrimaryDrawerItem primaryDrawerItem = new PrimaryDrawerItem().withIdentifier( 1 ).withName( "test" );
         SecondaryDrawerItem item1 = new SecondaryDrawerItem().withIdentifier( 1 )
                 .withName( "login" );
-
-        SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier( 3 )
+        SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier( 2 )
                 .withName( "signup" );
-        SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier( 4 )
+        SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier( 3 )
                 .withName( "profile" );
-        SecondaryDrawerItem item4 = new SecondaryDrawerItem().withIdentifier( 5 )
+        SecondaryDrawerItem item4 = new SecondaryDrawerItem().withIdentifier( 4 )
                 .withName( "feed" );
-        SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier( 6 )
+        SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier( 5 )
                 .withName( "add new post" );
+
+        AccountHeader headerResult = new AccountHeaderBuilder()
+                .withActivity(this)
+                .withHeaderBackground(R.drawable.profile_background)
+                .addProfiles(
+                        new ProfileDrawerItem().withName( "Ibrahim Halil Toprak").withEmail( "ibrahimtprk@gmail.com")
+                                .withIcon( getResources().getDrawable( R.drawable.ibrahim_pp))
+                )
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    @Override
+                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                        return false;
+                    }
+                })
+                .build();
 
         //create the drawer and remember the `Drawer` result object
         Drawer result = new DrawerBuilder()
                 .withActivity( this )
                 .withToolbar(toolbar)
-                .addDrawerItems(primaryDrawerItem, item1, item2, item3, item4, item5)
+                .withAccountHeader(headerResult)
+                .addDrawerItems( item1, item2, item3, item4, item5)
                 .withOnDrawerItemClickListener( new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
