@@ -48,10 +48,10 @@ public class FeedFragment extends Fragment {
 
         ArrayList<FeedCard> feedArrayList = new ArrayList<>();
 
-        image = new int[]{R.drawable.student, R.drawable.student, R.drawable.student, R.drawable.student};
+        image = new int[]{R.drawable.ayse_hoca, R.drawable.student, R.drawable.ayse_hoca, R.drawable.student};
         userName = new String[]{"Ismail Youssef", "Abdullah Al-Jadaan", "Ismail Youssef", "Abdullah Al-Jadaan"};
-        text = new String[]{"My name is Ismail. I was born in Bosnia and Herzegovina ....", "My name is Abdullah. I was born and raised in Al-Hasakah in Syria ....",
-                "My name is Ismail. I was born in Bosnia and Herzegovina ....", "My name is Abdullah. I was born and raised in Al-Hasakah in Syria ...."};
+        text = new String[]{"GECMİŞ OLSUN HOCAM", "My name is Abdullah. I was born and raised in Al-Hasakah in Syria ....",
+                "GECMİŞ OLSUN HOCAM", "My name is Abdullah. I was born and raised in Al-Hasakah in Syria ...."};
         heartCounter = new String[]{"5", "9", "13", "17"};
         happyCounter = new String[]{"6", "10", "14", "18"};
         winkCounter = new String[]{"7", "11", "15", "19"};
