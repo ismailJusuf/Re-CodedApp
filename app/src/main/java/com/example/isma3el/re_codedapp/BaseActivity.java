@@ -24,10 +24,6 @@ public class BaseActivity extends AppCompatActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences( this );
     }
 
-    public void saveUser(User user) {
-        preferences.edit().putString( "user", new Gson().toJson( user ) );
-    }
-
     public User getUser() {
         return new Gson().fromJson( preferences.getString( "user", new Gson().toJson( new User() ) ), User.class );
     }

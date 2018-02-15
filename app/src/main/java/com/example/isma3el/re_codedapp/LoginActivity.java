@@ -1,31 +1,39 @@
 package com.example.isma3el.re_codedapp;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.isma3el.re_codedapp.Models.User;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
+import com.example.isma3el.re_codedapp.Models.Student;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LoginActivity extends BaseActivity {
+
+    private static final String TAG = "sign in successful";
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference usersDatabaseReference;
+    private FirebaseAuth firebaseAuth;
 
     String userPasswordText, userEmailText;
 
@@ -60,34 +68,51 @@ public class LoginActivity extends BaseActivity {
 
             Toast.makeText( LoginActivity.this, "Please Write Your Password", Toast.LENGTH_LONG ).show();
 
-        } else if (passwordEditText.length() < 8) {
+        } else if (passwordEditText.length() < 4) {
 
             Toast.makeText( LoginActivity.this, "Password must be at least 8 characters", Toast.LENGTH_LONG ).show();
 
 
         } else {
 
-
-            JsonObject json = new JsonObject();
-            json.addProperty( "phone", userEmailText );
-            json.addProperty( "password", userPasswordText );
-
-            Ion.with( this )
-                    .load( "http://www.re-coded.com/api/login" )
-                    .setJsonObjectBody( json )
-                    .as( new TypeToken<User>() {} )
-                    .setCallback( new FutureCallback<User>() {
+            firebaseAuth.signInWithEmailAndPassword( userEmailText, userPasswordText )
+                    .addOnCompleteListener( this, new OnCompleteListener<AuthResult>() {
                         @Override
-                        public void onCompleted(Exception e, User user) {
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d( TAG, "signInWithEmail:success" );
+                                FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                            getUser();
+                                usersDatabaseReference.child( user.getUid() )
+                                        .addListenerForSingleValueEvent( new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                dataSnapshot.getValue( Student.class );
+                                            }
 
-                            Intent intent = new Intent( LoginActivity.this, MainActivity.class );
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+                                                Log.d( "onCancelled", "addListenerForSingleValueEvent " + "cancelled" );
+                                            }
+                                        } );
 
-                            startActivity( intent );
+                                Intent intent = new Intent( LoginActivity.this, MainActivity.class );
+                                startActivity( intent );
+                                finish();
 
+                                //updateUI(user);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w( TAG, "signInWithEmail:failure", task.getException() );
+                                Toast.makeText( LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT ).show();
+                                //updateUI(null);
+                            }
+
+                            // ...
                         }
                     } );
+
         }
     }
 
@@ -103,5 +128,47 @@ public class LoginActivity extends BaseActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_login );
         ButterKnife.bind( this );
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        usersDatabaseReference = firebaseDatabase.getInstance().getReference().child(
+                "registeredUsers" );
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+        /*updateUI(currentUser);
+
+        firebaseAuth.signInWithEmailAndPassword( userEmailText, userPasswordText )
+                .addOnCompleteListener( this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d( TAG, "signInWithEmail:success" );
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            //updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w( TAG, "signInWithEmail:failure", task.getException() );
+                            Toast.makeText( LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT ).show();
+
+                        }
+                    }
+                } );*/
     }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            Intent intent = new Intent( this, MainActivity.class );
+            startActivity( intent );
+            finish();
+        }
+
+    }
+
+
 }

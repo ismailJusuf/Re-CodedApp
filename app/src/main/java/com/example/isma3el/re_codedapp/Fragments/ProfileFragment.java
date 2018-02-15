@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import com.example.isma3el.re_codedapp.R;
 
+import butterknife.ButterKnife;
+
 
 public class ProfileFragment extends Fragment {
     public ProfileFragment() {
@@ -22,10 +24,10 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate( R.layout.fragment_profile, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate( R.layout.fragment_profile, container, false);
+        ButterKnife.bind( this, view );
+        return view;
     }
 
 

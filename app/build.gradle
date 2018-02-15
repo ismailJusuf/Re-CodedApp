@@ -19,6 +19,9 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.firebase:firebase-database:11.0.4'
+    implementation 'com.google.firebase:firebase-storage:11.0.4'
+    implementation 'com.google.firebase:firebase-auth:11.0.4'
     compile 'de.hdodenhof:circleimageview:2.2.0'
     compile 'com.koushikdutta.ion:ion:2.2.1'
     implementation 'com.android.support:support-v4:27.0.2'
@@ -50,3 +53,7 @@ dependencies {
 }
 
 
+
+
+
+apply plugin: 'com.google.gms.google-services'

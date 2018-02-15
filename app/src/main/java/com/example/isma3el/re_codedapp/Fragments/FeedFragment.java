@@ -17,6 +17,7 @@ import com.example.isma3el.re_codedapp.R;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FeedFragment extends Fragment {
@@ -31,9 +32,8 @@ public class FeedFragment extends Fragment {
     private String[] inLoveCounter;
     private String[] thumbsUpCounter;
 
-    public FeedFragment() {
-        // Required empty public constructor
-    }
+    @BindView(R.id.feed_list_view)
+    ListView feedListView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,15 +43,18 @@ public class FeedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate( R.layout.fragment_feed, container, false );
-        ButterKnife.bind( view );
+        ButterKnife.bind( this,view );
 
 
         ArrayList<FeedCard> feedArrayList = new ArrayList<>();
 
-        image = new int[]{R.drawable.ayse_hoca, R.drawable.student, R.drawable.ayse_hoca, R.drawable.student};
+        image = new int[]{R.drawable.student, R.drawable.student, R.drawable.student, R.drawable.student};
         userName = new String[]{"Ismail Youssef", "Abdullah Al-Jadaan", "Ismail Youssef", "Abdullah Al-Jadaan"};
-        text = new String[]{"GECMİŞ OLSUN HOCAM", "My name is Abdullah. I was born and raised in Al-Hasakah in Syria ....",
-                "GECMİŞ OLSUN HOCAM", "My name is Abdullah. I was born and raised in Al-Hasakah in Syria ...."};
+        text = new String[]{"My name is Abdullah. I was born and raised in Al-Hasakah in Syria ....",
+                "My name is Abdullah. I was born and raised in Al-Hasakah in Syria ....",
+                "My name is Abdullah. I was born and raised in Al-Hasakah in Syria ....",
+                "My name is Abdullah. I was born and raised in Al-Hasakah in Syria ...."};
+
         heartCounter = new String[]{"5", "9", "13", "17"};
         happyCounter = new String[]{"6", "10", "14", "18"};
         winkCounter = new String[]{"7", "11", "15", "19"};
@@ -68,8 +71,7 @@ public class FeedFragment extends Fragment {
             feedArrayList.add( card[i] );
         }
 
-        FeedAdapter adapter = new FeedAdapter( getActivity(), feedArrayList);
-        ListView feedListView = view.findViewById( R.id.feed_list_view );
+        FeedAdapter adapter = new FeedAdapter( getActivity(), feedArrayList );
         feedListView.setAdapter( adapter );
 
         return view;
