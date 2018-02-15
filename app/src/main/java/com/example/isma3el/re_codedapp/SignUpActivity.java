@@ -10,29 +10,32 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.isma3el.re_codedapp.Fragments.StudentSignupFragment;
-import com.example.isma3el.re_codedapp.Fragments.TeacherSingupFragment;
+import com.example.isma3el.re_codedapp.Fragments.StudentSignUpFragment;
+import com.example.isma3el.re_codedapp.Fragments.TeacherSignUpFragment;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class SignUpActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    private ViewPager mViewPager;
+    @BindView( R.id.container )
+    ViewPager mViewPager;
+    @BindView( R.id.tabs )
+    TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
+        ButterKnife.bind( this);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        TabLayout tabLayout = findViewById(R.id.tabs);
 
         tabLayout.setupWithViewPager(mViewPager);
     }
@@ -47,13 +50,13 @@ public class SignUpActivity extends AppCompatActivity {
         public android.support.v4.app.Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new StudentSignupFragment();
+                    return new StudentSignUpFragment();
                 case 1:
-                    return new TeacherSingupFragment();
+                    return new TeacherSignUpFragment();
             }
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return new StudentSignupFragment();
+            return new StudentSignUpFragment();
         }
 
         @Override
@@ -83,7 +86,7 @@ public class SignUpActivity extends AppCompatActivity {
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         if (fragments != null) {
             for (Fragment f : fragments) {
-                if ((f instanceof StudentSignupFragment) || (f instanceof TeacherSingupFragment)) {
+                if ((f instanceof StudentSignUpFragment) || (f instanceof TeacherSignUpFragment)) {
                     f.onActivityResult(requestCode, resultCode, data);
                 }
             }

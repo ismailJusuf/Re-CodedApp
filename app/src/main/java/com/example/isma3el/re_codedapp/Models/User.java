@@ -7,9 +7,13 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class User {
+    //@SerializedName( "token" ) public String token;
     @SerializedName( "_id" ) public String userId;
-    @SerializedName( "userName" ) public String userName;
-    @SerializedName( "bootCamp" ) public String bootCamp;
-    @SerializedName( "token" ) public String token;
+    @SerializedName( "fullName" ) public String fullName;
     @SerializedName( "image" ) public String image;
+    @SerializedName( "email" ) public String email;
+    @SerializedName( "password" ) public String password;
+    @SerializedName( "phoneNumber" ) public String phoneNumber;
+    @SerializedName( "bootCamp" ) public String bootCamp;
+    @SerializedName( "nationality" ) public String nationality;
 }
