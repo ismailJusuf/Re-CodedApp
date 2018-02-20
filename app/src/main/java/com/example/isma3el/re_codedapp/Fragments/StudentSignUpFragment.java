@@ -13,26 +13,30 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.isma3el.re_codedapp.MainActivity;
-import com.example.isma3el.re_codedapp.Models.Student;
 import com.example.isma3el.re_codedapp.Models.User;
 import com.example.isma3el.re_codedapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.myhexaville.smartimagepicker.ImagePicker;
 import com.myhexaville.smartimagepicker.OnImagePickedListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
-import java.util.concurrent.Executor;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class StudentSignUpFragment extends Fragment {
 
@@ -41,10 +45,18 @@ public class StudentSignUpFragment extends Fragment {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference usersDatabaseReference;
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference recodedUsersDatabaseReference;
+    private StorageReference storageReference;
+    private StorageReference imageStorageReference;
+    private FirebaseStorage firebaseStorage;
 
     ImagePicker imagePicker;
     String studentEmail, studentPassword, studentFullName, studentPhoneNumber, bootcamp, nationality;
+    UploadTask uploadTask;
+    String downloadImageUrl;
 
+    @BindView(R.id.student_add_image_image_view)
+    ImageView studentProfilePicture;
     @BindView(R.id.student_email_edit_text)
     MaterialEditText studentEmailEditText;
     @BindView(R.id.student_password_edit_text)
@@ -57,11 +69,10 @@ public class StudentSignUpFragment extends Fragment {
     MaterialEditText bootcampEditText;
     @BindView(R.id.nationality_edit_text)
     MaterialEditText nationalityEditText;
-    @BindView(R.id.student_add_image_image_view)
-    ImageView profilePicture;
+
 
     @OnClick(R.id.student_add_image_image_view)
-    public void setImage() {
+    public void setStudentImage() {
         imagePicker.choosePicture( true );
     }
 
@@ -75,32 +86,61 @@ public class StudentSignUpFragment extends Fragment {
         bootcamp = bootcampEditText.getText().toString().trim();
         nationality = nationalityEditText.getText().toString().trim();
 
-        assert getActivity() != null;
-        firebaseAuth.createUserWithEmailAndPassword( studentEmail, studentPassword )
-                .addOnCompleteListener( getActivity(), new OnCompleteListener<AuthResult>
-                        () {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d( TAG, "createUserWithEmail:success" );
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                            Student newStudent = new Student( user.getUid(), studentFullName, null, studentEmail, studentPhoneNumber, bootcamp, nationality );
-                            usersDatabaseReference.push().setValue( newStudent );
-
-                            Intent intent = new Intent( getActivity(), MainActivity.class );
-                            startActivity( intent );
-                            getActivity().finish();
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w( TAG, "createUserWithEmail:failure", task.getException() );
-                            Toast.makeText( getActivity(), "Authentication failed.", Toast.LENGTH_SHORT ).show();
-                        }
-
+        recodedUsersDatabaseReference.addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean isInList = false;
+                loop:
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    String email = data.getValue( String.class );
+                    if (email.equals( studentEmail )) {
+                        isInList = true;
+                        break loop;
                     }
-                } );
+                }
+                if (isInList) {
+                    assert getActivity() != null;
+                    firebaseAuth.createUserWithEmailAndPassword( studentEmail, studentPassword )
+                            .addOnCompleteListener( getActivity(), new OnCompleteListener<AuthResult>
+                                    () {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Log.d( TAG, "createUserWithEmail:success" );
+                                        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                                        User newStudent = new User( user.getUid(), studentFullName, null,
+                                                                    studentEmail, studentPhoneNumber,
+                                                                    bootcamp, nationality, 0
+                                        );
+                                        usersDatabaseReference.push().setValue( newStudent );
+
+                                        Intent intent = new Intent( getActivity(), MainActivity.class );
+                                        startActivity( intent );
+                                        getActivity().finish();
+
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Log.w( TAG, "createUserWithEmail:failure", task.getException() );
+                                        Toast.makeText( getActivity(), "Authentication failed.", Toast.LENGTH_SHORT ).show();
+                                    }
+
+                                }
+                            } );
+
+                } else {
+
+                    Toast.makeText( getActivity(), "Your email is not registered", Toast.LENGTH_SHORT ).show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        } );
     }
 
 
@@ -116,15 +156,34 @@ public class StudentSignUpFragment extends Fragment {
         ButterKnife.bind( this, view );
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        usersDatabaseReference = firebaseDatabase.getInstance().getReference().child( "registeredStudents" );
+        usersDatabaseReference = FirebaseDatabase.getInstance().getReference().child( "users" );
         firebaseAuth = FirebaseAuth.getInstance();
+        recodedUsersDatabaseReference = FirebaseDatabase.getInstance().getReference().child( "recodedUsers" );
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference();
 
 
         imagePicker = new ImagePicker( getActivity(), this, new OnImagePickedListener() {
             @Override
             public void onImagePicked(Uri imageUri) {
-                profilePicture.setImageURI( imageUri );
-                //Picasso.with( getContext() ).load( imageUri ).into( profilePicture );
+                studentProfilePicture.setImageURI( imageUri );
+
+                imageStorageReference = storageReference.child( "images/" + imageUri.getLastPathSegment() );
+
+                uploadTask = imageStorageReference.putFile( imageUri );
+                uploadTask.addOnFailureListener( new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                    }
+                } ).addOnSuccessListener( new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                        downloadImageUrl = taskSnapshot.getDownloadUrl().toString();
+                    }
+                } );
+
             }
         } );
 

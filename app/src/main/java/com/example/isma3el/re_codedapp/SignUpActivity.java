@@ -69,11 +69,11 @@ public class SignUpActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Student";
+                    return "User";
                 case 1:
                     return "Trainer";
                 default:
-                    return "Student";
+                    return "User";
             }
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).

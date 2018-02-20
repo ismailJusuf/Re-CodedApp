@@ -7,23 +7,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context="com.example.android.tab.CityFragment"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
         android:layout_marginLeft="65dp"
-        android:layout_marginRight="65dp">
+        android:layout_marginRight="65dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:context="com.example.android.tab.CityFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-
+        <View
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_marginTop="45dp"
             android:id="@+id/teacher_add_image_image_view"
             android:layout_width="120dp"
             android:layout_height="120dp"
+            android:layout_marginTop="45dp"
             android:src="@drawable/add_photo_image"
-            app:civ_border_width="0.25dp"
-            app:civ_border_color="#FF000000"/>
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="0.25dp" />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -64,14 +68,28 @@
             app:met_primaryColor="#ffba00" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/teacher_password_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:drawableLeft="@drawable/ic_lock"
+            android:drawablePadding="12.7dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:paddingLeft="5dp"
+            app:met_baseColor="#fff"
+            app:met_floatingLabel="highlight"
+            app:met_primaryColor="#ffba00" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/teacher_phone_number_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:drawableLeft="@drawable/ic_phone"
             android:drawablePadding="12.7dp"
-            android:hint="Password"
-            android:inputType="textPassword"
+            android:hint="Phone Number"
+            android:inputType="phone"
             android:paddingLeft="5dp"
             app:met_baseColor="#fff"
             app:met_errorColor="#ffffff"
@@ -83,6 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
+            android:layout_marginBottom="30dp"
             android:src="@drawable/login_button" />
 
     </LinearLayout>
