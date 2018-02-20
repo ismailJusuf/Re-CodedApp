@@ -30,20 +30,18 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference usersDatabaseReference;
     private FirebaseAuth firebaseAuth;
 
-    @BindView( R.id.main_toolbar )
+    @BindView(R.id.main_toolbar)
     android.support.v7.widget.Toolbar toolbar;
-    @BindView( R.id.main_container )
+    @BindView(R.id.main_container)
     ViewPager viewPager;
-    @BindView( R.id.main_activity_tabs )
+    @BindView(R.id.main_activity_tabs)
     TabLayout tabLayout;
-
-
 
     private SectionsPagerAdapter mSectionspagerAdapter;
 
@@ -78,7 +76,9 @@ public class MainActivity extends AppCompatActivity {
                 .withActivity( this )
                 .withHeaderBackground( R.drawable.profile_background )
                 .addProfiles(
-                        new ProfileDrawerItem().withName( "Ibrahim Halil Toprak" ).withEmail( "ibrahimtprk@gmail.com" ).withIcon( getResources().getDrawable( R.drawable.ibrahim_pp ) )
+                        new ProfileDrawerItem().withName( "user name" ).withEmail(
+                                "Email" ).withIcon( getResources().getDrawable( R.drawable.ibrahim_pp
+                        ) )
                 )
                 .withOnAccountHeaderListener( new AccountHeader.OnAccountHeaderListener() {
                     @Override
