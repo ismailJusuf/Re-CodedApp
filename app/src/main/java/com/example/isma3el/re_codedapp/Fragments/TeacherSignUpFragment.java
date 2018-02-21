@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.isma3el.re_codedapp.BaseActivity;
 import com.example.isma3el.re_codedapp.MainActivity;
 import com.example.isma3el.re_codedapp.Models.User;
 import com.example.isma3el.re_codedapp.R;
@@ -77,61 +78,71 @@ public class TeacherSignUpFragment extends Fragment {
     @OnClick(R.id.teacher_login_image_view)
     void teacherSignUp() {
 
-        teacherEmail = teacherEmailEditText.getText().toString().trim();
-        teacherPassword = teacherPasswordEditText.getText().toString().trim();
-        teacherFullName = teacherFullNameEditText.getText().toString();
-        teacherPhoneNumber = teacherPhoneNumberEditText.getText().toString().trim();
 
-        recodedUsersDatabaseReference.addListenerForSingleValueEvent( new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean isInList = false;
-                loop:
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    String email = data.getValue( String.class );
-                    if (email.equals( teacherEmail )) {
-                        isInList = true;
-                        break loop;
+        if (BaseActivity.getInstance().isOnline() == true) {
+
+            Toast.makeText(getContext(), "internet var", Toast.LENGTH_SHORT).show();
+
+            teacherEmail = teacherEmailEditText.getText().toString().trim();
+            teacherPassword = teacherPasswordEditText.getText().toString().trim();
+            teacherFullName = teacherFullNameEditText.getText().toString();
+            teacherPhoneNumber = teacherPhoneNumberEditText.getText().toString().trim();
+
+            recodedUsersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    boolean isInList = false;
+                    loop:
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        String email = data.getValue(String.class);
+                        if (email.equals(teacherEmail)) {
+                            isInList = true;
+                            break loop;
+                        }
+                    }
+                    if (isInList) {
+                        firebaseAuth.createUserWithEmailAndPassword(teacherEmail, teacherPassword)
+                                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>
+                                        () {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            // Sign in success, update UI with the signed-in user's information
+                                            Log.d(TAG, "createUserWithEmail:success");
+                                            FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                                            User newTeacher = new User(user.getUid(), teacherFullName, downloadImageUrl, teacherEmail, teacherPhoneNumber, "", "", 1);
+                                            registeredUsersDatabaseReference.push().setValue(newTeacher);
+
+                                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                                            startActivity(intent);
+                                            getActivity().finish();
+
+                                        } else {
+                                            // If sign in fails, display a message to the user.
+                                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                            Toast.makeText(getActivity(), "Your email is already used", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                    } else {
+                        Toast.makeText(getActivity(), "Your email is not registered", Toast.LENGTH_SHORT).show();
                     }
                 }
-                if (isInList) {
-                    firebaseAuth.createUserWithEmailAndPassword( teacherEmail, teacherPassword )
-                            .addOnCompleteListener( getActivity(), new OnCompleteListener<AuthResult>
-                                    () {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        Log.d( TAG, "createUserWithEmail:success" );
-                                        FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                                        User newTeacher = new User( user.getUid(), teacherFullName, downloadImageUrl, teacherEmail, teacherPhoneNumber, "", "", 1 );
-                                        registeredUsersDatabaseReference.push().setValue( newTeacher );
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-                                        Intent intent = new Intent( getActivity(), MainActivity.class );
-                                        startActivity( intent );
-                                        getActivity().finish();
-
-                                    } else {
-                                        // If sign in fails, display a message to the user.
-                                        Log.w( TAG, "createUserWithEmail:failure", task.getException() );
-                                        Toast.makeText( getActivity(), "Your email is already used", Toast.LENGTH_SHORT ).show();
-                                    }
-                                }
-                            } );
-                } else {
-                    Toast.makeText( getActivity(), "Your email is not registered", Toast.LENGTH_SHORT ).show();
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-
-        } );
-
+            });
+       }
+       else
+        {
+            Toast.makeText(getContext(), "no internet", Toast.LENGTH_SHORT).show();
+        }
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -155,24 +166,34 @@ public class TeacherSignUpFragment extends Fragment {
             public void onImagePicked(Uri imageUri) {
                 profilePicture.setImageURI( imageUri );
 
-                //create reference to images folder and assing a name to the file that will be uploaded
-                imageStorageReference = storageReference.child( "images/" + imageUri.getLastPathSegment() );
+                if (BaseActivity.getInstance().isOnline() == true) {
+
+                    Toast.makeText(getContext(), "internet var", Toast.LENGTH_SHORT).show();
+
+                    //create reference to images folder and assing a name to the file that will be uploaded
+                    imageStorageReference = storageReference.child("images/" + imageUri.getLastPathSegment());
 
 
-                uploadTask = imageStorageReference.putFile( imageUri );
-                uploadTask.addOnFailureListener( new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
+                    uploadTask = imageStorageReference.putFile(imageUri);
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                            downloadImageUrl = taskSnapshot.getDownloadUrl().toString();
+                        }
+
+                    });
+                }
+                else
+                    {
+                        Toast.makeText(getContext(), "no internet", Toast.LENGTH_SHORT).show();
+
                     }
-                } ).addOnSuccessListener( new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                        downloadImageUrl = taskSnapshot.getDownloadUrl().toString();
-                    }
-                } );
-
             }
         } );
 

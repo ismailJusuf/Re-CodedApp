@@ -88,11 +88,6 @@ public class FeedAdapter extends ArrayAdapter<FeedCard> {
         TextView winkText = listItemView.findViewById(R.id.wink_counter_text_view);
         winkText.setText(feedCard.getWinkCounter());
 
-        //  ImageView nerdIcon = listItemView.findViewById(R.id.emoji_icon_nerd);
-        //  nerdIcon.setImageResource(feedCard.getImagNerdIconId());
-        TextView nerdText = listItemView.findViewById(R.id.nerd_counter_text_view);
-        nerdText.setText(feedCard.getNerdCounter());
-
         //  ImageView inloveIcon = listItemView.findViewById(R.id.emoji_icon_inlove);
         // inloveIcon.setImageResource(feedCard.getImagInloveIconId());
         TextView inloveText = listItemView.findViewById(R.id.inlove_counter_text_view);
