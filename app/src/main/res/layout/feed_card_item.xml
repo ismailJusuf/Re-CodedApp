@@ -90,7 +90,7 @@
                 android:layout_below="@id/view"
                 android:layout_marginBottom="15dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
@@ -104,14 +104,15 @@
                         android:id="@+id/emoji_heart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="7dp"
+                        android:layout_marginLeft="5dp"
                         android:button="@drawable/heart_check_box"/>
 
                     <TextView
                         android:id="@+id/heart_counter_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="6dp"
+                        android:layout_marginLeft="5dp"
+                        android:maxLines="1"
                         android:textColor="#000000"
                         android:textSize="15sp"
                         tools:text="000" />
@@ -129,17 +130,18 @@
                         android:id="@+id/emoji_happy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="7dp"
+                        android:layout_marginLeft="5dp"
                         android:button="@drawable/happy_check_box"/>
 
                     <TextView
                         android:id="@+id/happy_counter_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="6dp"
+                        android:layout_marginLeft="5dp"
                         android:textColor="#000000"
                         android:textSize="15sp"
-                        tools:text="000" />
+                        tools:text="000"
+                        android:maxLines="1"/>
 
                 </LinearLayout>
 
@@ -154,43 +156,22 @@
                         android:id="@+id/emoji_wink"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="7dp"
+                        android:layout_marginLeft="5dp"
                         android:button="@drawable/wink_ckeck_box"/>
 
                     <TextView
                         android:id="@+id/wink_counter_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="6dp"
+                        android:layout_marginLeft="5dp"
                         android:textColor="#000000"
                         android:textSize="15sp"
-                        tools:text="000" />
+                        tools:text="000"
+                        android:maxLines="1"/>
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
 
-                    <CheckBox
-                        android:id="@+id/emoji_nerd"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="7dp"
-                        android:button="@drawable/nerd_check_box"/>
-
-                    <TextView
-                        android:id="@+id/nerd_counter_text_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="6dp"
-                        android:textColor="#000000"
-                        android:textSize="15sp"
-                        tools:text="000" />
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -202,17 +183,18 @@
                         android:id="@+id/emoji_inlove"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="7dp"
+                        android:layout_marginLeft="5dp"
                         android:button="@drawable/in_love_check_box"/>
 
                     <TextView
                         android:id="@+id/inlove_counter_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="6dp"
+                        android:layout_marginLeft="5dp"
                         android:textColor="#000000"
                         android:textSize="15sp"
-                        tools:text="000" />
+                        tools:text="000"
+                        android:maxLines="1"/>
 
                 </LinearLayout>
 
@@ -226,17 +208,18 @@
                         android:id="@+id/emoji_thumbs_up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="7dp"
+                        android:layout_marginLeft="5dp"
                         android:button="@drawable/thumbs_up_check_box"/>
 
                     <TextView
                         android:id="@+id/thumbs_up_counter_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="7dp"
+                        android:layout_marginLeft="5dp"
                         android:textColor="#000000"
                         android:textSize="15sp"
-                        tools:text="000" />
+                        tools:text="000"
+                        android:maxLines="1"/>
 
                 </LinearLayout>
 
