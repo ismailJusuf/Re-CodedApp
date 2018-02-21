@@ -27,7 +27,9 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden">
+
+        </activity>
 
     </application>
 

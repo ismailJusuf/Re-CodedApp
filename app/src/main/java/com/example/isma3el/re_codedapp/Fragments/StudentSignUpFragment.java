@@ -2,10 +2,12 @@ package com.example.isma3el.re_codedapp.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -35,6 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
 import com.myhexaville.smartimagepicker.ImagePicker;
 import com.myhexaville.smartimagepicker.OnImagePickedListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -60,6 +63,7 @@ public class StudentSignUpFragment extends Fragment {
     String studentEmail, studentPassword, studentFullName, studentPhoneNumber, bootcamp, nationality;
     UploadTask uploadTask;
     String downloadImageUrl;
+    SharedPreferences preferences;
 
     @BindView(R.id.student_add_image_image_view)
     ImageView studentProfilePicture;
@@ -109,33 +113,34 @@ public class StudentSignUpFragment extends Fragment {
                             break loop;
                         }
                     }
-                    if (isInList) {
-                        assert getActivity() != null;
-                        firebaseAuth.createUserWithEmailAndPassword(studentEmail, studentPassword)
-                                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>
-                                        () {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
-                                            // Sign in success, update UI with the signed-in user's information
-                                            Log.d(TAG, "createUserWithEmail:success");
-                                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                }
+                if (isInList) {
+                    assert getActivity() != null;
+                    firebaseAuth.createUserWithEmailAndPassword( studentEmail, studentPassword )
+                            .addOnCompleteListener( getActivity(), new OnCompleteListener<AuthResult>
+                                    () {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Log.d( TAG, "createUserWithEmail:success" );
+                                        FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                                            User newStudent = new User(user.getUid(), studentFullName, null,
-                                                    studentEmail, studentPhoneNumber,
-                                                    bootcamp, nationality, 0
-                                            );
-                                            usersDatabaseReference.push().setValue(newStudent);
+                                        User newStudent = new User( user.getUid(), studentFullName, null,
+                                                                    studentEmail, studentPhoneNumber,
+                                                                    bootcamp, nationality, 0);
+                                        usersDatabaseReference.push().setValue( newStudent );
 
-                                            Intent intent = new Intent(getActivity(), MainActivity.class);
-                                            startActivity(intent);
-                                            getActivity().finish();
+                                        saveUser(newStudent);
 
-                                        } else {
-                                            // If sign in fails, display a message to the user.
-                                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                            Toast.makeText(getActivity(), "Authentication failed.", Toast.LENGTH_SHORT).show();
-                                        }
+                                        Intent intent = new Intent( getActivity(), MainActivity.class );
+                                        startActivity( intent );
+                                        getActivity().finish();
+
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Log.w( TAG, "createUserWithEmail:failure", task.getException() );
+                                        Toast.makeText( getActivity(), "Authentication failed.", Toast.LENGTH_SHORT ).show();
 
                                     }
                                 });
@@ -167,8 +172,9 @@ public class StudentSignUpFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_student_signup, container, false);
-        ButterKnife.bind(this, view);
+        View view = inflater.inflate( R.layout.fragment_student_signup, container, false );
+        ButterKnife.bind( this, view );
+        preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         usersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("users");
@@ -224,6 +230,14 @@ public class StudentSignUpFragment extends Fragment {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         imagePicker.handlePermission(requestCode, grantResults);
+    }
+
+    public void saveUser(User user) {
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("savedUser", new Gson().toJson(user));
+        editor.commit();
+
     }
 
 }
