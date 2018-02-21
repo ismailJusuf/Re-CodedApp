@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.isma3el.re_codedapp.Fragments.FeedFragment;
@@ -51,6 +52,7 @@ public class MainActivity extends BaseActivity {
         setContentView( R.layout.activity_main );
         ButterKnife.bind( this );
         new DrawerBuilder().withActivity( this ).build();
+
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         usersDatabaseReference = firebaseDatabase.getInstance().getReference().child( "registeredStudents" );
