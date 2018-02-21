@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,9 +9,9 @@
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
         android:layout_marginLeft="6dp"
         android:layout_marginRight="6dp"
-        android:layout_marginBottom="6dp"
         card_view:cardBackgroundColor="#ffffff"
         card_view:cardCornerRadius="5dp"
         card_view:cardElevation="3dp">
@@ -21,10 +20,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <RelativeLayout
+                android:id="@+id/post_type_relative_layout"
+                android:layout_width="match_parent"
+                android:layout_height="35dp">
+
+                <TextView
+                    android:id="@+id/post_type_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="25dp"
+                    android:textSize="20sp"
+                    android:paddingBottom="4dp"
+                    android:textColor="#fff"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"/>
+
+            </RelativeLayout>
+
             <ImageView
                 android:id="@+id/card_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="176dp"
+                android:layout_below="@+id/post_type_relative_layout"
                 android:scaleType="centerCrop"
                 android:src="@drawable/student" />
 
@@ -89,8 +107,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view"
                 android:layout_marginBottom="15dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
@@ -105,7 +123,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="7dp"
-                        android:button="@drawable/heart_check_box"/>
+                        android:button="@drawable/heart_check_box" />
 
                     <TextView
                         android:id="@+id/heart_counter_text_view"
@@ -130,7 +148,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="7dp"
-                        android:button="@drawable/happy_check_box"/>
+                        android:button="@drawable/happy_check_box" />
 
                     <TextView
                         android:id="@+id/happy_counter_text_view"
@@ -155,7 +173,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="7dp"
-                        android:button="@drawable/wink_ckeck_box"/>
+                        android:button="@drawable/wink_ckeck_box" />
 
                     <TextView
                         android:id="@+id/wink_counter_text_view"
@@ -179,7 +197,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="7dp"
-                        android:button="@drawable/nerd_check_box"/>
+                        android:button="@drawable/nerd_check_box" />
 
                     <TextView
                         android:id="@+id/nerd_counter_text_view"
@@ -203,7 +221,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="7dp"
-                        android:button="@drawable/in_love_check_box"/>
+                        android:button="@drawable/in_love_check_box" />
 
                     <TextView
                         android:id="@+id/inlove_counter_text_view"
@@ -227,7 +245,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="7dp"
-                        android:button="@drawable/thumbs_up_check_box"/>
+                        android:button="@drawable/thumbs_up_check_box" />
 
                     <TextView
                         android:id="@+id/thumbs_up_counter_text_view"

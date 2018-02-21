@@ -6,28 +6,16 @@ package com.example.isma3el.re_codedapp.Models;
 
 public class User {
 
-    String id;
-    String fullName;
-    String image;
-    String email;
-    String phoneNumber;
-    String bootcamp;
-    String nationality;
+    private String id;
+    private String fullName;
+    private String image;
+    private String email;
+    private String phoneNumber;
+    private String bootcamp;
+    private String nationality;
     public int type; //0 for student 1 for teacher
 
-    public User() {
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public User(String id, String fullName, String image, String email, String phoneNumber,
-                String bootcamp, String nationality, int type) {
+    public User(String id, String fullName, String image, String email, String phoneNumber, String bootcamp, String nationality, int type) {
         this.id = id;
         this.fullName = fullName;
         this.image = image;
@@ -92,5 +80,13 @@ public class User {
 
     public void setNationality(String nationality) {
         this.nationality = nationality;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }
