@@ -1,6 +1,9 @@
 package com.example.isma3el.re_codedapp;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -17,17 +20,28 @@ import io.realm.Realm;
 public class BaseActivity extends AppCompatActivity {
 
     SharedPreferences preferences;
+    public static BaseActivity instance;
+    public static BaseActivity getInstance()
+    {
+        return instance;
+    }
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
+        instance=this;
         preferences = PreferenceManager.getDefaultSharedPreferences( this );
     }
 
-   /* public User getStudent() {
-        //Realm realm = Realm.getDefaultInstance();
-        return realm.where( User.class ).findFirst();
+   public  boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager)  getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        } else {
+            return false;
 
-    }*/
+        }
+    }
 }
