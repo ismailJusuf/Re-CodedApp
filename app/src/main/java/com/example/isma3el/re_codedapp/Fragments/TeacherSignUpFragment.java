@@ -1,7 +1,5 @@
 package com.example.isma3el.re_codedapp.Fragments;
 
-//TeacherSignUpFragment
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,12 +43,9 @@ public class TeacherSignUpFragment extends Fragment {
 
     private static final String TAG = "sign up status";
 
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
     private DatabaseReference registeredUsersDatabaseReference;
     private DatabaseReference recodedUsersDatabaseReference;
     private FirebaseAuth firebaseAuth;
-    private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
     private StorageReference imageStorageReference;
 
@@ -70,9 +65,73 @@ public class TeacherSignUpFragment extends Fragment {
     @BindView(R.id.teacher_phone_number_edit_text)
     MaterialEditText teacherPhoneNumberEditText;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_teacher_singup, container, false);
+        ButterKnife.bind(this, view);
+
+        registeredUsersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("users");
+        recodedUsersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("recodedUsers");
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference();
+
+        //selecting and uploading image
+        imagePicker = new ImagePicker(getActivity(), this, new OnImagePickedListener() {
+            @Override
+            public void onImagePicked(Uri imageUri) {
+                profilePicture.setImageURI(imageUri);
+
+                if (BaseActivity.getInstance().isOnline() == true) {
+
+                    //create reference to images folder and assing a name to the file that will be uploaded
+                    imageStorageReference = storageReference.child("images/" + imageUri.getLastPathSegment());
+
+                    uploadTask = imageStorageReference.putFile(imageUri);
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                            downloadImageUrl = taskSnapshot.getDownloadUrl().toString();
+                        }
+
+                    });
+                } else {
+                    Toast.makeText(getContext(), "no internet", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        imagePicker.handleActivityResult(resultCode, requestCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        imagePicker.handlePermission(requestCode, grantResults);
+    }
+
+
     @OnClick(R.id.teacher_add_image_image_view)
     public void setTeacherImage() {
-        imagePicker.choosePicture( true );
+        imagePicker.choosePicture(true);
     }
 
     @OnClick(R.id.teacher_login_image_view)
@@ -80,8 +139,6 @@ public class TeacherSignUpFragment extends Fragment {
 
 
         if (BaseActivity.getInstance().isOnline() == true) {
-
-            Toast.makeText(getContext(), "internet var", Toast.LENGTH_SHORT).show();
 
             teacherEmail = teacherEmailEditText.getText().toString().trim();
             teacherPassword = teacherPasswordEditText.getText().toString().trim();
@@ -111,8 +168,11 @@ public class TeacherSignUpFragment extends Fragment {
                                             Log.d(TAG, "createUserWithEmail:success");
                                             FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                                            User newTeacher = new User(user.getUid(), teacherFullName, downloadImageUrl, teacherEmail, teacherPhoneNumber, "", "", 1);
+                                            User newTeacher = new User(user.getUid(), teacherFullName, downloadImageUrl,
+                                                    teacherEmail, teacherPhoneNumber, "", "", 1);
                                             registeredUsersDatabaseReference.push().setValue(newTeacher);
+
+                                            BaseActivity.getInstance().saveUser(newTeacher);
 
                                             Intent intent = new Intent(getActivity(), MainActivity.class);
                                             startActivity(intent);
@@ -136,80 +196,10 @@ public class TeacherSignUpFragment extends Fragment {
                 }
 
             });
-        }
-        else
-        {
+        } else {
             Toast.makeText(getContext(), "no internet", Toast.LENGTH_SHORT).show();
         }
     }
 
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate( R.layout.fragment_teacher_singup, container, false );
-        ButterKnife.bind( this, view );
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        registeredUsersDatabaseReference = FirebaseDatabase.getInstance().getReference().child( "users" );
-        recodedUsersDatabaseReference = FirebaseDatabase.getInstance().getReference().child( "recodedUsers" );
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseStorage = FirebaseStorage.getInstance();
-        storageReference = firebaseStorage.getReference();
-
-        imagePicker = new ImagePicker( getActivity(), this, new OnImagePickedListener() {
-            @Override
-            public void onImagePicked(Uri imageUri) {
-                profilePicture.setImageURI( imageUri );
-
-                if (BaseActivity.getInstance().isOnline() == true) {
-
-                    Toast.makeText(getContext(), "internet var", Toast.LENGTH_SHORT).show();
-
-                    //create reference to images folder and assing a name to the file that will be uploaded
-                    imageStorageReference = storageReference.child("images/" + imageUri.getLastPathSegment());
-
-
-                    uploadTask = imageStorageReference.putFile(imageUri);
-                    uploadTask.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            // Handle unsuccessful uploads
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                            downloadImageUrl = taskSnapshot.getDownloadUrl().toString();
-                        }
-
-                    });
-                }
-                else
-                {
-                    Toast.makeText(getContext(), "no internet", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        } );
-
-        return view;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult( requestCode, resultCode, data );
-        imagePicker.handleActivityResult( resultCode, requestCode, data );
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult( requestCode, permissions, grantResults );
-        imagePicker.handlePermission( requestCode, grantResults );
-    }
 
 }

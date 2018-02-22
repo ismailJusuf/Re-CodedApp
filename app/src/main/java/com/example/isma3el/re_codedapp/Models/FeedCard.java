@@ -1,6 +1,7 @@
 package com.example.isma3el.re_codedapp.Models;
 
 //FeedCard
+
 /**
  * Created by Recodedharran on 9.2.2018.
  */

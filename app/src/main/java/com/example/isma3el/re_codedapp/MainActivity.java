@@ -1,30 +1,21 @@
 package com.example.isma3el.re_codedapp;
 
-//MainActivity
-
 import android.content.Intent;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.isma3el.re_codedapp.Fragments.FeedFragment;
 import com.example.isma3el.re_codedapp.Fragments.ProfileFragment;
 import com.example.isma3el.re_codedapp.Fragments.SharePostFragment;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -35,7 +26,6 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
 
-    private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth firebaseAuth;
 
     @BindView(R.id.main_toolbar)
@@ -54,10 +44,7 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
         new DrawerBuilder().withActivity(this).build();
 
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-
 
         mSectionspagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mSectionspagerAdapter);

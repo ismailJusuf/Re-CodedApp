@@ -41,11 +41,12 @@ public class FeedAdapter extends ArrayAdapter<FeedCard> {
         TextView postTypeTextView = listItemView.findViewById(R.id.post_type_text_view);
 
         String whichPostType = feedCard.getPostType();
-        if (whichPostType == "progress"){
+        if (whichPostType == "progress") {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 postTypeRelativeLayout.setBackgroundColor(getContext().getColor(R.color.colorPrimary));
             }
+
             postTypeTextView.setText(feedCard.getPostType());
         } else {
 
