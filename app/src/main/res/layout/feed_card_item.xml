@@ -121,6 +121,7 @@
                     <CheckBox
                         android:id="@+id/emoji_heart"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:button="@drawable/heart_check_box"/>
 
