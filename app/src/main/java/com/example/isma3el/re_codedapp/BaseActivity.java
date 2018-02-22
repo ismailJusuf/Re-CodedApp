@@ -50,7 +50,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-   public  boolean isOnline() {
+    public  boolean isOnline() {
         ConnectivityManager cm = (ConnectivityManager)  getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {

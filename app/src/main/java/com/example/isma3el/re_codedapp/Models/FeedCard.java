@@ -1,11 +1,12 @@
 package com.example.isma3el.re_codedapp.Models;
 
+//FeedCard
 /**
  * Created by Recodedharran on 9.2.2018.
  */
 
 public class FeedCard {
-    private int image;
+    private String image;
     //private int imagePersonalIconId;
     private String userName;
     private String text;
@@ -21,8 +22,9 @@ public class FeedCard {
     private String inLoveCounter;
     //private int imageThumbsIconId;
     private String thumbsUpCounter;
+    private String postType;
 
-    public FeedCard(int image, String userName, String text, String heartCounter, String happyCounter, String winkCounter, String nerdCounter, String inLoveCounter, String thumbsUpCounter) {
+    public FeedCard(String image, String userName, String text, String heartCounter, String happyCounter, String winkCounter, String nerdCounter, String inLoveCounter, String thumbsUpCounter, String postType) {
         this.image = image;
         this.userName = userName;
         this.text = text;
@@ -32,13 +34,14 @@ public class FeedCard {
         this.nerdCounter = nerdCounter;
         this.inLoveCounter = inLoveCounter;
         this.thumbsUpCounter = thumbsUpCounter;
+        this.postType = postType;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -104,5 +107,13 @@ public class FeedCard {
 
     public void setThumbsUpCounter(String thumbsUpCounter) {
         this.thumbsUpCounter = thumbsUpCounter;
+    }
+
+    public String getPostType() {
+        return postType;
+    }
+
+    public void setPostType(String postType) {
+        this.postType = postType;
     }
 }
