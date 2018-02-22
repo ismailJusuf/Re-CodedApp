@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +47,79 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.password_edit_text)
     MaterialEditText passwordEditText;
 
+    @OnClick(R.id.sign_up_linear_layout)
+    void goToSignUp() {
+        Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        usersDatabaseReference = firebaseDatabase.getInstance().getReference().child("registeredUsers");
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+    }
+
+
+    @OnClick(R.id.forget_password_text_view)
+    void forgotPasswordAction() {
+
+
+        LovelyTextInputDialog a = new LovelyTextInputDialog(this, R.style
+                .Theme_AppCompat)
+                .setTopColorRes(R.color.recodedDarkColor)
+                .setTitle("Reset Password")
+                .setMessage("Please enter your Re:Coded registered email at the box below")
+                .setIcon(R.drawable.ic_reset_password)
+                .setConfirmButton(android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
+                    @Override
+                    public void onTextInputConfirmed(final String text) {
+
+                        FirebaseAuth.getInstance().sendPasswordResetEmail(text)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+
+                                            Log.d("email condition", "Email sent.");
+                                            Toast.makeText(LoginActivity.this, "Email sent to " + text, Toast.LENGTH_SHORT).show();
+
+                                        } else {
+
+                                            Toast.makeText(LoginActivity.this, "wrong email",
+                                                    Toast.LENGTH_SHORT
+                                            ).show();
+
+                                        }
+                                    }
+                                });
+                    }
+                });
+        a.show();
+
+    }
+
+
     @OnClick(R.id.log_in_image_view)
     void login() {
 
@@ -62,18 +134,9 @@ public class LoginActivity extends BaseActivity {
 
             Toast.makeText(LoginActivity.this, "Please Write Your Email", Toast.LENGTH_LONG).show();
 
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(userEmailText).matches()) {
-
-            Toast.makeText(LoginActivity.this, "You didn't enter a valid email address.", Toast.LENGTH_LONG).show();
-
         } else if (TextUtils.isEmpty(userPasswordText)) {
 
             Toast.makeText(LoginActivity.this, "Please Write Your Password", Toast.LENGTH_LONG).show();
-
-        } else if (passwordEditText.length() < 4) {
-
-            Toast.makeText(LoginActivity.this, "Password must be at least 8 characters", Toast.LENGTH_LONG).show();
-
 
         } else {
 
@@ -114,82 +177,10 @@ public class LoginActivity extends BaseActivity {
                                 //updateUI(null);
                             }
 
-                            // ...
                         }
                     });
 
         }
-    }
-
-    @OnClick(R.id.sign_up_linear_layout)
-    void goToSignUp() {
-        Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.forget_password_text_view)
-    void forgotPasswordAction() {
-
-
-        LovelyTextInputDialog a = new LovelyTextInputDialog(this, R.style
-                .Theme_AppCompat)
-                .setTopColorRes(R.color.recodedDarkColor)
-                .setTitle("Reset Password")
-                .setMessage("Please enter your Re:Coded registered email at the box below")
-                .setIcon(R.drawable.ic_reset_password)
-                .setConfirmButton(android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
-                    @Override
-                    public void onTextInputConfirmed(final String text) {
-
-                        FirebaseAuth.getInstance().sendPasswordResetEmail(text)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-
-                                            Log.d("email condition", "Email sent.");
-                                            Toast.makeText(LoginActivity.this, "Email sent to " + text, Toast.LENGTH_SHORT).show();
-
-                                        } else {
-
-                                            Toast.makeText(LoginActivity.this, "wrong email",
-                                                    Toast.LENGTH_SHORT
-                                            ).show();
-
-                                        }
-                                    }
-                                });
-                    }
-                });
-        a.show();
-
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        usersDatabaseReference = firebaseDatabase.getInstance().getReference().child("registeredUsers");
-        firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser != null) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
     }
 
 

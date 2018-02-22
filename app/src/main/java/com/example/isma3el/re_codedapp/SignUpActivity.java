@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.example.isma3el.re_codedapp.Fragments.StudentSignUpFragment;
 import com.example.isma3el.re_codedapp.Fragments.TeacherSignUpFragment;
@@ -22,16 +21,16 @@ public class SignUpActivity extends BaseActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    @BindView( R.id.container )
+    @BindView(R.id.container)
     ViewPager mViewPager;
-    @BindView( R.id.tabs )
+    @BindView(R.id.tabs)
     TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        ButterKnife.bind( this);
+        ButterKnife.bind(this);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -54,14 +53,13 @@ public class SignUpActivity extends BaseActivity {
                 case 1:
                     return new TeacherSignUpFragment();
             }
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
+
             return new StudentSignUpFragment();
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
+            // Show x total pages.
             return 2;
         }
 
@@ -69,14 +67,12 @@ public class SignUpActivity extends BaseActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "User";
+                    return "Student";
                 case 1:
                     return "Trainer";
                 default:
-                    return "User";
+                    return "Student";
             }
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
         }
     }
 

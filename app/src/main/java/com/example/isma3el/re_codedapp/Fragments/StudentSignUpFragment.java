@@ -1,7 +1,5 @@
 package com.example.isma3el.re_codedapp.Fragments;
 
-//StudentSignUpFragment
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -48,13 +46,11 @@ public class StudentSignUpFragment extends Fragment {
 
     private static final String TAG = "sign up status";
 
-    private FirebaseDatabase firebaseDatabase;
     private DatabaseReference usersDatabaseReference;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference recodedUsersDatabaseReference;
     private StorageReference storageReference;
     private StorageReference imageStorageReference;
-    private FirebaseStorage firebaseStorage;
 
     Fragment studentFragment;
     ImagePicker imagePicker;
@@ -78,90 +74,6 @@ public class StudentSignUpFragment extends Fragment {
     @BindView(R.id.nationality_edit_text)
     MaterialEditText nationalityEditText;
 
-
-    @OnClick(R.id.student_add_image_image_view)
-    public void setStudentImage() {
-        imagePicker.choosePicture(true);
-    }
-
-    @OnClick(R.id.student_login_image_view)
-    public void studentSignUp() {
-
-
-        if (BaseActivity.getInstance().isOnline() == true) {
-
-            Toast.makeText(getContext(), "internet var", Toast.LENGTH_SHORT).show();
-
-            studentEmail = studentEmailEditText.getText().toString().trim();
-            studentPassword = studentPasswordEditText.getText().toString().trim();
-            studentFullName = studentFullNameEditText.getText().toString();
-            studentPhoneNumber = studentPhoneNumberEditText.getText().toString().trim();
-            bootcamp = bootcampEditText.getText().toString().trim();
-            nationality = nationalityEditText.getText().toString().trim();
-
-            recodedUsersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    boolean isInList = false;
-                    loop:
-                    for (DataSnapshot data : dataSnapshot.getChildren()) {
-                        String email = data.getValue(String.class);
-                        if (email.equals(studentEmail)) {
-                            isInList = true;
-                            break loop;
-                        }
-                    }
-                }
-                if (isInList) {
-                    assert getActivity() != null;
-                    firebaseAuth.createUserWithEmailAndPassword( studentEmail, studentPassword )
-                            .addOnCompleteListener( getActivity(), new OnCompleteListener<AuthResult>
-                                    () {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        Log.d( TAG, "createUserWithEmail:success" );
-                                        FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                                        User newStudent = new User( user.getUid(), studentFullName, null,
-                                                studentEmail, studentPhoneNumber,
-                                                bootcamp, nationality, 0);
-                                        usersDatabaseReference.push().setValue( newStudent );
-
-                                        saveUser(newStudent);
-
-                                        Intent intent = new Intent( getActivity(), MainActivity.class );
-                                        startActivity( intent );
-                                        getActivity().finish();
-
-                                    } else {
-                                        // If sign in fails, display a message to the user.
-                                        Log.w( TAG, "createUserWithEmail:failure", task.getException() );
-                                        Toast.makeText( getActivity(), "Authentication failed.", Toast.LENGTH_SHORT ).show();
-
-                                    }
-                                });
-
-                            } else {
-
-                        Toast.makeText(getActivity(), "Your email is not registered", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-        } else {
-            Toast.makeText(getContext(), "no internet", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,27 +82,25 @@ public class StudentSignUpFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate( R.layout.fragment_student_signup, container, false );
-        ButterKnife.bind( this, view );
+        View view = inflater.inflate(R.layout.fragment_student_signup, container, false);
+        ButterKnife.bind(this, view);
         preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        studentFragment = new Fragment().getTargetFragment();
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         usersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("users");
         firebaseAuth = FirebaseAuth.getInstance();
         recodedUsersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("recodedUsers");
-        firebaseStorage = FirebaseStorage.getInstance();
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
 
-        studentFragment = new Fragment().getTargetFragment();
-
-
+        //selecting and uploading image
         imagePicker = new ImagePicker(getActivity(), studentFragment, new OnImagePickedListener() {
             @Override
             public void onImagePicked(Uri imageUri) {
                 studentProfilePicture.setImageURI(imageUri);
                 if (BaseActivity.getInstance().isOnline() == true) {
 
-                    Toast.makeText(getContext(), "internet var", Toast.LENGTH_SHORT).show();
                     imageStorageReference = storageReference.child("images/" + imageUri.getLastPathSegment());
 
                     uploadTask = imageStorageReference.putFile(imageUri);
@@ -206,9 +116,7 @@ public class StudentSignUpFragment extends Fragment {
                             downloadImageUrl = taskSnapshot.getDownloadUrl().toString();
                         }
                     });
-                }
-                else
-                {
+                } else {
                     Toast.makeText(getContext(), "no internet", Toast.LENGTH_SHORT).show();
 
                 }
@@ -230,12 +138,86 @@ public class StudentSignUpFragment extends Fragment {
         imagePicker.handlePermission(requestCode, grantResults);
     }
 
-    public void saveUser(User user) {
+    @OnClick(R.id.student_add_image_image_view)
+    public void setStudentImage() {
+        imagePicker.choosePicture(true);
+    }
 
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("savedUser", new Gson().toJson(user));
-        editor.commit();
+
+    @OnClick(R.id.student_login_image_view)
+    public void studentSignUp() {
+
+        if (BaseActivity.getInstance().isOnline() == true) {
+
+            studentEmail = studentEmailEditText.getText().toString().trim();
+            studentPassword = studentPasswordEditText.getText().toString().trim();
+            studentFullName = studentFullNameEditText.getText().toString();
+            studentPhoneNumber = studentPhoneNumberEditText.getText().toString().trim();
+            bootcamp = bootcampEditText.getText().toString().trim();
+            nationality = nationalityEditText.getText().toString().trim();
+
+            recodedUsersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    boolean isInList = false;
+                    loop:
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        String email = data.getValue(String.class);
+                        if (email.equals(studentEmail)) {
+                            isInList = true;
+                            break loop;
+                        }
+                    }
+                    if (isInList) {
+                        firebaseAuth.createUserWithEmailAndPassword(studentEmail, studentPassword)
+                                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>
+                                        () {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            // Sign in success, update UI with the signed-in user's information
+                                            Log.d(TAG, "createUserWithEmail:success");
+                                            FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                                            User newStudent = new User(user.getUid(), studentFullName, null,
+                                                    studentEmail, studentPhoneNumber,
+                                                    bootcamp, nationality, 0);
+                                            usersDatabaseReference.push().setValue(newStudent);
+
+                                            BaseActivity.getInstance().saveUser(newStudent);
+
+                                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                                            startActivity(intent);
+                                            getActivity().finish();
+
+                                        } else {
+                                            // If sign in fails, display a message to the user.
+                                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                            Toast.makeText(getActivity(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    }
+                                });
+
+                    } else {
+
+                        Toast.makeText(getActivity(), "Your email is not registered", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+
+            });
+
+        } else {
+            Toast.makeText(getContext(), "no internet", Toast.LENGTH_SHORT).show();
+        }
 
     }
+
 
 }

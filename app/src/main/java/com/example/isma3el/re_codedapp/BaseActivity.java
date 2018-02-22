@@ -1,7 +1,5 @@
 package com.example.isma3el.re_codedapp;
 
-//BaseActivity
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -24,15 +22,15 @@ public class BaseActivity extends AppCompatActivity {
 
     SharedPreferences preferences;
     public static BaseActivity instance;
-    public static BaseActivity getInstance()
-    {
+
+    public static BaseActivity getInstance() {
         return instance;
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        instance=this;
+        instance = this;
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
@@ -50,8 +48,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-    public  boolean isOnline() {
-        ConnectivityManager cm = (ConnectivityManager)  getSystemService(Context.CONNECTIVITY_SERVICE);
+    public boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
             return true;
