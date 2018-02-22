@@ -54,125 +54,128 @@ public class LoginActivity extends BaseActivity {
         userEmailText = emailEditText.getText().toString().trim();
         userPasswordText = passwordEditText.getText().toString().trim();
 
-        if (TextUtils.isEmpty(userEmailText) && TextUtils.isEmpty(userPasswordText)) {
+        if (TextUtils.isEmpty( userEmailText ) && TextUtils.isEmpty( userPasswordText )) {
 
-            Toast.makeText(LoginActivity.this, "Please Write Your Email and Password", Toast.LENGTH_LONG).show();
+            Toast.makeText( LoginActivity.this, "Please Write Your Email and Password", Toast.LENGTH_LONG ).show();
 
-        } else if (TextUtils.isEmpty(userEmailText)) {
+        } else if (TextUtils.isEmpty( userEmailText )) {
 
-            Toast.makeText(LoginActivity.this, "Please Write Your Email", Toast.LENGTH_LONG).show();
+            Toast.makeText( LoginActivity.this, "Please Write Your Email", Toast.LENGTH_LONG ).show();
 
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(userEmailText).matches()) {
+        } else if (!Patterns.EMAIL_ADDRESS.matcher( userEmailText ).matches()) {
 
-            Toast.makeText(LoginActivity.this, "You didn't enter a valid email address.", Toast.LENGTH_LONG).show();
+            Toast.makeText( LoginActivity.this, "You didn't enter a valid email address.", Toast.LENGTH_LONG ).show();
 
-        } else if (TextUtils.isEmpty(userPasswordText)) {
+        } else if (TextUtils.isEmpty( userPasswordText )) {
 
-            Toast.makeText(LoginActivity.this, "Please Write Your Password", Toast.LENGTH_LONG).show();
+            Toast.makeText( LoginActivity.this, "Please Write Your Password", Toast.LENGTH_LONG ).show();
 
         } else if (passwordEditText.length() < 4) {
 
-            Toast.makeText(LoginActivity.this, "Password must be at least 8 characters", Toast.LENGTH_LONG).show();
+            Toast.makeText( LoginActivity.this, "Password must be at least 8 characters", Toast.LENGTH_LONG ).show();
 
 
         } else {
 
-            firebaseAuth.signInWithEmailAndPassword(userEmailText, userPasswordText)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            firebaseAuth.signInWithEmailAndPassword( userEmailText, userPasswordText )
+                    .addOnCompleteListener( this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "signInWithEmail:success");
+                                Log.d( TAG, "signInWithEmail:success" );
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                                usersDatabaseReference.child(user.getUid())
-                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                usersDatabaseReference.child( user.getUid() )
+                                        .addListenerForSingleValueEvent( new ValueEventListener() {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                                User student = dataSnapshot.getValue(User.class);
-                                                saveUser(student);
+                                                User student = dataSnapshot.getValue( User.class );
+                                               /* Realm realm = Realm.getDefaultInstance();
+                                                realm.beginTransaction();
+                                                realm.copyToRealmOrUpdate( student );
+                                                realm.commitTransaction();*/
 
                                             }
 
                                             @Override
                                             public void onCancelled(DatabaseError databaseError) {
-                                                Log.d("onCancelled", "addListenerForSingleValueEvent " + "cancelled");
+                                                Log.d( "onCancelled", "addListenerForSingleValueEvent " + "cancelled" );
                                             }
-                                        });
+                                        } );
 
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(intent);
+                                Intent intent = new Intent( LoginActivity.this, MainActivity.class );
+                                startActivity( intent );
                                 finish();
 
                                 //updateUI(user);
                             } else {
                                 // If sign in fails, display a message to the user.
-                                Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                Log.w( TAG, "signInWithEmail:failure", task.getException() );
+                                Toast.makeText( LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT ).show();
                                 //updateUI(null);
                             }
 
                             // ...
                         }
-                    });
+                    } );
 
         }
     }
 
     @OnClick(R.id.sign_up_linear_layout)
     void goToSignUp() {
-        Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-        startActivity(intent);
+        Intent intent = new Intent( LoginActivity.this, SignUpActivity.class );
+        startActivity( intent );
     }
 
     @OnClick(R.id.forget_password_text_view)
     void forgotPasswordAction() {
 
 
-        LovelyTextInputDialog a = new LovelyTextInputDialog(this, R.style
-                .Theme_AppCompat)
-                .setTopColorRes(R.color.recodedDarkColor)
-                .setTitle("Reset Password")
-                .setMessage("Please enter your Re:Coded registered email at the box below")
-                .setIcon(R.drawable.ic_reset_password)
-                .setConfirmButton(android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
+        LovelyTextInputDialog a = new LovelyTextInputDialog( this, R.style
+                .Theme_AppCompat )
+                .setTopColorRes( R.color.recodedDarkColor )
+                .setTitle( "Reset Password" )
+                .setMessage( "Please enter your Re:Coded registered email at the box below" )
+                .setIcon( R.drawable.ic_reset_password )
+                .setConfirmButton( android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
                     @Override
                     public void onTextInputConfirmed(final String text) {
 
-                        FirebaseAuth.getInstance().sendPasswordResetEmail(text)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        FirebaseAuth.getInstance().sendPasswordResetEmail( text )
+                                .addOnCompleteListener( new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
 
-                                            Log.d("email condition", "Email sent.");
-                                            Toast.makeText(LoginActivity.this, "Email sent to " + text, Toast.LENGTH_SHORT).show();
+                                            Log.d( "email condition", "Email sent." );
+                                            Toast.makeText( LoginActivity.this, "Email sent to " + text, Toast.LENGTH_SHORT ).show();
 
                                         } else {
 
-                                            Toast.makeText(LoginActivity.this, "wrong email",
-                                                    Toast.LENGTH_SHORT
+                                            Toast.makeText( LoginActivity.this, "wrong email",
+                                                            Toast.LENGTH_SHORT
                                             ).show();
 
                                         }
                                     }
-                                });
+                                } );
                     }
-                });
+                } );
         a.show();
 
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_login );
+        ButterKnife.bind( this );
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        usersDatabaseReference = firebaseDatabase.getInstance().getReference().child("registeredUsers");
+        usersDatabaseReference = firebaseDatabase.getInstance().getReference().child( "registeredUsers" );
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
@@ -185,8 +188,8 @@ public class LoginActivity extends BaseActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            Intent intent = new Intent( this, MainActivity.class );
+            startActivity( intent );
             finish();
         }
 
