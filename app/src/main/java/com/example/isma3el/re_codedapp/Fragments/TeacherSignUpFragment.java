@@ -1,6 +1,5 @@
 package com.example.isma3el.re_codedapp.Fragments;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -55,7 +54,6 @@ public class TeacherSignUpFragment extends Fragment {
 
     UploadTask uploadTask;
     ImagePicker imagePicker;
-    ProgressDialog progressDialog;
     String teacherEmail, teacherPassword, teacherFullName, teacherPhoneNumber;
     String downloadImageUrl;
 
