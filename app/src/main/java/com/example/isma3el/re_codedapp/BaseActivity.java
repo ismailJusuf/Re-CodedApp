@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.isma3el.re_codedapp.Models.User;
-import com.google.gson.Gson;
 
 import io.realm.Realm;
 
@@ -27,26 +26,13 @@ public class BaseActivity extends AppCompatActivity {
         return instance;
     }
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        instance=this;   
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        super.onCreate( savedInstanceState );
+        instance=this;
+        preferences = PreferenceManager.getDefaultSharedPreferences( this );
     }
-
-    public User getUser() {
-
-        return new Gson().fromJson(preferences.getString("savedUser", ""), User.class);
-
-    }
-
-    public void saveUser(User user) {
-
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("savedUser", new Gson().toJson(user));
-        editor.commit();
-    }
-
 
    public  boolean isOnline() {
         ConnectivityManager cm = (ConnectivityManager)  getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -55,7 +41,7 @@ public class BaseActivity extends AppCompatActivity {
             return true;
         } else {
             return false;
-        }
 
+        }
     }
 }
