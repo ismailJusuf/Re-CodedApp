@@ -47,6 +47,7 @@ import butterknife.OnClick;
 public class StudentSignUpFragment extends Fragment {
 
     private static final String TAG = "sign up status";
+
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference usersDatabaseReference;
     private FirebaseAuth firebaseAuth;
@@ -109,60 +110,54 @@ public class StudentSignUpFragment extends Fragment {
                             break loop;
                         }
                     }
+                    if (isInList) {
+                        assert getActivity() != null;
+                        firebaseAuth.createUserWithEmailAndPassword(studentEmail, studentPassword)
+                                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>
+                                        () {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            // Sign in success, update UI with the signed-in user's information
+                                            Log.d(TAG, "createUserWithEmail:success");
+                                            FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                }
-                if (isInList) {
-                    assert getActivity() != null;
-                    firebaseAuth.createUserWithEmailAndPassword(studentEmail, studentPassword)
-                            .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>
-                                    () {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        Log.d(TAG, "createUserWithEmail:success");
-                                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                                            User newStudent = new User(user.getUid(), studentFullName, null,
+                                                    studentEmail, studentPhoneNumber,
+                                                    bootcamp, nationality, 0
+                                            );
+                                            usersDatabaseReference.push().setValue(newStudent);
 
-                                        User newStudent = new User(user.getUid(), studentFullName, null,
-                                                studentEmail, studentPhoneNumber,
-                                                bootcamp, nationality, 0);
-                                        usersDatabaseReference.push().setValue(newStudent);
+                                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                                            startActivity(intent);
+                                            getActivity().finish();
 
-                                        saveUser(newStudent);
+                                        } else {
+                                            // If sign in fails, display a message to the user.
+                                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                            Toast.makeText(getActivity(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                        }
 
-                                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                                        startActivity(intent);
-                                        getActivity().finish();
-
-                                    } else {
-                                        // If sign in fails, display a message to the user.
-                                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                        Toast.makeText(getActivity(), "Authentication failed.", Toast.LENGTH_SHORT).show();
                                     }
+                                });
 
-                                }
-                            });
+                    } else {
 
-                } else {
+                        Toast.makeText(getActivity(), "Your email is not registered", Toast.LENGTH_SHORT).show();
+                    }
 
-                    Toast.makeText(getActivity(), "Your email is not registered", Toast.LENGTH_SHORT).show();
                 }
 
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
+                }
+            });
 
-            @Override
-            public void onCancelled (DatabaseError databaseError){
-
-            }
-        });
-
-    } else
-
-    {
-        Toast.makeText(getContext(), "no internet", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "no internet", Toast.LENGTH_SHORT).show();
+        }
     }
-
-}
 
 
     @Override
@@ -175,8 +170,6 @@ public class StudentSignUpFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_student_signup, container, false);
         ButterKnife.bind(this, view);
-      
-        preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         usersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("users");
@@ -210,7 +203,9 @@ public class StudentSignUpFragment extends Fragment {
                             downloadImageUrl = taskSnapshot.getDownloadUrl().toString();
                         }
                     });
-                } else {
+                }
+                else
+                {
                     Toast.makeText(getContext(), "no internet", Toast.LENGTH_SHORT).show();
 
                 }
