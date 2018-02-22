@@ -1,5 +1,7 @@
 package com.example.isma3el.re_codedapp;
 
+//BaseActivity
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
