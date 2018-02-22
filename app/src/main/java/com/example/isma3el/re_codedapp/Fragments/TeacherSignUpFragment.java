@@ -1,5 +1,7 @@
 package com.example.isma3el.re_codedapp.Fragments;
 
+//TeacherSignUpFragment
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -134,8 +136,8 @@ public class TeacherSignUpFragment extends Fragment {
                 }
 
             });
-       }
-       else
+        }
+        else
         {
             Toast.makeText(getContext(), "no internet", Toast.LENGTH_SHORT).show();
         }
@@ -188,10 +190,10 @@ public class TeacherSignUpFragment extends Fragment {
                     });
                 }
                 else
-                    {
-                        Toast.makeText(getContext(), "no internet", Toast.LENGTH_SHORT).show();
+                {
+                    Toast.makeText(getContext(), "no internet", Toast.LENGTH_SHORT).show();
 
-                    }
+                }
             }
         } );
 
