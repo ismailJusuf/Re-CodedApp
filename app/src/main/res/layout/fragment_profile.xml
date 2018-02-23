@@ -1,33 +1,6 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main_lv_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.isma3el.re_codedapp.Fragments.ProfileFragment">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-        <TextView
-            android:id="@+id/profile_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PROFILE"
-            android:textSize="50sp"
-            android:layout_marginTop="100dp"
-            android:layout_centerHorizontal="true"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="48dp"
-            android:text="under development"
-            android:textStyle="bold"
-            android:textSize="15sp" />
-
-    </RelativeLayout>
-
-</FrameLayout>
+    tools:context=".MainActivity" />

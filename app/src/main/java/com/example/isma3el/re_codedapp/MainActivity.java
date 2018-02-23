@@ -59,6 +59,30 @@ public class MainActivity extends BaseActivity {
 
         mSectionspagerAdapter = new SectionsPagerAdapter( getSupportFragmentManager() );
         viewPager.setAdapter( mSectionspagerAdapter );
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                switch (position){
+
+                    case 0:
+                }
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
         tabLayout.setupWithViewPager( viewPager );
 
         setUpTabIcons();
