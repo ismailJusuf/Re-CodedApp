@@ -4,6 +4,15 @@
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="Email">Email</string>
+    <string name="UserName">User Name</string>
+    <string name="Gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="Female">Female</string>
+    <string name="Birthday">Birthday</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="Update">Update</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
