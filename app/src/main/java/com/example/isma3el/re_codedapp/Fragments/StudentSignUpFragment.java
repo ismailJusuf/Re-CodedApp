@@ -144,10 +144,10 @@ public class StudentSignUpFragment extends Fragment {
     }
 
 
-    @OnClick(R.id.student_login_image_view)
+    @OnClick(R.id.teacher_login_button)
     public void studentSignUp() {
 
-        if (BaseActivity.getInstance().isOnline() == true) {
+        if (BaseActivity.getInstance().isOnline()) {
 
             studentEmail = studentEmailEditText.getText().toString().trim();
             studentPassword = studentPasswordEditText.getText().toString().trim();

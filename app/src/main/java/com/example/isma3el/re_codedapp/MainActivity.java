@@ -50,15 +50,57 @@ public class MainActivity extends BaseActivity {
         viewPager.setAdapter(mSectionspagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        setUpTabIcons();
+        setUpTabIcons(0);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                setUpTabIcons(position);
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
         navigationDrawer();
 
     }
 
-    public void setUpTabIcons() {
-        tabLayout.getTabAt(0).setIcon(R.drawable.tab_user);
-        tabLayout.getTabAt(1).setIcon(R.drawable.news_paper);
-        tabLayout.getTabAt(2).setIcon(R.drawable.post);
+    public void setUpTabIcons(int position) {
+        switch (position) {
+
+            case 0:
+                tabLayout.getTabAt(0).setIcon(R.drawable.news_paper);
+                tabLayout.getTabAt(1).setIcon(R.drawable.tab_user);
+                tabLayout.getTabAt(2).setIcon(R.drawable.post);
+                break;
+            case 1:
+                tabLayout.getTabAt(0).setIcon(R.drawable.tab_user);
+                tabLayout.getTabAt(1).setIcon(R.drawable.news_paper);
+                tabLayout.getTabAt(2).setIcon(R.drawable.post);
+                break;
+            case 2:
+                tabLayout.getTabAt(0).setIcon(R.drawable.tab_user);
+                tabLayout.getTabAt(1).setIcon(R.drawable.post);
+                tabLayout.getTabAt(2).setIcon(R.drawable.news_paper);
+                break;
+            default:
+                tabLayout.getTabAt(0).setIcon(R.drawable.news_paper);
+                tabLayout.getTabAt(1).setIcon(R.drawable.tab_user);
+                tabLayout.getTabAt(2).setIcon(R.drawable.post);
+                break;
+
+        }
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -77,10 +119,12 @@ public class MainActivity extends BaseActivity {
                     return new FeedFragment();
                 case 2:
                     return new SharePostFragment();
+                default:
+                    return new FeedFragment();
             }
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return new FeedFragment();
+
         }
 
         @Override
@@ -155,5 +199,3 @@ public class MainActivity extends BaseActivity {
     }
 
 }
-
-

@@ -134,11 +134,11 @@ public class TeacherSignUpFragment extends Fragment {
         imagePicker.choosePicture(true);
     }
 
-    @OnClick(R.id.teacher_login_image_view)
+    @OnClick(R.id.teacher_login_button)
     void teacherSignUp() {
 
 
-        if (BaseActivity.getInstance().isOnline() == true) {
+        if (BaseActivity.getInstance().isOnline()) {
 
             teacherEmail = teacherEmailEditText.getText().toString().trim();
             teacherPassword = teacherPasswordEditText.getText().toString().trim();
