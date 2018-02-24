@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity {
         mSectionspagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mSectionspagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-
+      
         setUpTabIcons(0);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
