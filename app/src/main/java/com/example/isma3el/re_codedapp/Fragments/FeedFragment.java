@@ -1,5 +1,7 @@
 package com.example.isma3el.re_codedapp.Fragments;
 
+//FeedFragment
+
 /**
  * Created by Recodedharran on 7.2.2018.
  */
@@ -22,7 +24,7 @@ import butterknife.ButterKnife;
 
 public class FeedFragment extends Fragment {
 
-    private int[] image;
+    private String[] image;
     private String[] userName;
     private String[] text;
     private String[] heartCounter;
@@ -31,24 +33,25 @@ public class FeedFragment extends Fragment {
     private String[] nerdCounter;
     private String[] inLoveCounter;
     private String[] thumbsUpCounter;
+    private String[] postType;
 
     @BindView(R.id.feed_list_view)
     ListView feedListView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
+        super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate( R.layout.fragment_feed, container, false );
-        ButterKnife.bind( this,view );
+        View view = inflater.inflate(R.layout.fragment_feed, container, false);
+        ButterKnife.bind(this, view);
 
 
         ArrayList<FeedCard> feedArrayList = new ArrayList<>();
 
-        image = new int[]{R.drawable.student, R.drawable.student, R.drawable.student, R.drawable.student};
+        image = new String[]{null, String.valueOf(R.drawable.student), String.valueOf(R.drawable.student), String.valueOf(R.drawable.student)};
         userName = new String[]{"Ismail Youssef", "Abdullah Al-Jadaan", "Ismail Youssef", "Abdullah Al-Jadaan"};
         text = new String[]{"My name is Abdullah. I was born and raised in Al-Hasakah in Syria ....",
                 "My name is Abdullah. I was born and raised in Al-Hasakah in Syria ....",
@@ -61,18 +64,20 @@ public class FeedFragment extends Fragment {
         nerdCounter = new String[]{"8", "12", "16", "20"};
         inLoveCounter = new String[]{"9", "13", "17", "21"};
         thumbsUpCounter = new String[]{"10", "14", "18", "22"};
+        postType = new String[]{"progress", "status", "progress", "status"};
 
         FeedCard card[] = new FeedCard[userName.length];
 
         for (int i = 0; i < userName.length; i++) {
 
-            card[i] = new FeedCard( image[i], userName[i], text[i], heartCounter[i], happyCounter[i], winkCounter[i], nerdCounter[i], inLoveCounter[i], thumbsUpCounter[i] );
+            card[i] = new FeedCard(image[i], userName[i], text[i], heartCounter[i], happyCounter[i],
+                    winkCounter[i], nerdCounter[i], inLoveCounter[i], thumbsUpCounter[i], postType[i]);
 
-            feedArrayList.add( card[i] );
+            feedArrayList.add(card[i]);
         }
 
-        FeedAdapter adapter = new FeedAdapter( getActivity(), feedArrayList );
-        feedListView.setAdapter( adapter );
+        FeedAdapter adapter = new FeedAdapter(getActivity(), feedArrayList);
+        feedListView.setAdapter(adapter);
 
         return view;
     }

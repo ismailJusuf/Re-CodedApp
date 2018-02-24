@@ -20,7 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -28,7 +27,8 @@
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
+        <activity android:name=".EditProfileActivity" />
+        <activity android:name=".Adapters.SharePostActivity"></activity>
     </application>
 
 </manifest>
