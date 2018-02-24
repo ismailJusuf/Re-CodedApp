@@ -96,13 +96,17 @@
             app:met_floatingLabel="highlight"
             app:met_primaryColor="#ffba00" />
 
-        <ImageView
-            android:id="@+id/teacher_login_image_view"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/teacher_login_button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
             android:layout_marginBottom="30dp"
-            android:src="@drawable/login_button" />
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:text="sign in"
+            android:textColor="#fff"
+            android:background="@drawable/sign_in_button_shape"/>
 
     </LinearLayout>
 
