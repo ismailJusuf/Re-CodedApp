@@ -1,5 +1,6 @@
 package com.example.isma3el.re_codedapp.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import com.example.isma3el.re_codedapp.DataRefreshListener;
 import com.example.isma3el.re_codedapp.MainActivity;
 import com.example.isma3el.re_codedapp.Models.FeedCard;
 import com.example.isma3el.re_codedapp.R;
+import com.example.isma3el.re_codedapp.SharePostActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
@@ -31,21 +33,11 @@ public class SharePostFragment extends Fragment implements DataRefreshListener {
 
 
     @OnClick(R.id.share_post)
-    public void sharePost(){
+    public void intent() {
 
-        FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(),null,"Deneme asdasdasd",FeedCard.STATUS,BaseActivity.getInstance().getUser().getBootcamp());
-        final String key = feedsDatabaseReference.push().getKey();
-        card.setId(key);
-        feedsDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(getContext(), key, Toast.LENGTH_LONG).show();
-                    return;
-                }
-                Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+        Intent intent = new Intent(getActivity(), SharePostActivity.class);
+        startActivity(intent);
+
     }
 
     @Override
@@ -59,10 +51,9 @@ public class SharePostFragment extends Fragment implements DataRefreshListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_share_post, container, false);
         ButterKnife.bind(this, view);
-        ((MainActivity)getActivity()).sharePostListener = this;
+        ((MainActivity) getActivity()).sharePostListener = this;
         firebaseDatabase = FirebaseDatabase.getInstance();
         feedsDatabaseReference = firebaseDatabase.getReference().child("feeds");
-
 
 
         return view;
