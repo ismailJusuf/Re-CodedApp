@@ -88,7 +88,7 @@ public class MainActivity extends BaseActivity {
                 switch (position) {
 
                     case 0:
-                        profileListener.onProfileRefreshed();
+                        //profileListener.onProfileRefreshed();
                         break;
                     case 1:
                         feedListener.onFeedRefreshed();
