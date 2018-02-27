@@ -15,6 +15,10 @@ public class User {
     private String nationality;
     public int type; //0 for student 1 for teacher
 
+    public User() {
+
+    }
+
     public User(String id, String fullName, String image, String email, String phoneNumber, String bootcamp, String nationality, int type) {
         this.id = id;
         this.fullName = fullName;

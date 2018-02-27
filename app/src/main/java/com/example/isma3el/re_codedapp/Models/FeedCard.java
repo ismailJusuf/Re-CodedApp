@@ -7,35 +7,49 @@ package com.example.isma3el.re_codedapp.Models;
  */
 
 public class FeedCard {
-    private String image;
-    //private int imagePersonalIconId;
-    private String userName;
-    private String text;
-    //private int imageHeartIconId;
-    private String heartCounter;
-    //private int imageHappyIconId;
-    private String happyCounter;
-    //private int imageWinkIconId;
-    private String winkCounter;
-    //private int imageNerdIconId;
-    private String nerdCounter;
-    // private int imageInloveIconId;
-    private String inLoveCounter;
-    //private int imageThumbsIconId;
-    private String thumbsUpCounter;
-    private String postType;
 
-    public FeedCard(String image, String userName, String text, String heartCounter, String happyCounter, String winkCounter, String nerdCounter, String inLoveCounter, String thumbsUpCounter, String postType) {
+    public static int STATUS = 0;
+    public static int PROGRESS = 1;
+
+    private User user;
+    private String id;
+    private String image;
+    private String text;
+    private int heartCounter = 0;
+    private int happyCounter = 0;
+    private int winkCounter = 0;
+    private int nerdCounter = 0;
+    private int inLoveCounter = 0;
+    private int thumbsUpCounter = 0;
+    private int postType;
+    private String classRoom;
+
+    public FeedCard(){
+
+    }
+
+    public FeedCard(User user, String image, String text, int postType, String classRoom) {
+        this.user = user;
         this.image = image;
-        this.userName = userName;
         this.text = text;
-        this.heartCounter = heartCounter;
-        this.happyCounter = happyCounter;
-        this.winkCounter = winkCounter;
-        this.nerdCounter = nerdCounter;
-        this.inLoveCounter = inLoveCounter;
-        this.thumbsUpCounter = thumbsUpCounter;
         this.postType = postType;
+        this.classRoom = classRoom;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getImage() {
@@ -46,14 +60,6 @@ public class FeedCard {
         this.image = image;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public String getText() {
         return text;
     }
@@ -62,59 +68,67 @@ public class FeedCard {
         this.text = text;
     }
 
-    public String getHeartCounter() {
+    public int getHeartCounter() {
         return heartCounter;
     }
 
-    public void setHeartCounter(String heartCounter) {
+    public void setHeartCounter(int heartCounter) {
         this.heartCounter = heartCounter;
     }
 
-    public String getHappyCounter() {
+    public int getHappyCounter() {
         return happyCounter;
     }
 
-    public void setHappyCounter(String happyCounter) {
+    public void setHappyCounter(int happyCounter) {
         this.happyCounter = happyCounter;
     }
 
-    public String getWinkCounter() {
+    public int getWinkCounter() {
         return winkCounter;
     }
 
-    public void setWinkCounter(String winkCounter) {
+    public void setWinkCounter(int winkCounter) {
         this.winkCounter = winkCounter;
     }
 
-    public String getNerdCounter() {
+    public int getNerdCounter() {
         return nerdCounter;
     }
 
-    public void setNerdCounter(String nerdCounter) {
+    public void setNerdCounter(int nerdCounter) {
         this.nerdCounter = nerdCounter;
     }
 
-    public String getInLoveCounter() {
+    public int getInLoveCounter() {
         return inLoveCounter;
     }
 
-    public void setInLoveCounter(String inLoveCounter) {
+    public void setInLoveCounter(int inLoveCounter) {
         this.inLoveCounter = inLoveCounter;
     }
 
-    public String getThumbsUpCounter() {
+    public int getThumbsUpCounter() {
         return thumbsUpCounter;
     }
 
-    public void setThumbsUpCounter(String thumbsUpCounter) {
+    public void setThumbsUpCounter(int thumbsUpCounter) {
         this.thumbsUpCounter = thumbsUpCounter;
     }
 
-    public String getPostType() {
+    public int getPostType() {
         return postType;
     }
 
-    public void setPostType(String postType) {
+    public void setPostType(int postType) {
         this.postType = postType;
+    }
+
+    public String getClassRoom() {
+        return classRoom;
+    }
+
+    public void setClassRoom(String classRoom) {
+        this.classRoom = classRoom;
     }
 }

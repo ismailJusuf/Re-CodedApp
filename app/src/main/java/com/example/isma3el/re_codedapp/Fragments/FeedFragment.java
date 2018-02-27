@@ -14,72 +14,114 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.isma3el.re_codedapp.Adapters.FeedAdapter;
+import com.example.isma3el.re_codedapp.BaseActivity;
+import com.example.isma3el.re_codedapp.DataRefreshListener;
+import com.example.isma3el.re_codedapp.MainActivity;
 import com.example.isma3el.re_codedapp.Models.FeedCard;
 import com.example.isma3el.re_codedapp.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FeedFragment extends Fragment {
+public class FeedFragment extends Fragment implements DataRefreshListener {
 
-    private String[] image;
-    private String[] userName;
-    private String[] text;
-    private String[] heartCounter;
-    private String[] happyCounter;
-    private String[] winkCounter;
-    private String[] nerdCounter;
-    private String[] inLoveCounter;
-    private String[] thumbsUpCounter;
-    private String[] postType;
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference feedsDatabaseReference;
+    private DatabaseReference userDatabaseReference;
+
 
     @BindView(R.id.feed_list_view)
-    ListView feedListView;
+    public ListView feedListView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
         ButterKnife.bind(this, view);
 
+        ((MainActivity)getActivity()).feedListener = this;
 
-        ArrayList<FeedCard> feedArrayList = new ArrayList<>();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        feedsDatabaseReference = firebaseDatabase.getReference().child("feeds");
+        userDatabaseReference = feedsDatabaseReference.child("user");
 
-        image = new String[]{null, String.valueOf(R.drawable.student), String.valueOf(R.drawable.student), String.valueOf(R.drawable.student)};
-        userName = new String[]{"Ismail Youssef", "Abdullah Al-Jadaan", "Ismail Youssef", "Abdullah Al-Jadaan"};
-        text = new String[]{"My name is Abdullah. I was born and raised in Al-Hasakah in Syria ....",
-                "My name is Abdullah. I was born and raised in Al-Hasakah in Syria ....",
-                "My name is Abdullah. I was born and raised in Al-Hasakah in Syria ....",
-                "My name is Abdullah. I was born and raised in Al-Hasakah in Syria ...."};
+        //String id = String.valueOf(feedsDatabaseReference.orderByChild("id"));
 
-        heartCounter = new String[]{"5", "9", "13", "17"};
-        happyCounter = new String[]{"6", "10", "14", "18"};
-        winkCounter = new String[]{"7", "11", "15", "19"};
-        nerdCounter = new String[]{"8", "12", "16", "20"};
-        inLoveCounter = new String[]{"9", "13", "17", "21"};
-        thumbsUpCounter = new String[]{"10", "14", "18", "22"};
-        postType = new String[]{"progress", "status", "progress", "status"};
+        final ArrayList<FeedCard> feedArrayList = new ArrayList<>();
 
-        FeedCard card[] = new FeedCard[userName.length];
+        feedsDatabaseReference.orderByChild("id").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                FeedCard card = null;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-        for (int i = 0; i < userName.length; i++) {
+                    card = snapshot.getValue(FeedCard.class);
+                    feedArrayList.add(card);
 
-            card[i] = new FeedCard(image[i], userName[i], text[i], heartCounter[i], happyCounter[i],
-                    winkCounter[i], nerdCounter[i], inLoveCounter[i], thumbsUpCounter[i], postType[i]);
+                }
 
-            feedArrayList.add(card[i]);
-        }
+                FeedAdapter adapter = new FeedAdapter(getActivity(), feedArrayList);
+                feedListView.setAdapter(adapter);
 
-        FeedAdapter adapter = new FeedAdapter(getActivity(), feedArrayList);
-        feedListView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         return view;
     }
 
+
+    @Override
+    public void onProfileRefreshed() {
+
+    }
+
+    @Override
+    public void onFeedRefreshed() {
+        final ArrayList<FeedCard> feedArrayList = new ArrayList<>();
+
+        feedsDatabaseReference.orderByChild("id").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                FeedCard card = null;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    card = snapshot.getValue(FeedCard.class);
+                    feedArrayList.add(card);
+
+                }
+
+                FeedAdapter adapter = new FeedAdapter(getActivity(), feedArrayList);
+                feedListView.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onSharePostRefreshed() {
+
+    }
 }

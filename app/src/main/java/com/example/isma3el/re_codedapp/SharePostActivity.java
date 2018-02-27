@@ -1,4 +1,4 @@
-package com.example.isma3el.re_codedapp.Adapters;
+package com.example.isma3el.re_codedapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
