@@ -19,9 +19,9 @@
             android:layout_marginTop="20dp" />
 
         <ImageView
-            android:id="@+id/card_user_icon"
+            android:id="@+id/share_post"
             android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="13dp"
             android:src="@drawable/play_button" />

@@ -2,6 +2,7 @@ package com.example.isma3el.re_codedapp.Adapters;
 
 import android.app.Activity;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,20 +41,17 @@ public class FeedAdapter extends ArrayAdapter<FeedCard> {
 
         TextView postTypeTextView = listItemView.findViewById(R.id.post_type_text_view);
 
-        String whichPostType = feedCard.getPostType();
-        if (whichPostType == "progress") {
+        int whichPostType = feedCard.getPostType();
+        if (whichPostType == 1) {
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                postTypeRelativeLayout.setBackgroundColor(getContext().getColor(R.color.colorPrimary));
-            }
+            postTypeRelativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.primary_dark));
+            postTypeTextView.setText("STATUS");
 
-            postTypeTextView.setText(feedCard.getPostType());
         } else {
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                postTypeRelativeLayout.setBackgroundColor(getContext().getColor(R.color.recodedDarkColor));
-            }
-            postTypeTextView.setText(feedCard.getPostType());
+            postTypeRelativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.primary));
+            postTypeTextView.setText("PROGRESS");
+
         }
 
         ImageView imagePost = listItemView.findViewById(R.id.card_image_view);
@@ -65,39 +63,10 @@ public class FeedAdapter extends ArrayAdapter<FeedCard> {
             imagePost.setVisibility(View.GONE);
         }
 
-        // ImageView personalIcon = listItemView.findViewById(R.id.personal_name_icon);
-        // personalIcon.setImageResource(feedCard.getImagPersonalIcontId());
-
-        TextView personalNameText = listItemView.findViewById(R.id.card_user_name_text_view);
-        personalNameText.setText(feedCard.getUserName());
 
         TextView addPostText = listItemView.findViewById(R.id.card_text_view);
         addPostText.setText(feedCard.getText());
 
-        // ImageView heartIcon = listItemView.findViewById(R.id.emoji_icon_heart);
-        // heartIcon.setImageResource(feedCard.getImagHeartIconId());
-        TextView heartText = listItemView.findViewById(R.id.heart_counter_text_view);
-        heartText.setText(feedCard.getHeartCounter());
-
-        // ImageView happyIcon = listItemView.findViewById(R.id.emoji_icon_happy);
-        // happyIcon.setImageResource(feedCard.getImagHappyIconId());
-        TextView happyText = listItemView.findViewById(R.id.happy_counter_text_view);
-        happyText.setText(feedCard.getHappyCounter());
-
-        //  ImageView winkIcon = listItemView.findViewById(R.id.emoji_icon_wink);
-        //  winkIcon.setImageResource(feedCard.getImagWinkIconId());
-        TextView winkText = listItemView.findViewById(R.id.wink_counter_text_view);
-        winkText.setText(feedCard.getWinkCounter());
-
-        //  ImageView inloveIcon = listItemView.findViewById(R.id.emoji_icon_inlove);
-        // inloveIcon.setImageResource(feedCard.getImagInloveIconId());
-        TextView inloveText = listItemView.findViewById(R.id.inlove_counter_text_view);
-        inloveText.setText(feedCard.getInLoveCounter());
-
-        //  ImageView thumbsIcon = listItemView.findViewById(R.id.emoji_icon_thumbs);
-        //  thumbsIcon.setImageResource(feedCard.getImagThumbsIconId());
-        TextView thumbsText = listItemView.findViewById(R.id.thumbs_up_counter_text_view);
-        thumbsText.setText(feedCard.getThumbsUpCounter());
 
         return listItemView;
     }

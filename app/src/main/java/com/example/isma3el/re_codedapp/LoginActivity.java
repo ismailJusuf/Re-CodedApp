@@ -60,7 +60,7 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        usersDatabaseReference = firebaseDatabase.getInstance().getReference().child("registeredUsers");
+        usersDatabaseReference = firebaseDatabase.getInstance().getReference().child("users");
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
@@ -149,13 +149,19 @@ public class LoginActivity extends BaseActivity {
                                 Log.d(TAG, "signInWithEmail:success");
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                                usersDatabaseReference.child(user.getUid())
+                                usersDatabaseReference.orderByChild("email").equalTo(userEmailText)
                                         .addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                                User student = dataSnapshot.getValue(User.class);
+                                                User student = null;
+                                                for (DataSnapshot snap : dataSnapshot.getChildren()) {
+                                                    student = snap.getValue(User.class);
+                                                }
                                                 saveUser(student);
+                                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                startActivity(intent);
+                                                finish();
+
 
                                             }
 
@@ -165,9 +171,6 @@ public class LoginActivity extends BaseActivity {
                                             }
                                         });
 
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
 
                                 //updateUI(user);
                             } else {
