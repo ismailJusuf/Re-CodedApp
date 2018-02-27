@@ -28,7 +28,6 @@
             android:name=".MainActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".EditProfileActivity" />
-        <activity android:name=".SharePostActivity"></activity>
     </application>
 
 </manifest>
