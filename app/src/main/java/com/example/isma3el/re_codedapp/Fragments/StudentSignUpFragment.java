@@ -144,7 +144,7 @@ public class StudentSignUpFragment extends Fragment {
     }
 
 
-    @OnClick(R.id.teacher_login_button)
+    @OnClick(R.id.student_login_button)
     public void studentSignUp() {
 
         if (BaseActivity.getInstance().isOnline()) {
