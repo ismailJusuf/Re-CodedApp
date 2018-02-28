@@ -71,7 +71,7 @@ public class MainActivity extends BaseActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         final ArrayList<FeedCard> feedArrayList = new ArrayList<>();
-
+        User user = getUser();
         setUpTabIcons(0);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

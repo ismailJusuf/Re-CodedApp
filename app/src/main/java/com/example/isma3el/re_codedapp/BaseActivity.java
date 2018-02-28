@@ -12,8 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.isma3el.re_codedapp.Models.User;
 import com.google.gson.Gson;
 
-import io.realm.Realm;
-
 /**
  * Created by isma3el on 2/7/2018.
  */
