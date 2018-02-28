@@ -6,7 +6,7 @@ package com.example.isma3el.re_codedapp.Models;
  * Created by Recodedharran on 9.2.2018.
  */
 
-public class FeedCard {
+public class FeedCard  {
 
     public static int STATUS = 0;
     public static int PROGRESS = 1;

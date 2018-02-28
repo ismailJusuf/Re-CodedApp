@@ -26,7 +26,6 @@ import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.realm.Realm;
 
 public class LoginActivity extends BaseActivity {
 
