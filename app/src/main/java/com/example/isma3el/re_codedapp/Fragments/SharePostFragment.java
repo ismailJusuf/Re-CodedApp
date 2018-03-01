@@ -17,6 +17,8 @@ import com.example.isma3el.re_codedapp.MainActivity;
 import com.example.isma3el.re_codedapp.Models.FeedCard;
 import com.example.isma3el.re_codedapp.R;
 import com.example.isma3el.re_codedapp.SharePostActivity;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -38,16 +40,10 @@ public class SharePostFragment extends Fragment implements DataRefreshListener {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference tasksDatabaseReference;
 
+    @BindView(R.id.floating_button)
+    FloatingActionsMenu floatingActionButton;
     @BindView(R.id.teacher_list_view)
     ListView listView;
-
-    @OnClick(R.id.share_post)
-    public void intent() {
-
-        Intent intent = new Intent(getActivity(), SharePostActivity.class);
-        startActivity(intent);
-
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,6 +84,10 @@ public class SharePostFragment extends Fragment implements DataRefreshListener {
             }
         });
 
+
+        FloatingActionButton addedOnce = new FloatingActionButton(getContext());
+        addedOnce.setTitle("Added once");
+        floatingActionButton.addButton(addedOnce);
 
 
         return view;

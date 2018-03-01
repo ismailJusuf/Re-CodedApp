@@ -49,6 +49,7 @@ dependencies {
     implementation("com.mikepenz:materialdrawer:6.0.6@aar") {
         transitive = true
     }
+    compile 'com.getbase:floatingactionbutton:1.10.1'
 }
 
 
