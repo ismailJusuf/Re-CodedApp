@@ -1,5 +1,6 @@
 package com.example.isma3el.re_codedapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ProfileActivity extends AppCompatActivity implements DataRefreshListener {
 
@@ -25,6 +27,15 @@ public class ProfileActivity extends AppCompatActivity implements DataRefreshLis
 
     @BindView(R.id.expandable_listview)
     ExpandableHeightListView expandableListView;
+
+    @OnClick(R.id.edit_profile_button)
+    public void editProfile(){
+
+        Intent intent = new Intent(ProfileActivity.this , EditProfileActivity.class);
+        startActivity(intent);
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

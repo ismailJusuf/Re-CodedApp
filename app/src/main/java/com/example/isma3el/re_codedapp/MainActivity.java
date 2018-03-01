@@ -205,7 +205,7 @@ public class MainActivity extends BaseActivity {
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withAccountHeader(headerResult)
-                .addDrawerItems(item1, item2, item3)
+                .addDrawerItems(item1, item2, item3, item4)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
