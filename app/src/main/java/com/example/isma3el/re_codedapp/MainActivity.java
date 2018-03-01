@@ -117,8 +117,8 @@ public class MainActivity extends BaseActivity {
         switch (position) {
 
             case 0:
-                tabLayout.getTabAt(0).setIcon(R.drawable.news_paper);
-                tabLayout.getTabAt(1).setIcon(R.drawable.tab_user);
+                tabLayout.getTabAt(0).setIcon(R.drawable.user_yellow);
+                tabLayout.getTabAt(1).setIcon(R.drawable.news_paper_grey);
                 tabLayout.getTabAt(2).setIcon(R.drawable.post);
                 break;
             case 1:
@@ -128,12 +128,12 @@ public class MainActivity extends BaseActivity {
                 break;
             case 2:
                 tabLayout.getTabAt(0).setIcon(R.drawable.tab_user);
-                tabLayout.getTabAt(1).setIcon(R.drawable.post);
-                tabLayout.getTabAt(2).setIcon(R.drawable.news_paper);
+                tabLayout.getTabAt(1).setIcon(R.drawable.news_paper_grey);
+                tabLayout.getTabAt(2).setIcon(R.drawable.ic_plus_yellow);
                 break;
             default:
-                tabLayout.getTabAt(0).setIcon(R.drawable.news_paper);
-                tabLayout.getTabAt(1).setIcon(R.drawable.tab_user);
+                tabLayout.getTabAt(0).setIcon(R.drawable.user_yellow);
+                tabLayout.getTabAt(1).setIcon(R.drawable.news_paper_grey);
                 tabLayout.getTabAt(2).setIcon(R.drawable.post);
                 break;
 
@@ -176,13 +176,13 @@ public class MainActivity extends BaseActivity {
 
         //PrimaryDrawerItem primaryDrawerItem = new PrimaryDrawerItem().withIdentifier( 1 ).withName( "test" );
         SecondaryDrawerItem item1 = new SecondaryDrawerItem().withIdentifier(1)
-                .withName("login");
+                .withName("profile");
         SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2)
-                .withName("signup");
+                .withName("share this app");
         SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(3)
+                .withName("contact us");
+        SecondaryDrawerItem item4 = new SecondaryDrawerItem().withIdentifier(4)
                 .withName("sign out");
-
-        User user = getUser();
 
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -213,21 +213,18 @@ public class MainActivity extends BaseActivity {
                         switch (position) {
 
                             case 1:
-                                Intent intent1 = new Intent(MainActivity.this, LoginActivity.class);
+                                Intent intent1 = new Intent(MainActivity.this, ProfileActivity.class);
                                 startActivity(intent1);
-                                finish();
                                 break;
                             case 2:
-                                Intent intent2 = new Intent(MainActivity.this, SignUpActivity.class);
-                                startActivity(intent2);
-                                finish();
                                 break;
                             case 3:
+                                break;
+                            case 4:
                                 firebaseAuth.signOut();
-
                                 Intent intent3 = new Intent(MainActivity.this, LoginActivity.class);
                                 startActivity(intent3);
-                                finish();
+                                break;
                         }
 
                         return true;

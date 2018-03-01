@@ -1,104 +1,17 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context="com.example.isma3el.re_codedapp.ProfileActivity">
 
-<RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <RelativeLayout
-        android:id="@+id/relative_layout"
+    <ListView
+        android:id="@+id/profile_fragment_list_view"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:background="#ffffff">
-
-        <ImageView
-            android:id="@+id/cover_picture_image_view"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/kubra_background" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_picture"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="35dp"
-            android:layout_marginTop="60dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/kubra"
-            app:civ_border_color="#000"
-            app:civ_border_width="1dp">
-
-        </de.hdodenhof.circleimageview.CircleImageView>
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignBottom="@+id/linearLayout"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="13dp"
-            android:layout_marginRight="13dp"
-            android:src="@drawable/ic_edit_profile" />
-
-        <TextView
-            android:id="@+id/user_name_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/profile_picture"
-            android:layout_centerHorizontal="true"
-            android:maxLines="1"
-            android:text="User Name"
-            android:textColor="#000"
-            android:textSize="22sp" />
-
-
-        <RelativeLayout
-            android:id="@+id/point_relative_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/user_name_text_view"
-            android:layout_centerHorizontal="true"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/point_counter_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:maxLength="4"
-                android:maxLines="1"
-                android:text="53"
-                android:textColor="#FFA500"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_toRightOf="@+id/point_counter_text_view"
-                android:gravity="center"
-                android:maxLines="1"
-                android:text="points"
-                android:textColor="#000000"
-                android:textSize="13sp" />
-
-
-        </RelativeLayout>
-
-    </RelativeLayout>
-
-    <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
-        android:id="@+id/expandable_listview"
-        android:layout_below="@+id/relative_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:divider="@null"
         android:padding="8dp"
-        tools:ignore="UnknownId">
-    </com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView>
-</RelativeLayout>
+        android:scrollbars="none" />
 
-</ScrollView>
+</RelativeLayout>

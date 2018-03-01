@@ -44,14 +44,18 @@ public class FeedAdapter extends ArrayAdapter<FeedCard> {
         int whichPostType = feedCard.getPostType();
         if (whichPostType == 1) {
 
-            postTypeRelativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.primary_dark));
+            postTypeRelativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.recodedDarkColor));
             postTypeTextView.setText("STATUS");
+
+        } else if (whichPostType == 2) {
+
+            postTypeRelativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.primary_dark));
+            postTypeTextView.setText("Task");
 
         } else {
 
             postTypeRelativeLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.primary));
             postTypeTextView.setText("PROGRESS");
-
         }
 
         ImageView imagePost = listItemView.findViewById(R.id.card_image_view);

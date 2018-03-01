@@ -21,6 +21,22 @@ import butterknife.OnClick;
 
 public class SharePostActivity extends BaseActivity {
 
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference feedsDatabaseReference;
+    private DatabaseReference tasksDatabaseReference;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_share_post);
+        ButterKnife.bind(this);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        feedsDatabaseReference = firebaseDatabase.getReference().child("feeds");
+        tasksDatabaseReference = firebaseDatabase.getReference().child("tasks");
+
+
+    }
 
     @OnClick(R.id.share_file_layout)
     public void sharePost() {
@@ -42,20 +58,42 @@ public class SharePostActivity extends BaseActivity {
 
     }
 
+    @OnClick(R.id.share_photo_layout)
+    public void shareTask(){
 
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference feedsDatabaseReference;
-
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_share_post);
-        ButterKnife.bind(this);
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        feedsDatabaseReference = firebaseDatabase.getReference().child("feeds");
-
+        FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), null, "Deneme asdasdasddfgdhfjgkhghkjghxfgzd", FeedCard.TASK, BaseActivity.getInstance().getUser().getBootcamp());
+        final String key = tasksDatabaseReference.push().getKey();
+        card.setId(key);
+        tasksDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(SharePostActivity.this, key, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Toast.makeText(SharePostActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
+
+    @OnClick(R.id.profile_photo)
+    public void shareProgress(){
+
+        FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), null, "Deneme asdasdasd", FeedCard.PROGRESS, BaseActivity.getInstance().getUser().getBootcamp());
+        final String key = feedsDatabaseReference.push().getKey();
+        card.setId(key);
+        feedsDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(SharePostActivity.this, key, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Toast.makeText(SharePostActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
 }

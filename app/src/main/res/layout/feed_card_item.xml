@@ -9,12 +9,12 @@
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="6dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         card_view:cardBackgroundColor="#ffffff"
         card_view:cardCornerRadius="5dp"
-        card_view:cardElevation="3dp">
+        card_view:cardElevation="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
