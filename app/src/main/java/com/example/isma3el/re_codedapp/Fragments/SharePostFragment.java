@@ -7,8 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.isma3el.re_codedapp.Adapters.FeedAdapter;
 import com.example.isma3el.re_codedapp.BaseActivity;
 import com.example.isma3el.re_codedapp.DataRefreshListener;
 import com.example.isma3el.re_codedapp.MainActivity;
@@ -17,8 +19,13 @@ import com.example.isma3el.re_codedapp.R;
 import com.example.isma3el.re_codedapp.SharePostActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,8 +36,10 @@ public class SharePostFragment extends Fragment implements DataRefreshListener {
 
 
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference feedsDatabaseReference;
+    private DatabaseReference tasksDatabaseReference;
 
+    @BindView(R.id.teacher_list_view)
+    ListView listView;
 
     @OnClick(R.id.share_post)
     public void intent() {
@@ -53,7 +62,32 @@ public class SharePostFragment extends Fragment implements DataRefreshListener {
         ButterKnife.bind(this, view);
         ((MainActivity) getActivity()).sharePostListener = this;
         firebaseDatabase = FirebaseDatabase.getInstance();
-        feedsDatabaseReference = firebaseDatabase.getReference().child("feeds");
+        tasksDatabaseReference = firebaseDatabase.getReference().child("tasks");
+
+        final ArrayList<FeedCard> taskArrayList = new ArrayList<>();
+
+        tasksDatabaseReference.orderByChild("id").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                FeedCard card = null;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    card = snapshot.getValue(FeedCard.class);
+                    taskArrayList.add(card);
+
+                }
+
+                FeedAdapter adapter = new FeedAdapter(getActivity(), taskArrayList);
+                listView.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
 
         return view;

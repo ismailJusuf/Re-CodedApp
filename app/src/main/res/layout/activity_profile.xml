@@ -1,0 +1,111 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/relative_layout"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:background="#ffffff">
+
+            <ImageView
+                android:id="@+id/cover_picture_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/kubra_background" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_picture"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="60dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/kubra"
+                app:civ_border_color="#000"
+                app:civ_border_width="1dp">
+
+            </de.hdodenhof.circleimageview.CircleImageView>
+
+
+            <TextView
+                android:id="@+id/user_name_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_picture"
+                android:layout_centerHorizontal="true"
+                android:maxLines="1"
+                android:layout_marginTop="10dp"
+                android:text="User Name"
+                android:textColor="#000"
+                android:textSize="22sp" />
+
+
+            <RelativeLayout
+                android:id="@+id/point_relative_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_name_text_view"
+                android:layout_centerHorizontal="true"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/point_counter_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:maxLength="4"
+                    android:maxLines="1"
+                    android:text="53"
+                    android:textColor="#FFA500"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_toRightOf="@+id/point_counter_text_view"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="points"
+                    android:textColor="#000000"
+                    android:textSize="13sp" />
+
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/edit_profile_button"
+                android:layout_width="120dp"
+                android:layout_height="35dp"
+                android:text="edit profile"
+                android:textColor="#fff"
+                android:background="@drawable/edit_profile_button_shape"
+                android:layout_below="@+id/point_relative_layout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                />
+
+
+        </RelativeLayout>
+
+        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+            android:id="@+id/expandable_listview"
+            android:layout_below="@+id/relative_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            tools:ignore="UnknownId"
+            android:scrollbars="none"
+            android:divider="@null">
+        </com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView>
+    </RelativeLayout>
+
+</ScrollView>

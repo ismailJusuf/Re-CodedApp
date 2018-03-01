@@ -10,6 +10,7 @@ public class FeedCard  {
 
     public static int STATUS = 0;
     public static int PROGRESS = 1;
+    public static int TASK = 2;
 
     private User user;
     private String id;
