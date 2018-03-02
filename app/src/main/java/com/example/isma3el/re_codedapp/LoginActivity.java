@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,8 +37,8 @@ public class LoginActivity extends BaseActivity {
 
     String userPasswordText, userEmailText;
 
-    @BindView(R.id.log_in_image_view)
-    ImageView loginImage;
+    @BindView(R.id.login_activity_log_in_button)
+    Button loginImage;
     @BindView(R.id.forget_password_text_view)
     TextView forgotPasswordTextView;
     @BindView(R.id.email_edit_text)
@@ -46,7 +46,7 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.password_edit_text)
     MaterialEditText passwordEditText;
 
-    @OnClick(R.id.sign_up_linear_layout)
+    @OnClick(R.id.login_activity_sign_up_linear_layout)
     void goToSignUp() {
         Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
         startActivity(intent);
@@ -119,7 +119,7 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    @OnClick(R.id.log_in_image_view)
+    @OnClick(R.id.login_activity_log_in_button)
     void login() {
 
         userEmailText = emailEditText.getText().toString().trim();
