@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import com.example.isma3el.re_codedapp.BaseActivity;
 import com.example.isma3el.re_codedapp.DataRefreshListener;
 import com.example.isma3el.re_codedapp.MainActivity;
 import com.example.isma3el.re_codedapp.Models.FeedCard;
+import com.example.isma3el.re_codedapp.ProfileActivity;
 import com.example.isma3el.re_codedapp.R;
 import com.example.isma3el.re_codedapp.SharePostActivity;
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -27,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.BatchUpdateException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -40,6 +43,12 @@ public class SharePostFragment extends Fragment implements DataRefreshListener {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference tasksDatabaseReference;
 
+    @OnClick(R.id.go_intent_button)
+    public void intent ()
+    {
+        Intent intent = new Intent(getActivity(), SharePostActivity.class);
+        startActivity(intent);
+    }
     @BindView(R.id.floating_button)
     FloatingActionsMenu floatingActionButton;
     @BindView(R.id.teacher_list_view)

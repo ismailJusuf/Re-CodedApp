@@ -5,7 +5,12 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-
+<Button
+    android:id="@+id/go_intent_button"
+    android:text="go"
+    android:layout_alignParentBottom="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
     <com.getbase.floatingactionbutton.AddFloatingActionButton
         android:id="@+id/semi_transparent_floating_button"
         android:layout_width="wrap_content"
