@@ -1,111 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    tools:context="com.example.isma3el.re_codedapp.Adapters.SharePostActivity">
-
-    <TextView
-        android:id="@+id/user_name_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="10dp"
-        android:text="Kubra hebe"
-        android:textColor="#000" />
+    android:background="#ffffff"
+    android:orientation="horizontal">
 
     <RelativeLayout
-        android:id="@+id/edit_text_layout"
+        android:id="@+id/bar_share_post"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/share_photo_file_layout"
-        android:orientation="vertical">
+        android:layout_height="55dp"
+        android:background="#242424">
 
         <ImageView
-            android:id="@+id/profile_photo"
+            android:id="@+id/ic_back_shar_post"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginRight="280dp"
-            android:layout_marginTop="40dp"
-            android:src="@drawable/kubra" />
-
-        <EditText
-            android:id="@+id/share_post_edit_text"
-            android:layout_width="380dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="59dp"
-            android:hint="Share "
-            android:maxLength="140" />
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="6dp"
+            android:layout_toRightOf="@id/ic_back_shar_post"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.01"
+            android:textColor="#ffffff"
+            android:textSize="23sp"
+            tools:text="New post" />
 
         <ImageView
-            android:id="@+id/add_photo_image_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:padding="40dp"
-            android:src="@drawable/add_image" />
+            android:id="@+id/ic_done_shar_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="4dp"
+            android:src="@drawable/ic_done" />
     </RelativeLayout>
 
-
-    <LinearLayout
-        android:id="@+id/share_photo_file_layout"
+    <EditText
+        android:id="@+id/edit_your_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/bar_share_post"
+        android:layout_margin="7dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif"
+        android:hint="Your text ..."
+        android:letterSpacing="0.01"
+        android:padding="20dp"
+        android:textColor="#858585"
+        android:textSize="20sp" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lay_emojes"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        card_view:cardBackgroundColor="#fafafa"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardElevation="5dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:background="#fafafa">
+
+            <ImageView
+                android:id="@+id/user"
+                android:layout_width="65dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="7dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="7dp"
+                android:src="@drawable/student" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:layout_toRightOf="@+id/user"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="4sp"
+                android:text="kubra acar"
+                android:textColor="#de000000"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/user"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="12dp"
+                android:layout_toRightOf="@+id/user"
+                android:text="700kp" />
+
+            <ImageView
+                android:id="@+id/trash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="12dp"
+                android:src="@drawable/ic_trash" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <RelativeLayout
+        android:id="@+id/lay_emojes"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:background="#242424"
-        android:orientation="horizontal">
+        android:background="#f4f4f4">
 
-        <LinearLayout
-            android:id="@+id/share_photo_layout"
-            android:layout_width="0dp"
+        <ImageView
+            android:id="@+id/ic_emoticon_shar_post"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:paddingRight="35dp"
+            android:src="@drawable/ic_emoticon" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:src="@drawable/gallery" />
+        <ImageView
+            android:id="@+id/ic_attachment_shar_post"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_centerInParent="true"
+            android:layout_margin="35dp"
+            android:layout_toLeftOf="@+id/ic_emoticon_shar_post"
+            android:src="@drawable/attachment" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Photo"
-                android:textColor="#ffba00"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/share_file_layout"
-            android:layout_width="0dp"
+        <ImageView
+            android:id="@+id/ic_camera_shar_post"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@+id/ic_attachment_shar_post"
+            android:src="@drawable/ic_camera" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:src="@drawable/file" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Document"
-                android:textColor="#ffba00"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
+    </RelativeLayout>
 </RelativeLayout>
 
