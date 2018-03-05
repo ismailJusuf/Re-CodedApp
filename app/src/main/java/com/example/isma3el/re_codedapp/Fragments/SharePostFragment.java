@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class SharePostFragment extends Fragment implements DataRefreshListener {
+public class SharePostFragment extends Fragment  {
 
 
     private FirebaseDatabase firebaseDatabase;
@@ -44,6 +44,23 @@ public class SharePostFragment extends Fragment implements DataRefreshListener {
     FloatingActionsMenu floatingActionButton;
     @BindView(R.id.teacher_list_view)
     ListView listView;
+
+    @OnClick(R.id.add_post)
+    public void addPost(){
+        FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), null, "Deneme 2", FeedCard.TASK, BaseActivity.getInstance().getUser().getBootcamp());
+        final String key = tasksDatabaseReference.push().getKey();
+        card.setId(key);
+        tasksDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getContext(), key, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Toast.makeText(getContext() , task.getException().getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,16 +73,17 @@ public class SharePostFragment extends Fragment implements DataRefreshListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_share_post, container, false);
         ButterKnife.bind(this, view);
-        ((MainActivity) getActivity()).sharePostListener = this;
         firebaseDatabase = FirebaseDatabase.getInstance();
         tasksDatabaseReference = firebaseDatabase.getReference().child("tasks");
 
         final ArrayList<FeedCard> taskArrayList = new ArrayList<>();
 
-        tasksDatabaseReference.orderByChild("id").addListenerForSingleValueEvent(new ValueEventListener() {
+        tasksDatabaseReference.orderByChild("id").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 FeedCard card = null;
+                taskArrayList.clear();
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     card = snapshot.getValue(FeedCard.class);
@@ -93,18 +111,4 @@ public class SharePostFragment extends Fragment implements DataRefreshListener {
         return view;
     }
 
-    @Override
-    public void onProfileRefreshed() {
-
-    }
-
-    @Override
-    public void onFeedRefreshed() {
-
-    }
-
-    @Override
-    public void onSharePostRefreshed() {
-
-    }
 }

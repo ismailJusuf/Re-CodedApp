@@ -91,11 +91,11 @@ public class MainActivity extends BaseActivity {
                         //profileListener.onProfileRefreshed();
                         break;
                     case 1:
-                        feedListener.onFeedRefreshed();
+                        //feedListener.onFeedRefreshed();
                         break;
 
                     case 2:
-                        sharePostListener.onSharePostRefreshed();
+                        //sharePostListener.onSharePostRefreshed();
                         break;
 
                 }
