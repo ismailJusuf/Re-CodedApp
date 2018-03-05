@@ -6,10 +6,16 @@
     android:layout_height="match_parent"
     tools:context="com.example.isma3el.re_codedapp.WinnerActivity">
 
+    <nl.dionsegijn.konfetti.KonfettiView
+        android:id="@+id/viewKonfetti"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <ImageView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/winner1"/>
+    android:background="@drawable/winner1"
+        android:visibility="gone"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/winner_picture"
