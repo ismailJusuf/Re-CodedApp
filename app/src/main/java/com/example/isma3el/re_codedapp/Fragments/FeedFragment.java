@@ -1,7 +1,5 @@
 package com.example.isma3el.re_codedapp.Fragments;
 
-//FeedFragment
-
 /**
  * Created by Recodedharran on 7.2.2018.
  */
@@ -30,7 +28,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FeedFragment extends Fragment implements DataRefreshListener {
+public class FeedFragment extends Fragment  {
 
 
     private FirebaseDatabase firebaseDatabase;
@@ -52,8 +50,6 @@ public class FeedFragment extends Fragment implements DataRefreshListener {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
         ButterKnife.bind(this, view);
 
-        ((MainActivity)getActivity()).feedListener = this;
-
         firebaseDatabase = FirebaseDatabase.getInstance();
         feedsDatabaseReference = firebaseDatabase.getReference().child("feeds");
         userDatabaseReference = feedsDatabaseReference.child("user");
@@ -62,10 +58,11 @@ public class FeedFragment extends Fragment implements DataRefreshListener {
 
         final ArrayList<FeedCard> feedArrayList = new ArrayList<>();
 
-        feedsDatabaseReference.orderByChild("id").addListenerForSingleValueEvent(new ValueEventListener() {
+        feedsDatabaseReference.orderByChild("id").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 FeedCard card = null;
+                feedArrayList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     card = snapshot.getValue(FeedCard.class);
@@ -85,43 +82,5 @@ public class FeedFragment extends Fragment implements DataRefreshListener {
         });
 
         return view;
-    }
-
-
-    @Override
-    public void onProfileRefreshed() {
-
-    }
-
-    @Override
-    public void onFeedRefreshed() {
-        final ArrayList<FeedCard> feedArrayList = new ArrayList<>();
-
-        feedsDatabaseReference.orderByChild("id").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                FeedCard card = null;
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                    card = snapshot.getValue(FeedCard.class);
-                    feedArrayList.add(card);
-
-                }
-
-                FeedAdapter adapter = new FeedAdapter(getActivity(), feedArrayList);
-                feedListView.setAdapter(adapter);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    @Override
-    public void onSharePostRefreshed() {
-
     }
 }
