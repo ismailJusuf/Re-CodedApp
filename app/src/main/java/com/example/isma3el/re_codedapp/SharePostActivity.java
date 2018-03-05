@@ -25,8 +25,10 @@ public class SharePostActivity extends BaseActivity {
     private DatabaseReference feedsDatabaseReference;
     private DatabaseReference tasksDatabaseReference;
 
+    int postType;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_post);
         ButterKnife.bind(this);
@@ -38,62 +40,49 @@ public class SharePostActivity extends BaseActivity {
 
     }
 
-    @OnClick(R.id.share_file_layout)
+    @OnClick(R.id.ic_done_share_post)
     public void sharePost() {
 
+        Bundle extras = getIntent().getExtras();
 
-        FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), null, "Deneme asdasdasd", FeedCard.STATUS, BaseActivity.getInstance().getUser().getBootcamp());
-        final String key = feedsDatabaseReference.push().getKey();
-        card.setId(key);
-        feedsDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(SharePostActivity.this, key, Toast.LENGTH_LONG).show();
-                    return;
+        postType = extras.getInt("postType");
+
+        if (postType == 0 || postType == 1) {
+
+            FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), null, "Deneme asdasdasd", postType, BaseActivity.getInstance().getUser().getBootcamp());
+            final String key = feedsDatabaseReference.push().getKey();
+            card.setId(key);
+            feedsDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(SharePostActivity.this, key, Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    Toast.makeText(SharePostActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
-                Toast.makeText(SharePostActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+            });
+
+
+        } else if (postType == 2) {
+
+            FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), null, "Deneme asdasdasddfgdhfjgkhghkjghxfgzd",postType, BaseActivity.getInstance().getUser().getBootcamp());
+            final String key = tasksDatabaseReference.push().getKey();
+            card.setId(key);
+            tasksDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(SharePostActivity.this, key, Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    Toast.makeText(SharePostActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+        }
 
     }
 
-    @OnClick(R.id.share_photo_layout)
-    public void shareTask(){
-
-        FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), null, "Deneme asdasdasddfgdhfjgkhghkjghxfgzd", FeedCard.TASK, BaseActivity.getInstance().getUser().getBootcamp());
-        final String key = tasksDatabaseReference.push().getKey();
-        card.setId(key);
-        tasksDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(SharePostActivity.this, key, Toast.LENGTH_LONG).show();
-                    return;
-                }
-                Toast.makeText(SharePostActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-    }
-
-    @OnClick(R.id.profile_photo)
-    public void shareProgress(){
-
-        FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), null, "Deneme asdasdasd", FeedCard.PROGRESS, BaseActivity.getInstance().getUser().getBootcamp());
-        final String key = feedsDatabaseReference.push().getKey();
-        card.setId(key);
-        feedsDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(SharePostActivity.this, key, Toast.LENGTH_LONG).show();
-                    return;
-                }
-                Toast.makeText(SharePostActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-    }
 
 }
