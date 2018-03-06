@@ -46,6 +46,8 @@ dependencies {
     compile 'com.yarolegovich:lovely-dialog:1.1.0'
     compile 'com.github.paolorotolo:expandableheightlistview:1.0.0'
     compile 'com.android.support:multidex:1.0.1'
+    implementation 'com.vanniktech:emoji-ios:0.5.1'
+
     implementation("com.mikepenz:materialdrawer:6.0.6@aar") {
         transitive = true
     }
