@@ -1,8 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
@@ -10,52 +8,14 @@
         android:id="@+id/add_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="add post"/>
+        android:text="add post" />
 
-    <com.getbase.floatingactionbutton.AddFloatingActionButton
-        android:id="@+id/semi_transparent_floating_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        fab:fab_plusIconColor="#fff"
-        fab:fab_colorNormal="@color/recodedDarkColor"
-        fab:fab_colorPressed="@color/colorPrimary"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:visibility="gone"/>
-
-
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/floating_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        fab:fab_labelsPosition="right">
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_colorNormal="#fff"
-            fab:fab_title="Label on the right"
-            fab:fab_colorPressed="#f1f1f1"/>
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_colorNormal="#fff"
-            fab:fab_size="mini"
-            fab:fab_title="Another one on the right"
-            fab:fab_colorPressed="#f1f1f1"/>
-
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
     <ListView
-        android:layout_marginTop="16dp"
-        android:layout_below="@id/relative_layout"
         android:id="@+id/teacher_list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/relative_layout"
+        android:layout_marginTop="16dp" />
 
 </RelativeLayout>
