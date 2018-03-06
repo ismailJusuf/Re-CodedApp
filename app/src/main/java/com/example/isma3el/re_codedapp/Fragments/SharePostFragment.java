@@ -1,26 +1,19 @@
 package com.example.isma3el.re_codedapp.Fragments;
 
+import android.content.ContentUris;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.isma3el.re_codedapp.Adapters.FeedAdapter;
-import com.example.isma3el.re_codedapp.BaseActivity;
-import com.example.isma3el.re_codedapp.DataRefreshListener;
-import com.example.isma3el.re_codedapp.MainActivity;
 import com.example.isma3el.re_codedapp.Models.FeedCard;
 import com.example.isma3el.re_codedapp.R;
-import com.example.isma3el.re_codedapp.SharePostActivity;
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,16 +27,42 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class SharePostFragment extends Fragment implements DataRefreshListener {
+public class SharePostFragment extends Fragment {
 
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference tasksDatabaseReference;
 
-    @BindView(R.id.floating_button)
-    FloatingActionsMenu floatingActionButton;
     @BindView(R.id.teacher_list_view)
     ListView listView;
+    long eventID = 221;
+
+
+    @OnClick(R.id.add_post)
+    public void addPost() {
+      
+        FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), null, "Deneme 2", FeedCard.TASK, BaseActivity.getInstance().getUser().getBootcamp());
+        final String key = tasksDatabaseReference.push().getKey();
+        card.setId(key);
+        tasksDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getContext(), key, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        long startMillis = System.currentTimeMillis();
+        Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
+        builder.appendPath("time");
+        ContentUris.appendId(builder, startMillis);
+        Intent intent = new Intent(Intent.ACTION_VIEW).setData(builder.build());
+        startActivity(intent);
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,24 +75,28 @@ public class SharePostFragment extends Fragment implements DataRefreshListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_share_post, container, false);
         ButterKnife.bind(this, view);
-        ((MainActivity) getActivity()).sharePostListener = this;
         firebaseDatabase = FirebaseDatabase.getInstance();
         tasksDatabaseReference = firebaseDatabase.getReference().child("tasks");
 
         final ArrayList<FeedCard> taskArrayList = new ArrayList<>();
+        final ArrayList<FeedCard> taskArrayListNew = new ArrayList<>();
 
-        tasksDatabaseReference.orderByChild("id").addListenerForSingleValueEvent(new ValueEventListener() {
+        tasksDatabaseReference.orderByChild("id").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 FeedCard card = null;
+                taskArrayList.clear();
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     card = snapshot.getValue(FeedCard.class);
                     taskArrayList.add(card);
-
+                }
+                for (int i = taskArrayList.size() - 1; i >= 0; i--) {
+                    taskArrayListNew.add(taskArrayList.get(i));
                 }
 
-                FeedAdapter adapter = new FeedAdapter(getActivity(), taskArrayList);
+                FeedAdapter adapter = new FeedAdapter(getActivity(), taskArrayListNew);
                 listView.setAdapter(adapter);
 
             }
@@ -84,27 +107,23 @@ public class SharePostFragment extends Fragment implements DataRefreshListener {
             }
         });
 
-
-        FloatingActionButton addedOnce = new FloatingActionButton(getContext());
-        addedOnce.setTitle("Added once");
-        floatingActionButton.addButton(addedOnce);
-
+        /*ContentResolver cr = getActivity().getContentResolver();
+        ContentValues values = new ContentValues();
+        values.put(CalendarContract.Reminders.MINUTES, 15);
+        values.put(CalendarContract.Reminders.EVENT_ID, eventID);
+        values.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return TODO;
+        }
+        Uri uri = cr.insert(CalendarContract.Reminders.CONTENT_URI, values);*/
 
         return view;
     }
 
-    @Override
-    public void onProfileRefreshed() {
-
-    }
-
-    @Override
-    public void onFeedRefreshed() {
-
-    }
-
-    @Override
-    public void onSharePostRefreshed() {
-
-    }
 }

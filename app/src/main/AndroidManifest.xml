@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.isma3el.re_codedapp">
 
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -30,7 +34,8 @@
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".SharePostActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".WinnerActivity"></activity>
+        <activity android:name=".WinnerActivity">
+        </activity>
     </application>
 
 </manifest>
