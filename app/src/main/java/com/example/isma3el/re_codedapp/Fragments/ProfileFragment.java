@@ -52,31 +52,35 @@ public class ProfileFragment extends Fragment {
         feedsDatabaseReference = firebaseDatabase.getReference().child("feeds");
 
         final ArrayList<FeedCard> feedArrayList = new ArrayList<>();
+        final ArrayList<FeedCard> feedArrayListNew = new ArrayList<>();
 
 
         feedsDatabaseReference.orderByChild("user/id").equalTo(BaseActivity.getInstance().getUser().getId())
                 .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                FeedCard card = null;
-                feedArrayList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        FeedCard card = null;
+                        feedArrayList.clear();
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                    card = snapshot.getValue(FeedCard.class);
-                    feedArrayList.add(card);
+                            card = snapshot.getValue(FeedCard.class);
+                            feedArrayList.add(card);
 
-                }
+                        }
+                        for (int i = feedArrayList.size() - 1; i >= 0; i--) {
+                            feedArrayListNew.add(feedArrayList.get(i));
+                        }
 
-                FeedAdapter adapter = new FeedAdapter(getActivity(), feedArrayList);
-                listView.setAdapter(adapter);
+                        FeedAdapter adapter = new FeedAdapter(getActivity(), feedArrayListNew);
+                        listView.setAdapter(adapter);
 
-            }
+                    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
 
         return view;
 

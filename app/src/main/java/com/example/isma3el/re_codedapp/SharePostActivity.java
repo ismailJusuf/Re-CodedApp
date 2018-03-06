@@ -67,7 +67,7 @@ public class SharePostActivity extends BaseActivity {
 
         } else if (postType == 2) {
 
-            FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), null, "Deneme asdasdasddfgdhfjgkhghkjghxfgzd",postType, BaseActivity.getInstance().getUser().getBootcamp());
+            FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), null, "Deneme asdasdasddfgdhfjgkhghkjghxfgzd", postType, BaseActivity.getInstance().getUser().getBootcamp());
             final String key = tasksDatabaseReference.push().getKey();
             card.setId(key);
             tasksDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {

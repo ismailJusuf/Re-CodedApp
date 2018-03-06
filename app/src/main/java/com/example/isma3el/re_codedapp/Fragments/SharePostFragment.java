@@ -40,6 +40,20 @@ public class SharePostFragment extends Fragment {
 
     @OnClick(R.id.add_post)
     public void addPost() {
+      
+        FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), null, "Deneme 2", FeedCard.TASK, BaseActivity.getInstance().getUser().getBootcamp());
+        final String key = tasksDatabaseReference.push().getKey();
+        card.setId(key);
+        tasksDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getContext(), key, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
 
         long startMillis = System.currentTimeMillis();
         Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
@@ -65,6 +79,7 @@ public class SharePostFragment extends Fragment {
         tasksDatabaseReference = firebaseDatabase.getReference().child("tasks");
 
         final ArrayList<FeedCard> taskArrayList = new ArrayList<>();
+        final ArrayList<FeedCard> taskArrayListNew = new ArrayList<>();
 
         tasksDatabaseReference.orderByChild("id").addValueEventListener(new ValueEventListener() {
             @Override
@@ -76,10 +91,12 @@ public class SharePostFragment extends Fragment {
 
                     card = snapshot.getValue(FeedCard.class);
                     taskArrayList.add(card);
-
+                }
+                for (int i = taskArrayList.size() - 1; i >= 0; i--) {
+                    taskArrayListNew.add(taskArrayList.get(i));
                 }
 
-                FeedAdapter adapter = new FeedAdapter(getActivity(), taskArrayList);
+                FeedAdapter adapter = new FeedAdapter(getActivity(), taskArrayListNew);
                 listView.setAdapter(adapter);
 
             }
