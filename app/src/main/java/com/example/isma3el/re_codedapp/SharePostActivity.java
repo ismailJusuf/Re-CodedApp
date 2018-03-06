@@ -40,7 +40,6 @@ public class SharePostActivity extends BaseActivity {
 
     }
 
-
     @OnClick(R.id.ic_done_share_post)
     public void sharePost() {
 
