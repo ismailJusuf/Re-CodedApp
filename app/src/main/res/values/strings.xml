@@ -13,6 +13,11 @@
     <string name="phone_number">Phone Number</string>
     <string name="Update">Update</string>
 
+    <string-array name="sign_up_choose_bootcamp_spinner">
+        <item>Şanlıurfa</item>
+        <item>İstanbul</item>
+        <item>Iraq</item>
+    </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
