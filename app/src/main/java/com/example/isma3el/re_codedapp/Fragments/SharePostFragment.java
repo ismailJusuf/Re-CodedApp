@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class SharePostFragment extends Fragment  {
+public class SharePostFragment extends Fragment {
 
 
     private FirebaseDatabase firebaseDatabase;
@@ -38,7 +38,7 @@ public class SharePostFragment extends Fragment  {
     ListView listView;
 
     @OnClick(R.id.add_post)
-    public void addPost(){
+    public void addPost() {
         FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), null, "Deneme 2", FeedCard.TASK, BaseActivity.getInstance().getUser().getBootcamp());
         final String key = tasksDatabaseReference.push().getKey();
         card.setId(key);
@@ -49,7 +49,7 @@ public class SharePostFragment extends Fragment  {
                     Toast.makeText(getContext(), key, Toast.LENGTH_LONG).show();
                     return;
                 }
-                Toast.makeText(getContext() , task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -69,6 +69,7 @@ public class SharePostFragment extends Fragment  {
         tasksDatabaseReference = firebaseDatabase.getReference().child("tasks");
 
         final ArrayList<FeedCard> taskArrayList = new ArrayList<>();
+        final ArrayList<FeedCard> taskArrayListNew = new ArrayList<>();
 
         tasksDatabaseReference.orderByChild("id").addValueEventListener(new ValueEventListener() {
             @Override
@@ -80,10 +81,12 @@ public class SharePostFragment extends Fragment  {
 
                     card = snapshot.getValue(FeedCard.class);
                     taskArrayList.add(card);
-
+                }
+                for (int i = taskArrayList.size() - 1; i >= 0; i--) {
+                    taskArrayListNew.add(taskArrayList.get(i));
                 }
 
-                FeedAdapter adapter = new FeedAdapter(getActivity(), taskArrayList);
+                FeedAdapter adapter = new FeedAdapter(getActivity(), taskArrayListNew);
                 listView.setAdapter(adapter);
 
             }

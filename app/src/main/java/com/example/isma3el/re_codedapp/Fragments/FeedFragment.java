@@ -57,7 +57,7 @@ public class FeedFragment extends Fragment  {
         //String id = String.valueOf(feedsDatabaseReference.orderByChild("id"));
 
         final ArrayList<FeedCard> feedArrayList = new ArrayList<>();
-
+        final ArrayList<FeedCard> feedArrayListNew = new ArrayList<>();
         feedsDatabaseReference.orderByChild("id").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -67,10 +67,13 @@ public class FeedFragment extends Fragment  {
 
                     card = snapshot.getValue(FeedCard.class);
                     feedArrayList.add(card);
-
                 }
 
-                FeedAdapter adapter = new FeedAdapter(getActivity(), feedArrayList);
+                for(int i=feedArrayList.size()-1;i>=0;i--) {
+                    feedArrayListNew.add(feedArrayList.get(i));
+                }
+
+                FeedAdapter adapter = new FeedAdapter(getActivity(), feedArrayListNew);
                 feedListView.setAdapter(adapter);
 
             }
