@@ -29,7 +29,8 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".SharePostActivity" />
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".ClassRoomStudentsActivity"></activity>
     </application>
 
 </manifest>

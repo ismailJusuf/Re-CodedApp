@@ -183,6 +183,8 @@ public class MainActivity extends BaseActivity {
                 .withName("contact us");
         SecondaryDrawerItem item4 = new SecondaryDrawerItem().withIdentifier(4)
                 .withName("sign out");
+        SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(5)
+                .withName("classroom");
 
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -205,7 +207,7 @@ public class MainActivity extends BaseActivity {
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withAccountHeader(headerResult)
-                .addDrawerItems(item1, item2, item3, item4)
+                .addDrawerItems(item1, item2, item3, item4,item5)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -224,6 +226,10 @@ public class MainActivity extends BaseActivity {
                                 firebaseAuth.signOut();
                                 Intent intent3 = new Intent(MainActivity.this, LoginActivity.class);
                                 startActivity(intent3);
+                                break;
+                            case 5:
+                                Intent intent=new Intent(MainActivity.this,ClassRoomStudentsActivity.class);
+                                startActivity(intent);
                                 break;
                         }
 
