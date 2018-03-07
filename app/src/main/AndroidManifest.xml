@@ -34,6 +34,7 @@
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".SharePostActivity" />
         <activity android:name=".ProfileActivity" />
+        <activity android:name=".ClassRoomStudentsActivity"></activity>
         <activity android:name=".WinnerActivity">
         </activity>
     </application>
