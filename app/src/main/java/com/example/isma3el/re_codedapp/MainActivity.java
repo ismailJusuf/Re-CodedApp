@@ -34,6 +34,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
 
@@ -91,11 +92,11 @@ public class MainActivity extends BaseActivity {
                         //profileListener.onProfileRefreshed();
                         break;
                     case 1:
-                        feedListener.onFeedRefreshed();
+                        //feedListener.onFeedRefreshed();
                         break;
 
                     case 2:
-                        sharePostListener.onSharePostRefreshed();
+                        //sharePostListener.onSharePostRefreshed();
                         break;
 
                 }
@@ -237,6 +238,33 @@ public class MainActivity extends BaseActivity {
                     }
                 }).build();
 
+
+    }
+
+    @OnClick(R.id.progress_fab)
+    public void progressFab() {
+
+        Intent progressIntent = new Intent(MainActivity.this, SharePostActivity.class);
+        progressIntent.putExtra("postType",0);
+        startActivity(progressIntent);
+
+    }
+
+    @OnClick(R.id.status_fab)
+    public void statusFab() {
+
+        Intent statusIntent = new Intent(MainActivity.this, SharePostActivity.class);
+        statusIntent.putExtra("postType",1);
+        startActivity(statusIntent);
+
+    }
+
+    @OnClick(R.id.task_fab)
+    public void taskFab() {
+
+        Intent taskIntent = new Intent(MainActivity.this, SharePostActivity.class);
+        taskIntent.putExtra("postType",2);
+        startActivity(taskIntent);
 
     }
 
