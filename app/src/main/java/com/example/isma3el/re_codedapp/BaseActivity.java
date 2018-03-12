@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.isma3el.re_codedapp.Models.User;
 import com.google.gson.Gson;
 
@@ -18,6 +19,7 @@ import com.google.gson.Gson;
 
 public class BaseActivity extends AppCompatActivity {
 
+    MaterialDialog materialDialog;
     SharedPreferences preferences;
     public static BaseActivity instance;
 
@@ -56,4 +58,14 @@ public class BaseActivity extends AppCompatActivity {
         }
 
     }
+
+    public void waitDialog(){
+
+    materialDialog =  new  MaterialDialog.Builder(this)
+                .title("wait")
+                .content("uploading")
+                .progress(true, 0)
+                .show();
+    }
+
 }

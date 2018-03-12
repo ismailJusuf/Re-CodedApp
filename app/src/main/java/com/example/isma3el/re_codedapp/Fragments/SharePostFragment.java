@@ -17,6 +17,7 @@ import com.example.isma3el.re_codedapp.Adapters.FeedAdapter;
 import com.example.isma3el.re_codedapp.BaseActivity;
 import com.example.isma3el.re_codedapp.Models.FeedCard;
 import com.example.isma3el.re_codedapp.R;
+import com.example.isma3el.re_codedapp.SharePostActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +38,8 @@ public class SharePostFragment extends Fragment {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference tasksDatabaseReference;
+    private DatabaseReference feedsDatabaseReference;
+
 
     @BindView(R.id.teacher_list_view)
     ListView listView;
@@ -60,12 +63,12 @@ public class SharePostFragment extends Fragment {
             }
         });
 
-        long startMillis = System.currentTimeMillis();
+        /*long startMillis = System.currentTimeMillis();
         Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
         builder.appendPath("time");
         ContentUris.appendId(builder, startMillis);
         Intent intent = new Intent(Intent.ACTION_VIEW).setData(builder.build());
-        startActivity(intent);
+        startActivity(intent);*/
 
     }
 
@@ -82,6 +85,7 @@ public class SharePostFragment extends Fragment {
         ButterKnife.bind(this, view);
         firebaseDatabase = FirebaseDatabase.getInstance();
         tasksDatabaseReference = firebaseDatabase.getReference().child("tasks");
+        feedsDatabaseReference = firebaseDatabase.getReference().child("feeds");
 
         final ArrayList<FeedCard> taskArrayList = new ArrayList<>();
         final ArrayList<FeedCard> taskArrayListNew = new ArrayList<>();
