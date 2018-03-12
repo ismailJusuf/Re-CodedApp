@@ -28,7 +28,7 @@
                 android:src="@drawable/kubra_background" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_picture"
+                android:id="@+id/edit_profile_picture"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_alignParentBottom="true"

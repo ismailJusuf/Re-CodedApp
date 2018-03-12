@@ -5,15 +5,21 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.isma3el.re_codedapp.Adapters.FeedAdapter;
+import com.example.isma3el.re_codedapp.BaseActivity;
 import com.example.isma3el.re_codedapp.Models.FeedCard;
 import com.example.isma3el.re_codedapp.R;
+import com.example.isma3el.re_codedapp.SharePostActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +38,8 @@ public class SharePostFragment extends Fragment {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference tasksDatabaseReference;
+    private DatabaseReference feedsDatabaseReference;
+
 
     @BindView(R.id.teacher_list_view)
     ListView listView;
@@ -41,12 +49,12 @@ public class SharePostFragment extends Fragment {
     @OnClick(R.id.add_post)
     public void addPost() {
 
-        long startMillis = System.currentTimeMillis();
+        /*long startMillis = System.currentTimeMillis();
         Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
         builder.appendPath("time");
         ContentUris.appendId(builder, startMillis);
         Intent intent = new Intent(Intent.ACTION_VIEW).setData(builder.build());
-        startActivity(intent);
+        startActivity(intent);*/
 
     }
 
@@ -63,6 +71,7 @@ public class SharePostFragment extends Fragment {
         ButterKnife.bind(this, view);
         firebaseDatabase = FirebaseDatabase.getInstance();
         tasksDatabaseReference = firebaseDatabase.getReference().child("tasks");
+        feedsDatabaseReference = firebaseDatabase.getReference().child("feeds");
 
         final ArrayList<FeedCard> taskArrayList = new ArrayList<>();
 

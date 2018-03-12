@@ -52,6 +52,7 @@ dependencies {
     }
     compile 'com.github.clans:fab:1.6.4'
     compile 'nl.dionsegijn:konfetti:1.1.0'
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 }
 
 

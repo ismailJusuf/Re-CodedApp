@@ -118,7 +118,6 @@ public class StudentSignUpFragment extends Fragment {
                     });
                 } else {
                     Toast.makeText(getContext(), "no internet", Toast.LENGTH_SHORT).show();
-
                 }
             }
         });
@@ -179,10 +178,10 @@ public class StudentSignUpFragment extends Fragment {
                                             Log.d(TAG, "createUserWithEmail:success");
                                             FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                                            User newStudent = new User(user.getUid(), studentFullName, null,
+                                            User newStudent = new User(user.getUid(), studentFullName, downloadImageUrl,
                                                     studentEmail, studentPhoneNumber,
                                                     bootcamp, nationality, 0);
-                                            usersDatabaseReference.push().setValue(newStudent);
+                                            usersDatabaseReference.child(user.getUid()).setValue(newStudent);
 
                                             BaseActivity.getInstance().saveUser(newStudent);
 
