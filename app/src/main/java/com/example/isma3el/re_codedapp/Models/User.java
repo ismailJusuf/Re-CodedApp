@@ -19,7 +19,12 @@ public class User {
 
     }
 
-    public User(String id, String fullName, String image, String email, String phoneNumber, String bootcamp, String nationality, int type) {
+    public User(String fullName,String image) {
+        this.fullName = fullName;
+        this.image = image;
+    }
+
+    public User(String id,String fullName,String image,String email,String phoneNumber,String bootcamp,String nationality,int type) {
         this.id = id;
         this.fullName = fullName;
         this.image = image;

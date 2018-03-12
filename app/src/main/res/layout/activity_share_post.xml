@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#ffffff"
-    android:orientation="horizontal">
+    android:background="#ffffff">
 
     <RelativeLayout
         android:id="@+id/bar_share_post"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="56dp"
         android:background="#242424">
 
         <ImageView
             android:id="@+id/ic_back_shar_post"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:paddingLeft="20dp"
             android:src="@drawable/ic_back" />
 
         <TextView
@@ -38,18 +36,28 @@
         <ImageView
             android:id="@+id/ic_done_share_post"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_margin="4dp"
+            android:padding="10dp"
             android:src="@drawable/ic_done" />
     </RelativeLayout>
 
+    <ScrollView
+        android:layout_below="@+id/bar_share_post"
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_below="@+id/bar_share_post"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <EditText
+
         android:id="@+id/edit_your_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/bar_share_post"
         android:layout_margin="7dp"
         android:background="@android:color/transparent"
         android:fontFamily="sans-serif"
@@ -60,10 +68,10 @@
         android:textSize="20sp" />
 
     <android.support.v7.widget.CardView
+        android:layout_above="@+id/lay_emojes"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/lay_emojes"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -121,6 +129,7 @@
     </android.support.v7.widget.CardView>
 
     <RelativeLayout
+
         android:id="@+id/lay_emojes"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -131,29 +140,41 @@
             android:id="@+id/ic_emoticon_shar_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ic_attachment_shar_post"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:paddingRight="35dp"
+            android:layout_marginEnd="23dp"
+            android:layout_marginRight="23dp"
+            android:padding="10dp"
             android:src="@drawable/ic_emoticon" />
 
         <ImageView
             android:id="@+id/ic_attachment_shar_post"
-            android:layout_width="23dp"
-            android:layout_height="23dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_margin="35dp"
+            android:layout_marginRight="15dp"
             android:layout_toLeftOf="@+id/ic_emoticon_shar_post"
+            android:padding="10dp"
             android:src="@drawable/attachment" />
 
         <ImageView
             android:id="@+id/ic_camera_shar_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
             android:layout_toLeftOf="@+id/ic_attachment_shar_post"
+            android:layout_toStartOf="@+id/ic_attachment_shar_post"
+            android:padding="10dp"
             android:src="@drawable/ic_camera" />
 
 
     </RelativeLayout>
+
+    </RelativeLayout>
+    </ScrollView>
+
+
 </RelativeLayout>
 

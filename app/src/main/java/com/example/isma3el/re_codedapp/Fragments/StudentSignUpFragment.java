@@ -6,12 +6,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.isma3el.re_codedapp.BaseActivity;
@@ -34,6 +38,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.myhexaville.smartimagepicker.ImagePicker;
 import com.myhexaville.smartimagepicker.OnImagePickedListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -73,6 +78,11 @@ public class StudentSignUpFragment extends Fragment {
     MaterialEditText bootcampEditText;
     @BindView(R.id.nationality_edit_text)
     MaterialEditText nationalityEditText;
+    @BindView(R.id.student_sign_up_spinner)
+    MaterialSpinner signUpSpinner;
+    String signUpSpinnerString;
+    @BindView(R.id.sign_up_bootcamp_layout)
+    LinearLayout bootcampLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,13 +96,15 @@ public class StudentSignUpFragment extends Fragment {
         ButterKnife.bind(this, view);
         preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         studentFragment = new Fragment().getTargetFragment();
-
+        bootcampLayout.getBackground().setAlpha(0);
+        signUpSpinner.getBackground().setAlpha(0);
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         usersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("users");
         firebaseAuth = FirebaseAuth.getInstance();
         recodedUsersDatabaseReference = FirebaseDatabase.getInstance().getReference().child("recodedUsers");
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
+        spinner();
 
         //selecting and uploading image
         imagePicker = new ImagePicker(getActivity(), studentFragment, new OnImagePickedListener() {
@@ -193,30 +205,42 @@ public class StudentSignUpFragment extends Fragment {
                                             // If sign in fails, display a message to the user.
                                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                             Toast.makeText(getActivity(), "Authentication failed.", Toast.LENGTH_SHORT).show();
-
                                         }
                                     }
                                 });
-
                     } else {
 
                         Toast.makeText(getActivity(), "Your email is not registered", Toast.LENGTH_SHORT).show();
                     }
-
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
                 }
-
             });
-
         } else {
             Toast.makeText(getContext(), "no internet", Toast.LENGTH_SHORT).show();
         }
-
     }
 
-
+    public void spinner() {
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.sign_up_choose_bootcamp_spinner, android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        signUpSpinner.setAdapter(spinnerAdapter);
+        signUpSpinnerString = "Şanlıurfa";
+        signUpSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                if (position == 0) {
+                    signUpSpinnerString = "Şanlıurfa";
+                } else if (position == 1) {
+                    signUpSpinnerString = "İstanbul";
+                } else if (position == 2) {
+                    signUpSpinnerString = "Iraq";
+                }
+            }
+        });
+    }
 }
