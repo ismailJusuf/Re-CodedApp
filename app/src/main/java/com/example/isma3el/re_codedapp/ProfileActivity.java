@@ -52,6 +52,7 @@ public class ProfileActivity extends BaseActivity {
         ButterKnife.bind(this);
         expandableListView.setExpanded(true);
 
+        userName.setText(getUser().getFullName());
         firebaseDatabase = FirebaseDatabase.getInstance();
         feedsDatabaseReference = firebaseDatabase.getReference().child("feeds");
 
