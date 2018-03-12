@@ -88,10 +88,6 @@ public class EditProfileActivity extends BaseActivity {
     TextView birtdayDateTextView;
 
     String birthday;
-
-    @OnClick(R.id.update_button)
-    public void updateProfile() {
-    }
   
     @Override
     protected void onCreate(Bundle savedInstanceState) {
