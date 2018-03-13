@@ -3,6 +3,7 @@ package com.example.isma3el.re_codedapp;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.isma3el.re_codedapp.Models.FeedCard;
@@ -20,6 +21,8 @@ import butterknife.OnClick;
  */
 
 public class SharePostActivity extends BaseActivity {
+    @BindView(R.id.user_name)
+    TextView user_name;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference feedsDatabaseReference;
@@ -33,6 +36,7 @@ public class SharePostActivity extends BaseActivity {
         setContentView(R.layout.activity_share_post);
         ButterKnife.bind(this);
 
+        user_name.setText(getUser().getFullName());
         firebaseDatabase = FirebaseDatabase.getInstance();
         feedsDatabaseReference = firebaseDatabase.getReference().child("feeds");
         tasksDatabaseReference = firebaseDatabase.getReference().child("tasks");

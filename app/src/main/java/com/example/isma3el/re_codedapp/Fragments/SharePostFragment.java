@@ -17,6 +17,9 @@ import com.example.isma3el.re_codedapp.Adapters.FeedAdapter;
 import com.example.isma3el.re_codedapp.BaseActivity;
 import com.example.isma3el.re_codedapp.Models.FeedCard;
 import com.example.isma3el.re_codedapp.R;
+
+import com.example.isma3el.re_codedapp.SharePostActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +40,8 @@ public class SharePostFragment extends Fragment {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference tasksDatabaseReference;
+    private DatabaseReference feedsDatabaseReference;
+
 
     @BindView(R.id.teacher_list_view)
     ListView listView;
@@ -45,20 +50,6 @@ public class SharePostFragment extends Fragment {
 
     @OnClick(R.id.add_post)
     public void addPost() {
-      
-        FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), null, "Deneme 2", FeedCard.TASK, BaseActivity.getInstance().getUser().getBootcamp());
-        final String key = tasksDatabaseReference.push().getKey();
-        card.setId(key);
-        tasksDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(getContext(), key, Toast.LENGTH_LONG).show();
-                    return;
-                }
-                Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
 
         long startMillis = System.currentTimeMillis();
         Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
@@ -82,6 +73,7 @@ public class SharePostFragment extends Fragment {
         ButterKnife.bind(this, view);
         firebaseDatabase = FirebaseDatabase.getInstance();
         tasksDatabaseReference = firebaseDatabase.getReference().child("tasks");
+        feedsDatabaseReference = firebaseDatabase.getReference().child("feeds");
 
         final ArrayList<FeedCard> taskArrayList = new ArrayList<>();
         final ArrayList<FeedCard> taskArrayListNew = new ArrayList<>();
