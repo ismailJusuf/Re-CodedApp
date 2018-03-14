@@ -40,6 +40,9 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
+    public void removeUser () {
+        saveUser(null);
+    }
     public void saveUser(User user) {
 
         SharedPreferences.Editor editor = preferences.edit();

@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.isma3el.re_codedapp.ClassRoomStudentsActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/class_room_activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/md_black_1000">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back"
+            android:id="@+id/class_room_student_back"/>
+
+
+    </android.support.v7.widget.Toolbar>
 <ListView
+    android:layout_below="@id/class_room_activity_toolbar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/list_class_mates_list_view"></ListView>
-</android.support.constraint.ConstraintLayout>
+    android:id="@+id/list_class_mates_list_view"
+    android:divider="@color/colorPrimary"
+    android:dividerHeight="1dp"></ListView>
+</RelativeLayout>

@@ -187,7 +187,7 @@ public class MainActivity extends BaseActivity {
                 .withName("classroom");
         SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(5)
                 .withName("rate app");
-        SecondaryDrawerItem item6 = new SecondaryDrawerItem().withIdentifier(5)
+        SecondaryDrawerItem item6 = new SecondaryDrawerItem().withIdentifier(6)
                 .withName("sign out");
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -236,8 +236,10 @@ public class MainActivity extends BaseActivity {
                                 break;
                             case 6:
                                 firebaseAuth.signOut();
+                                removeUser();
                                 Intent intent6 = new Intent(MainActivity.this, LoginActivity.class);
                                 startActivity(intent6);
+
                                 break;
                         }
 
