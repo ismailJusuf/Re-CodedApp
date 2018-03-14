@@ -251,18 +251,18 @@
                     android:gravity="center">
 
                     <CheckBox
-                        android:id="@+id/blah"
+                        android:id="@+id/emoji_thumbs_down"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:button="@drawable/thumbs_up_check_box" />
+                        android:button="@drawable/ic_thumb_down" />
 
                     <TextView
-                        android:id="@+id/blaah"
+                        android:id="@+id/emoji_thumbs_down_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:layout_toRightOf="@+id/blah"
+                        android:layout_toRightOf="@+id/emoji_thumbs_down"
                         android:maxLines="1"
                         android:textColor="#000000"
                         android:textSize="15sp"
