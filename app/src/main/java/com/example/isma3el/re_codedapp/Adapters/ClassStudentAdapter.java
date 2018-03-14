@@ -1,5 +1,8 @@
 package com.example.isma3el.re_codedapp.Adapters;
+
+
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,43 +10,53 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.example.isma3el.re_codedapp.Models.User;
 import com.example.isma3el.re_codedapp.R;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 public class ClassStudentAdapter extends ArrayAdapter<User> {
-    private static final String LOG_TAG =ClassStudentAdapter.class.getSimpleName();
 
-    public ClassStudentAdapter(Activity context,ArrayList<User> androidFlavors) {
 
-        super(context, 0, androidFlavors);
+    public ClassStudentAdapter(Activity context,ArrayList<User> cards) {
+        super(context,0,cards);
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
-        User userImage = getItem(position);
-        View listItemView = convertView;
-        if(listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.class_room_list_item, parent, false);
-        }
-
-        User name = getItem(position);
-        ImageView studentImage = (ImageView) listItemView.findViewById(R.id.profile_class_room_student_image);
-        TextView studentName = (TextView) listItemView.findViewById(R.id.student_class_room_name);
-
-
-
-        boolean isPhoto = userImage.getImage() != null;
-        if (isPhoto) {
-            studentImage.setImageResource(Integer.parseInt(userImage.getImage()));
+    @Override public View getView(int position,View view,ViewGroup parent) {
+        ViewHolder holder;
+        if (view != null) {
+            holder = (ViewHolder) view.getTag();
         } else {
-            studentImage.setVisibility(View.GONE);
+            view =LayoutInflater.from(getContext()).inflate(R.layout.class_room_list_item, parent, false);
+            holder = new ViewHolder(view);
+            view.setTag(holder);
+        }
+        User user=getItem(position);
+        holder.studentsClassRoomName.setText(user.getFullName());
+
+        boolean isPhoto = TextUtils.isEmpty(user.getImage());
+        if (!isPhoto) {
+            Picasso.get().load(user.getImage()).into(holder.studentClassRoomeImage);
+        } else {
+            holder.studentClassRoomeImage.setImageResource(R.drawable.recoded_logo);
         }
 
-        studentName.setText(name.getFullName());
-        return listItemView;
+        return view;
+    }
+
+    static class ViewHolder {
+        @BindView(R.id.profile_class_room_student_image)
+        ImageView studentClassRoomeImage;
+        @BindView(R.id.student_class_room_name)
+        TextView studentsClassRoomName;
+
+
+
+
+        public ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 }

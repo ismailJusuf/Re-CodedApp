@@ -14,10 +14,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.isma3el.re_codedapp.Adapters.FeedAdapter;
+import com.example.isma3el.re_codedapp.Adapters.TaskAdapter;
 import com.example.isma3el.re_codedapp.BaseActivity;
 import com.example.isma3el.re_codedapp.Models.FeedCard;
 import com.example.isma3el.re_codedapp.R;
+
 import com.example.isma3el.re_codedapp.SharePostActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -91,7 +94,7 @@ public class SharePostFragment extends Fragment {
                     taskArrayListNew.add(taskArrayList.get(i));
                 }
 
-                FeedAdapter adapter = new FeedAdapter(getActivity(), taskArrayListNew);
+                TaskAdapter adapter = new TaskAdapter(getActivity(), taskArrayListNew);
                 listView.setAdapter(adapter);
 
             }

@@ -71,7 +71,7 @@ public class LoginActivity extends BaseActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser != null) {
+        if (getUser() != null ) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();

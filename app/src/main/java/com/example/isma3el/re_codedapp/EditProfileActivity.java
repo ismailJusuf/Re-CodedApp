@@ -94,6 +94,10 @@ public class EditProfileActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         ButterKnife.bind(this);
+        email.setText(getUser().getEmail());
+        userName.setText(getUser().getFullName());
+        PhoneNumberEditText.setText(getUser().getPhoneNumber());
+
 
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
