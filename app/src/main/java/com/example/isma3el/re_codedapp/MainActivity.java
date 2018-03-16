@@ -1,6 +1,7 @@
 package com.example.isma3el.re_codedapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 
@@ -196,10 +197,11 @@ public class MainActivity extends BaseActivity {
         SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(3)
                 .withName("contact us");
         SecondaryDrawerItem item4 = new SecondaryDrawerItem().withIdentifier(4)
-                .withName("sign out");
-        SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(5)
                 .withName("classroom");
-
+        SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(5)
+                .withName("rate app");
+        SecondaryDrawerItem item6 = new SecondaryDrawerItem().withIdentifier(5)
+                .withName("sign out");
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.profile_background)
@@ -221,7 +223,7 @@ public class MainActivity extends BaseActivity {
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withAccountHeader(headerResult)
-                .addDrawerItems(item1, item2, item3, item4,item5)
+                .addDrawerItems(item1, item2, item3, item4, item5, item6)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -237,13 +239,18 @@ public class MainActivity extends BaseActivity {
                             case 3:
                                 break;
                             case 4:
-                                firebaseAuth.signOut();
-                                Intent intent3 = new Intent(MainActivity.this, LoginActivity.class);
-                                startActivity(intent3);
+                                Intent intent4 = new Intent(MainActivity.this,ClassRoomStudentsActivity.class);
+                                startActivity(intent4);
                                 break;
                             case 5:
-                                Intent intent=new Intent(MainActivity.this,ClassRoomStudentsActivity.class);
-                                startActivity(intent);
+                                Intent intent5 = new Intent(android.content.Intent.ACTION_VIEW);
+                                intent5.setData(Uri.parse("https://www.re-coded.com/"));
+                                startActivity(intent5);
+                                break;
+                            case 6:
+                                firebaseAuth.signOut();
+                                Intent intent6 = new Intent(MainActivity.this, LoginActivity.class);
+                                startActivity(intent6);
                                 break;
                         }
 

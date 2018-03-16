@@ -6,7 +6,7 @@ package com.example.isma3el.re_codedapp.Models;
  * Created by Recodedharran on 9.2.2018.
  */
 
-public class FeedCard  {
+public class FeedCard {
 
     public static int STATUS = 0;
     public static int PROGRESS = 1;
@@ -16,16 +16,13 @@ public class FeedCard  {
     private String id;
     private String image;
     private String text;
-    private int heartCounter = 0;
-    private int happyCounter = 0;
-    private int winkCounter = 0;
-    private int nerdCounter = 0;
-    private int inLoveCounter = 0;
-    private int thumbsUpCounter = 0;
+    int emojiInLoveCounter = 0, emojiHappyCounter = 0, emojiHeartCounter = 0,
+            emojiThumbsOnCounter = 0, emojiThumbsDownCounter = 0, emojiWinkCounter = 0;
+
     private int postType;
     private String classRoom;
 
-    public FeedCard(){
+    public FeedCard() {
 
     }
 
@@ -37,12 +34,28 @@ public class FeedCard  {
         this.classRoom = classRoom;
     }
 
-    public String getId() {
-        return id;
+    public static int getSTATUS() {
+        return STATUS;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public static void setSTATUS(int STATUS) {
+        FeedCard.STATUS = STATUS;
+    }
+
+    public static int getPROGRESS() {
+        return PROGRESS;
+    }
+
+    public static void setPROGRESS(int PROGRESS) {
+        FeedCard.PROGRESS = PROGRESS;
+    }
+
+    public static int getTASK() {
+        return TASK;
+    }
+
+    public static void setTASK(int TASK) {
+        FeedCard.TASK = TASK;
     }
 
     public User getUser() {
@@ -51,6 +64,14 @@ public class FeedCard  {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getImage() {
@@ -69,52 +90,52 @@ public class FeedCard  {
         this.text = text;
     }
 
-    public int getHeartCounter() {
-        return heartCounter;
+    public int getEmojiInLoveCounter() {
+        return emojiInLoveCounter;
     }
 
-    public void setHeartCounter(int heartCounter) {
-        this.heartCounter = heartCounter;
+    public void setEmojiInLoveCounter(int emojiInLoveCounter) {
+        this.emojiInLoveCounter = emojiInLoveCounter;
     }
 
-    public int getHappyCounter() {
-        return happyCounter;
+    public int getEmojiHappyCounter() {
+        return emojiHappyCounter;
     }
 
-    public void setHappyCounter(int happyCounter) {
-        this.happyCounter = happyCounter;
+    public void setEmojiHappyCounter(int emojiHappyCounter) {
+        this.emojiHappyCounter = emojiHappyCounter;
     }
 
-    public int getWinkCounter() {
-        return winkCounter;
+    public int getEmojiHeartCounter() {
+        return emojiHeartCounter;
     }
 
-    public void setWinkCounter(int winkCounter) {
-        this.winkCounter = winkCounter;
+    public void setEmojiHeartCounter(int emojiHeartCounter) {
+        this.emojiHeartCounter = emojiHeartCounter;
     }
 
-    public int getNerdCounter() {
-        return nerdCounter;
+    public int getEmojiThumbsOnCounter() {
+        return emojiThumbsOnCounter;
     }
 
-    public void setNerdCounter(int nerdCounter) {
-        this.nerdCounter = nerdCounter;
+    public void setEmojiThumbsOnCounter(int emojiThumbsOnCounter) {
+        this.emojiThumbsOnCounter = emojiThumbsOnCounter;
     }
 
-    public int getInLoveCounter() {
-        return inLoveCounter;
+    public int getEmojiThumbsDownCounter() {
+        return emojiThumbsDownCounter;
     }
 
-    public void setInLoveCounter(int inLoveCounter) {
-        this.inLoveCounter = inLoveCounter;
+    public void setEmojiThumbsDownCounter(int emojiThumbsDownCounter) {
+        this.emojiThumbsDownCounter = emojiThumbsDownCounter;
     }
 
-    public int getThumbsUpCounter() {
-        return thumbsUpCounter;
+    public int getEmojiWinkCounter() {
+        return emojiWinkCounter;
     }
 
-    public void setThumbsUpCounter(int thumbsUpCounter) {
-        this.thumbsUpCounter = thumbsUpCounter;
+    public void setEmojiWinkCounter(int emojiWinkCounter) {
+        this.emojiWinkCounter = emojiWinkCounter;
     }
 
     public int getPostType() {
@@ -130,6 +151,21 @@ public class FeedCard  {
     }
 
     public void setClassRoom(String classRoom) {
+        this.classRoom = classRoom;
+    }
+
+    public FeedCard(User user, String id, String image, String text, int emojiInLoveCounter, int emojiHappyCounter, int emojiHeartCounter, int emojiThumbsOnCounter, int emojiThumbsDownCounter, int emojiWinkCounter, int postType, String classRoom) {
+        this.user = user;
+        this.id = id;
+        this.image = image;
+        this.text = text;
+        this.emojiInLoveCounter = emojiInLoveCounter;
+        this.emojiHappyCounter = emojiHappyCounter;
+        this.emojiHeartCounter = emojiHeartCounter;
+        this.emojiThumbsOnCounter = emojiThumbsOnCounter;
+        this.emojiThumbsDownCounter = emojiThumbsDownCounter;
+        this.emojiWinkCounter = emojiWinkCounter;
+        this.postType = postType;
         this.classRoom = classRoom;
     }
 }
