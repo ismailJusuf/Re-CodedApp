@@ -93,6 +93,6 @@ public class ProfileActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        Picasso.with(this).load(getUser().getImage()).into(profilePicture);
+        Picasso.get().load(getUser().getImage()).into(profilePicture);
     }
 }
