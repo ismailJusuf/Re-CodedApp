@@ -252,6 +252,7 @@ public class MainActivity extends BaseActivity {
                                 removeUser();
                                 Intent intent6 = new Intent(MainActivity.this, LoginActivity.class);
                                 startActivity(intent6);
+                                finish();
 
                                 break;
                         }
