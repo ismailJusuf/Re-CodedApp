@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,8 @@ public class SharePostActivity extends BaseActivity {
     TextView user_name;
     @BindView(R.id.selected_image_view)
     ImageView selectedImageView;
+    @BindView(R.id.edit_your_text)
+    EditText textEditText;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference feedsDatabaseReference;
@@ -48,6 +51,7 @@ public class SharePostActivity extends BaseActivity {
     ImagePicker imagePicker;
     UploadTask uploadTask;
     String downloadImageUrl;
+    String shredTextString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,12 +109,12 @@ public class SharePostActivity extends BaseActivity {
     public void sharePost() {
 
         Bundle extras = getIntent().getExtras();
-
+        shredTextString = textEditText.getText().toString();
         postType = extras.getInt("postType");
 
         if (postType == 0 || postType == 1) {
 
-            FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), null, "Deneme asdasdasd", postType, BaseActivity.getInstance().getUser().getBootcamp());
+            FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), downloadImageUrl, shredTextString, postType, BaseActivity.getInstance().getUser().getBootcamp());
             final String key = feedsDatabaseReference.push().getKey();
             card.setId(key);
             feedsDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -127,7 +131,7 @@ public class SharePostActivity extends BaseActivity {
 
         } else if (postType == 2) {
 
-            FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), null, "Deneme asdasdasddfgdhfjgkhghkjghxfgzd", postType, BaseActivity.getInstance().getUser().getBootcamp());
+            FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), downloadImageUrl, shredTextString, postType, BaseActivity.getInstance().getUser().getBootcamp());
             final String key = tasksDatabaseReference.push().getKey();
             card.setId(key);
             tasksDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {
