@@ -36,6 +36,15 @@
                     android:textColor="#fff"
                     android:textSize="20sp" />
 
+                <Button
+                    android:id="@+id/add_calendar"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/calendar_ic"
+                    android:layout_alignParentRight="true"
+                    />
+
             </RelativeLayout>
 
             <ImageView
@@ -93,35 +102,6 @@
                 android:textStyle="normal"
                 tools:text="My name is Abdullah. I was born and raised in Al-Hasakah in Syria ...." />
 
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="0.8dp"
-                android:layout_below="@+id/card_text_view"
-                android:layout_marginTop="8dp"
-                android:background="#cacaca" />
-
-            <RelativeLayout
-                android:id="@+id/emoji_linear_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/view"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-               >
-               <Button
-             android:id="@+id/add_calendar"
-             android:layout_width="35dp"
-             android:layout_height="35dp"
-             android:layout_margin="3dp"
-             android:background="@drawable/calendar"
-             android:layout_alignParentRight="true"
-              />
-
-
-            </RelativeLayout>
 
         </RelativeLayout>
 

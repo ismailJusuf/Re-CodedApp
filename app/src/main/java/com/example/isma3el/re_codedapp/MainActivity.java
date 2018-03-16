@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.isma3el.re_codedapp.Adapters.FeedAdapter;
 import com.example.isma3el.re_codedapp.Fragments.FeedFragment;
@@ -15,6 +16,7 @@ import com.example.isma3el.re_codedapp.Fragments.ProfileFragment;
 import com.example.isma3el.re_codedapp.Fragments.SharePostFragment;
 import com.example.isma3el.re_codedapp.Models.FeedCard;
 import com.example.isma3el.re_codedapp.Models.User;
+import com.github.clans.fab.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -52,6 +54,9 @@ public class MainActivity extends BaseActivity {
     ViewPager viewPager;
     @BindView(R.id.main_activity_tabs)
     TabLayout tabLayout;
+    @BindView(R.id.task_fab)
+    FloatingActionButton taskFab;
+
 
 
     private SectionsPagerAdapter mSectionspagerAdapter;
@@ -70,6 +75,14 @@ public class MainActivity extends BaseActivity {
         mSectionspagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mSectionspagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        if (getUser().getType() == 0) {
+                taskFab.setVisibility(View.GONE);
+        }
+        else if (getUser().getType() == 1) {
+            taskFab.setVisibility(View.VISIBLE);
+        }
+
 
         final ArrayList<FeedCard> feedArrayList = new ArrayList<>();
         User user = getUser();

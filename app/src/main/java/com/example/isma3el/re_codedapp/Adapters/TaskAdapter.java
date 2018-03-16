@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.isma3el.re_codedapp.Models.FeedCard;
 import com.example.isma3el.re_codedapp.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -47,7 +48,8 @@ public class TaskAdapter extends ArrayAdapter<FeedCard> {
 
         boolean isPhoto = feedCard.getImage() != null;
         if (isPhoto) {
-            imagePost.setImageResource(Integer.parseInt(feedCard.getImage()));
+            //imagePost.setImageResource(Integer.parseInt(feedCard.getImage()));
+            Picasso.with(getContext()).load(feedCard.getImage()).into(imagePost);
         } else {
             imagePost.setVisibility(View.GONE);
         }

@@ -1,16 +1,28 @@
 package com.example.isma3el.re_codedapp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.isma3el.re_codedapp.Models.FeedCard;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.myhexaville.smartimagepicker.ImagePicker;
+import com.myhexaville.smartimagepicker.OnImagePickedListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,12 +35,19 @@ import butterknife.OnClick;
 public class SharePostActivity extends BaseActivity {
     @BindView(R.id.user_name)
     TextView user_name;
+    @BindView(R.id.selected_image_view)
+    ImageView selectedImageView;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference feedsDatabaseReference;
     private DatabaseReference tasksDatabaseReference;
+    private StorageReference imageStorageReference;
+    private StorageReference storageReference;
 
     int postType;
+    ImagePicker imagePicker;
+    UploadTask uploadTask;
+    String downloadImageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +56,48 @@ public class SharePostActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         user_name.setText(getUser().getFullName());
+
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
+        storageReference = firebaseStorage.getReference();
         feedsDatabaseReference = firebaseDatabase.getReference().child("feeds");
         tasksDatabaseReference = firebaseDatabase.getReference().child("tasks");
 
+        //selecting and uploading image
+        imagePicker = new ImagePicker(this, null, new OnImagePickedListener() {
+            @Override
+            public void onImagePicked(Uri imageUri) {
+                selectedImageView.setImageURI(imageUri);
+                if (isOnline()) {
+
+                    waitDialog();
+
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                    imageStorageReference = storageReference.child("images/" + imageUri.getLastPathSegment());
+
+                    uploadTask = imageStorageReference.putFile(imageUri);
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            materialDialog.dismiss();
+                            Toast.makeText(SharePostActivity.this, "failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                            materialDialog.dismiss();
+                            Toast.makeText(SharePostActivity.this, "sucsesful", Toast.LENGTH_SHORT).show();
+                            downloadImageUrl = taskSnapshot.getDownloadUrl().toString();
+                        }
+                    });
+                } else {
+                    Toast.makeText(SharePostActivity.this, "no internet", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 
@@ -86,6 +143,23 @@ public class SharePostActivity extends BaseActivity {
 
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        imagePicker.handleActivityResult(resultCode, requestCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        imagePicker.handlePermission(requestCode, grantResults);
+    }
+
+    @OnClick(R.id.ic_camera_shar_post)
+    public void sharePhoto() {
+        imagePicker.choosePicture(true);
     }
 
 }
