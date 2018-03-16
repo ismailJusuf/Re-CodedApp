@@ -70,6 +70,7 @@ public class FeedAdapter extends ArrayAdapter<FeedCard> {
         boolean isPhoto = feedCard.getImage() != null;
         if (isPhoto) {
             Picasso.with(getContext()).load(feedCard.getImage()).into(holder.imagePost);
+            holder.imagePost.setVisibility(View.VISIBLE);
         } else {
             holder.imagePost.setVisibility(View.GONE);
         }
