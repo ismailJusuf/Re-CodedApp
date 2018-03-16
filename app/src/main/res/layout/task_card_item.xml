@@ -45,6 +45,15 @@
                     android:layout_alignParentRight="true"
                     />
 
+                <Button
+                    android:id="@+id/add_calendar"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/calendar_ic"
+                    android:layout_alignParentRight="true"
+                    />
+
             </RelativeLayout>
 
             <ImageView
@@ -102,10 +111,6 @@
                 android:textSize="16sp"
                 android:textStyle="normal"
                 tools:text="My name is Abdullah. I was born and raised in Al-Hasakah in Syria ...." />
-
-
-
-
 
         </RelativeLayout>
 
