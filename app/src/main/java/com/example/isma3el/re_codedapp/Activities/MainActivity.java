@@ -1,4 +1,4 @@
-package com.example.isma3el.re_codedapp;
+package com.example.isma3el.re_codedapp.Activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -8,22 +8,17 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.isma3el.re_codedapp.Adapters.FeedAdapter;
+import com.example.isma3el.re_codedapp.BaseActivity;
 import com.example.isma3el.re_codedapp.Fragments.FeedFragment;
-import com.example.isma3el.re_codedapp.Fragments.ProfileFragment;
-import com.example.isma3el.re_codedapp.Fragments.SharePostFragment;
+import com.example.isma3el.re_codedapp.Fragments.taskFragment;
 import com.example.isma3el.re_codedapp.Models.FeedCard;
 import com.example.isma3el.re_codedapp.Models.User;
+import com.example.isma3el.re_codedapp.R;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -45,9 +40,6 @@ public class MainActivity extends BaseActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference feedsDatabaseReference;
-    public DataRefreshListener profileListener;
-    public DataRefreshListener feedListener;
-    public DataRefreshListener sharePostListener;
 
     @BindView(R.id.main_toolbar)
     android.support.v7.widget.Toolbar toolbar;
@@ -57,7 +49,6 @@ public class MainActivity extends BaseActivity {
     TabLayout tabLayout;
     @BindView(R.id.task_fab)
     FloatingActionButton taskFab;
-
 
 
     private SectionsPagerAdapter mSectionspagerAdapter;
@@ -78,9 +69,8 @@ public class MainActivity extends BaseActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         if (getUser().getType() == 0) {
-                taskFab.setVisibility(View.GONE);
-        }
-        else if (getUser().getType() == 1) {
+            taskFab.setVisibility(View.GONE);
+        } else if (getUser().getType() == 1) {
             taskFab.setVisibility(View.VISIBLE);
         }
 
@@ -132,24 +122,16 @@ public class MainActivity extends BaseActivity {
         switch (position) {
 
             case 0:
-                tabLayout.getTabAt(0).setIcon(R.drawable.user_yellow);
-                tabLayout.getTabAt(1).setIcon(R.drawable.news_paper_grey);
-                tabLayout.getTabAt(2).setIcon(R.drawable.post);
+                tabLayout.getTabAt(0).setIcon(R.drawable.news_paper);
+                tabLayout.getTabAt(1).setIcon(R.drawable.post);
                 break;
             case 1:
-                tabLayout.getTabAt(0).setIcon(R.drawable.tab_user);
-                tabLayout.getTabAt(1).setIcon(R.drawable.news_paper);
-                tabLayout.getTabAt(2).setIcon(R.drawable.post);
-                break;
-            case 2:
-                tabLayout.getTabAt(0).setIcon(R.drawable.tab_user);
-                tabLayout.getTabAt(1).setIcon(R.drawable.news_paper_grey);
-                tabLayout.getTabAt(2).setIcon(R.drawable.ic_plus_yellow);
+                tabLayout.getTabAt(0).setIcon(R.drawable.news_paper_grey);
+                tabLayout.getTabAt(1).setIcon(R.drawable.ic_plus_yellow);
                 break;
             default:
-                tabLayout.getTabAt(0).setIcon(R.drawable.user_yellow);
-                tabLayout.getTabAt(1).setIcon(R.drawable.news_paper_grey);
-                tabLayout.getTabAt(2).setIcon(R.drawable.post);
+                tabLayout.getTabAt(0).setIcon(R.drawable.news_paper_grey);
+                tabLayout.getTabAt(1).setIcon(R.drawable.ic_plus_yellow);
                 break;
 
         }
@@ -166,11 +148,9 @@ public class MainActivity extends BaseActivity {
 
             switch (position) {
                 case 0:
-                    return new ProfileFragment();
-                case 1:
                     return new FeedFragment();
-                case 2:
-                    return new SharePostFragment();
+                case 1:
+                    return new taskFragment();
                 default:
                     return new FeedFragment();
             }
@@ -182,7 +162,7 @@ public class MainActivity extends BaseActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
     }
 
@@ -235,11 +215,16 @@ public class MainActivity extends BaseActivity {
                                 startActivity(intent1);
                                 break;
                             case 2:
+                                Intent shareIntent = new Intent();
+                                shareIntent.setAction(Intent.ACTION_SEND);
+                                shareIntent.putExtra(Intent.EXTRA_TEXT, "download Re:Coded app Now from Play Store " + " https://www.re-coded.com/");
+                                shareIntent.setType("text/plain");
+                                startActivity(shareIntent);
                                 break;
                             case 3:
                                 break;
                             case 4:
-                                Intent intent4 = new Intent(MainActivity.this,ClassRoomStudentsActivity.class);
+                                Intent intent4 = new Intent(MainActivity.this, ClassRoomStudentsActivity.class);
                                 startActivity(intent4);
                                 break;
                             case 5:
@@ -268,7 +253,7 @@ public class MainActivity extends BaseActivity {
     public void progressFab() {
 
         Intent progressIntent = new Intent(MainActivity.this, SharePostActivity.class);
-        progressIntent.putExtra("postType",0);
+        progressIntent.putExtra("postType", 0);
         startActivity(progressIntent);
 
     }
@@ -277,7 +262,7 @@ public class MainActivity extends BaseActivity {
     public void statusFab() {
 
         Intent statusIntent = new Intent(MainActivity.this, SharePostActivity.class);
-        statusIntent.putExtra("postType",1);
+        statusIntent.putExtra("postType", 1);
         startActivity(statusIntent);
 
     }
@@ -286,7 +271,7 @@ public class MainActivity extends BaseActivity {
     public void taskFab() {
 
         Intent taskIntent = new Intent(MainActivity.this, SharePostActivity.class);
-        taskIntent.putExtra("postType",2);
+        taskIntent.putExtra("postType", 2);
         startActivity(taskIntent);
 
     }

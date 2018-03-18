@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
@@ -25,18 +25,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUpActivity"
+            android:name=".Activities.SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".EditProfileActivity" />
-        <activity android:name=".SharePostActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".ClassRoomStudentsActivity"
+        <activity android:name=".Activities.EditProfileActivity" />
+        <activity android:name=".Activities.SharePostActivity" />
+        <activity android:name=".Activities.ProfileActivity" />
+        <activity android:name=".Activities.ClassRoomStudentsActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".WinnerActivity">
+        <activity android:name=".Activities.WinnerActivity">
         </activity>
     </application>
 

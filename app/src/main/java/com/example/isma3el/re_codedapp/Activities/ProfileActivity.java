@@ -1,14 +1,14 @@
-package com.example.isma3el.re_codedapp;
+package com.example.isma3el.re_codedapp.Activities;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.isma3el.re_codedapp.Adapters.FeedAdapter;
+import com.example.isma3el.re_codedapp.BaseActivity;
 import com.example.isma3el.re_codedapp.Models.FeedCard;
 import com.example.isma3el.re_codedapp.Models.User;
+import com.example.isma3el.re_codedapp.R;
 import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
