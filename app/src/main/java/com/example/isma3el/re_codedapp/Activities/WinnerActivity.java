@@ -1,8 +1,10 @@
-package com.example.isma3el.re_codedapp;
+package com.example.isma3el.re_codedapp.Activities;
 
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.isma3el.re_codedapp.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

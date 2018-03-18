@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.isma3el.re_codedapp.BaseActivity;
-import com.example.isma3el.re_codedapp.MainActivity;
+import com.example.isma3el.re_codedapp.Activities.MainActivity;
 import com.example.isma3el.re_codedapp.Models.User;
 import com.example.isma3el.re_codedapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;

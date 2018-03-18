@@ -1,4 +1,4 @@
-package com.example.isma3el.re_codedapp;
+package com.example.isma3el.re_codedapp.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.isma3el.re_codedapp.BaseActivity;
 import com.example.isma3el.re_codedapp.Models.User;
+import com.example.isma3el.re_codedapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

@@ -12,9 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.isma3el.re_codedapp.Adapters.FeedAdapter;
-import com.example.isma3el.re_codedapp.BaseActivity;
-import com.example.isma3el.re_codedapp.DataRefreshListener;
-import com.example.isma3el.re_codedapp.MainActivity;
 import com.example.isma3el.re_codedapp.Models.FeedCard;
 import com.example.isma3el.re_codedapp.R;
 import com.google.firebase.database.DataSnapshot;

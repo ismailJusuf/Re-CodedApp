@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.isma3el.re_codedapp.ClassRoomStudentsActivity">
+    tools:context="com.example.isma3el.re_codedapp.Activities.ClassRoomStudentsActivity">
     <android.support.v7.widget.Toolbar
         android:id="@+id/class_room_activity_toolbar"
         android:layout_width="match_parent"

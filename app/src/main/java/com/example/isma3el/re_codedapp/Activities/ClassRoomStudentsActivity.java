@@ -1,4 +1,4 @@
-package com.example.isma3el.re_codedapp;
+package com.example.isma3el.re_codedapp.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.example.isma3el.re_codedapp.Adapters.ClassStudentAdapter;
 import com.example.isma3el.re_codedapp.Models.User;
 
+import com.example.isma3el.re_codedapp.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,7 +24,6 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnItemSelected;
 
 public class ClassRoomStudentsActivity extends AppCompatActivity {
     @BindView(R.id.list_class_mates_list_view)

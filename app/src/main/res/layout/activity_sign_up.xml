@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@drawable/background"
-    tools:context="com.example.isma3el.re_codedapp.SignUpActivity"
+    tools:context="com.example.isma3el.re_codedapp.Activities.SignUpActivity"
     android:orientation="vertical">
 
     <android.support.design.widget.TabLayout

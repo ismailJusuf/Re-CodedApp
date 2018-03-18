@@ -19,8 +19,8 @@ import com.google.gson.Gson;
 
 public class BaseActivity extends AppCompatActivity {
 
-    MaterialDialog materialDialog;
-    SharedPreferences preferences;
+    public MaterialDialog materialDialog;
+    public SharedPreferences preferences;
     public static BaseActivity instance;
 
     public static BaseActivity getInstance() {

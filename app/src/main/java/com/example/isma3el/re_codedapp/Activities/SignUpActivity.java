@@ -1,4 +1,4 @@
-package com.example.isma3el.re_codedapp;
+package com.example.isma3el.re_codedapp.Activities;
 
 
 import android.content.Intent;
@@ -9,8 +9,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 
+import com.example.isma3el.re_codedapp.BaseActivity;
 import com.example.isma3el.re_codedapp.Fragments.StudentSignUpFragment;
 import com.example.isma3el.re_codedapp.Fragments.TeacherSignUpFragment;
+import com.example.isma3el.re_codedapp.R;
 
 import java.util.List;
 
