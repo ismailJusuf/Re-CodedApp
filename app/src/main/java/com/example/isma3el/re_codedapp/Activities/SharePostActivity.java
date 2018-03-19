@@ -35,6 +35,7 @@ import butterknife.OnClick;
  */
 
 public class SharePostActivity extends BaseActivity {
+
     @BindView(R.id.user_name)
     TextView user_name;
     @BindView(R.id.selected_image_view)
@@ -122,10 +123,13 @@ public class SharePostActivity extends BaseActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(SharePostActivity.this, key, Toast.LENGTH_LONG).show();
+                        Toast.makeText(SharePostActivity.this, "successfully shared", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(SharePostActivity.this, MainActivity.class);
+                        startActivity(intent);
                         return;
                     }
-                    Toast.makeText(SharePostActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(SharePostActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SharePostActivity.this, "not shared", Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -139,10 +143,13 @@ public class SharePostActivity extends BaseActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(SharePostActivity.this, key, Toast.LENGTH_LONG).show();
+                        Toast.makeText(SharePostActivity.this, "successfully shared", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(SharePostActivity.this, MainActivity.class);
+                        startActivity(intent);
                         return;
                     }
-                    Toast.makeText(SharePostActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(SharePostActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SharePostActivity.this, "not shareded", Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -165,6 +172,11 @@ public class SharePostActivity extends BaseActivity {
     @OnClick(R.id.ic_camera_shar_post)
     public void sharePhoto() {
         imagePicker.choosePicture(true);
+    }
+
+    @OnClick(R.id.ic_back_image_view)
+    public void backClickListener(){
+        finish();
     }
 
 }
