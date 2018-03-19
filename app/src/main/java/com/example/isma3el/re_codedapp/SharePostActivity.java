@@ -2,6 +2,7 @@ package com.example.isma3el.re_codedapp;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -63,7 +64,8 @@ public class SharePostActivity extends BaseActivity {
 
         properties.selection_mode = DialogConfigs.SINGLE_MODE;
         properties.selection_type = DialogConfigs.FILE_SELECT;
-        properties.root = new File(DialogConfigs.DEFAULT_DIR+"/sdcard");
+        properties.root = new File(DialogConfigs.DEFAULT_DIR+ Environment
+                .getExternalStorageDirectory().getPath());
         properties.error_dir = new File(DialogConfigs.DEFAULT_DIR);
         properties.offset = new File(DialogConfigs.DEFAULT_DIR);
         properties.extensions = null;
@@ -76,19 +78,19 @@ public class SharePostActivity extends BaseActivity {
             public void onSelectedFilePaths(String[] files) {
                 //files is the array of the paths of files selected by the Application User.
 
-                String fileString = Arrays.toString(files);
+                String fileString = files[0];
 
-                File file = new File(fileString);
-                Uri myUri = Uri.parse(file.getAbsolutePath());
+                File fileToSave = new File(fileString);
 
-                fileStorageReference = storageReference.child("files/" + myUri);
+                Uri myUri = Uri.parse("file://" + fileToSave.getPath());
+
+                fileStorageReference = storageReference.child("files/" + myUri.getLastPathSegment());
                 uploadTask = fileStorageReference.putFile(myUri);
 
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
                         // Handle unsuccessful uploads
-                        Log.d("asdasdasd",exception.getMessage());
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
