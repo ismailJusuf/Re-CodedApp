@@ -116,7 +116,8 @@ public class SharePostActivity extends BaseActivity {
 
         if (postType == 0 || postType == 1) {
 
-            FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), downloadImageUrl, shredTextString, postType, BaseActivity.getInstance().getUser().getBootcamp());
+            FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(),BaseActivity.getInstance().getUser().getId(), downloadImageUrl, shredTextString,
+                    0,0,0,0,0,0, postType, BaseActivity.getInstance().getUser().getBootcamp());
             final String key = feedsDatabaseReference.push().getKey();
             card.setId(key);
             feedsDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -136,7 +137,7 @@ public class SharePostActivity extends BaseActivity {
 
         } else if (postType == 2) {
 
-            FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), downloadImageUrl, shredTextString, postType, BaseActivity.getInstance().getUser().getBootcamp());
+            FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(),BaseActivity.getInstance().getUser().getId(), downloadImageUrl, shredTextString,0,0,0,0,0,0, postType, BaseActivity.getInstance().getUser().getBootcamp());
             final String key = tasksDatabaseReference.push().getKey();
             card.setId(key);
             tasksDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {
