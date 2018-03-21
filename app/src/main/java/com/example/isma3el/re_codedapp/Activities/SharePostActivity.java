@@ -35,6 +35,7 @@ import butterknife.OnClick;
  */
 
 public class SharePostActivity extends BaseActivity {
+
     @BindView(R.id.user_name)
     TextView user_name;
     @BindView(R.id.selected_image_view)
@@ -115,34 +116,41 @@ public class SharePostActivity extends BaseActivity {
 
         if (postType == 0 || postType == 1) {
 
-            FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), downloadImageUrl, shredTextString, postType, BaseActivity.getInstance().getUser().getBootcamp());
+            FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(),BaseActivity.getInstance().getUser().getId(), downloadImageUrl, shredTextString,
+                    0,0,0,0,0,0, postType, BaseActivity.getInstance().getUser().getBootcamp());
             final String key = feedsDatabaseReference.push().getKey();
             card.setId(key);
             feedsDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(SharePostActivity.this, key, Toast.LENGTH_LONG).show();
+                        Toast.makeText(SharePostActivity.this, "successfully shared", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(SharePostActivity.this, MainActivity.class);
+                        startActivity(intent);
                         return;
                     }
-                    Toast.makeText(SharePostActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(SharePostActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SharePostActivity.this, "not shared", Toast.LENGTH_LONG).show();
                 }
             });
 
 
         } else if (postType == 2) {
 
-            FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(), downloadImageUrl, shredTextString, postType, BaseActivity.getInstance().getUser().getBootcamp());
+            FeedCard card = new FeedCard(BaseActivity.getInstance().getUser(),BaseActivity.getInstance().getUser().getId(), downloadImageUrl, shredTextString,0,0,0,0,0,0, postType, BaseActivity.getInstance().getUser().getBootcamp());
             final String key = tasksDatabaseReference.push().getKey();
             card.setId(key);
             tasksDatabaseReference.child(key).setValue(card).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(SharePostActivity.this, key, Toast.LENGTH_LONG).show();
+                        Toast.makeText(SharePostActivity.this, "successfully shared", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(SharePostActivity.this, MainActivity.class);
+                        startActivity(intent);
                         return;
                     }
-                    Toast.makeText(SharePostActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(SharePostActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SharePostActivity.this, "not shareded", Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -165,6 +173,11 @@ public class SharePostActivity extends BaseActivity {
     @OnClick(R.id.ic_camera_shar_post)
     public void sharePhoto() {
         imagePicker.choosePicture(true);
+    }
+
+    @OnClick(R.id.ic_back_image_view)
+    public void backClickListener(){
+        finish();
     }
 
 }
