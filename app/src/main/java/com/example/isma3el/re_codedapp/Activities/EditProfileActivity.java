@@ -213,4 +213,9 @@ public class EditProfileActivity extends BaseActivity {
                 });
     }
 
+    @OnClick(R.id.edit_profile_back_image_view)
+    public void backClickListener(){
+        finish();
+    }
+
 }
