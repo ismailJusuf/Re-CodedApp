@@ -37,14 +37,6 @@ public class ProfileActivity extends BaseActivity {
     @BindView(R.id.profile_picture)
     CircleImageView profilePicture;
 
-    @OnClick(R.id.edit_profile_button)
-    public void editProfile(){
-
-        Intent intent = new Intent(ProfileActivity.this , EditProfileActivity.class);
-        startActivity(intent);
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +52,6 @@ public class ProfileActivity extends BaseActivity {
 
         userName.setText(getUser().getFullName());
         //profilePicture.setImageURI(Uri.parse(getUser().getImage()));
-
 
 
         final ArrayList<FeedCard> feedArrayList = new ArrayList<>();
@@ -94,5 +85,18 @@ public class ProfileActivity extends BaseActivity {
         super.onResume();
 
         Picasso.get().load(getUser().getImage()).into(profilePicture);
+    }
+
+    @OnClick(R.id.profile_back_image_view)
+    public void backClickListener() {
+        finish();
+    }
+
+    @OnClick(R.id.edit_profile_button)
+    public void editProfile() {
+
+        Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
+        startActivity(intent);
+
     }
 }
