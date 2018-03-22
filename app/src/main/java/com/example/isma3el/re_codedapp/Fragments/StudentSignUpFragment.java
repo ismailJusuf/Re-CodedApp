@@ -164,6 +164,7 @@ public class StudentSignUpFragment extends Fragment {
             bootcamp = bootcampEditText.getText().toString().trim();
             nationality = nationalityEditText.getText().toString().trim();
 
+            if(!studentEmail.isEmpty() && !studentPassword.isEmpty() && !studentFullName.isEmpty() && !studentPhoneNumber.isEmpty() && !nationality.isEmpty() && !bootcamp.isEmpty() ) {
             recodedUsersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -216,6 +217,10 @@ public class StudentSignUpFragment extends Fragment {
 
                 }
             });
+
+            } else {
+                Toast.makeText(getContext(), "please fill all the feilds", Toast.LENGTH_SHORT).show();
+            }
         } else {
             Toast.makeText(getContext(), "no internet", Toast.LENGTH_SHORT).show();
         }

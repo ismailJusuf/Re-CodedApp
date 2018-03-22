@@ -145,6 +145,7 @@ public class TeacherSignUpFragment extends Fragment {
             teacherFullName = teacherFullNameEditText.getText().toString();
             teacherPhoneNumber = teacherPhoneNumberEditText.getText().toString().trim();
 
+            if(!teacherEmail.isEmpty() && !teacherPassword.isEmpty() && !teacherFullName.isEmpty() && !teacherPhoneNumber.isEmpty()){
             recodedUsersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -196,6 +197,9 @@ public class TeacherSignUpFragment extends Fragment {
                 }
 
             });
+            } else {
+                Toast.makeText(getContext(), "please fill all the feilds", Toast.LENGTH_SHORT).show();
+            }
         } else {
             Toast.makeText(getContext(), "no internet", Toast.LENGTH_SHORT).show();
         }
