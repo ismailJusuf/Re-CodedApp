@@ -90,20 +90,6 @@
             app:met_floatingLabel="highlight"
             app:met_primaryColor="#ffba00" />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/bootcamp_location_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:drawableLeft="@drawable/ic_location"
-            android:drawablePadding="12.7dp"
-            android:hint="Bootcamp Location"
-            android:paddingLeft="5dp"
-            android:visibility="gone"
-            app:met_baseColor="#fff"
-            app:met_floatingLabel="highlight"
-            app:met_primaryColor="#ffba00" />
-
         <LinearLayout
             android:id="@+id/sign_up_bootcamp_layout"
             android:layout_width="match_parent"

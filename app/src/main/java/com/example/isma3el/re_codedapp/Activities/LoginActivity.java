@@ -123,7 +123,7 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.login_activity_log_in_button)
     void login() {
-
+        progressDialog();
         userEmailText = emailEditText.getText().toString().trim();
         userPasswordText = passwordEditText.getText().toString().trim();
 

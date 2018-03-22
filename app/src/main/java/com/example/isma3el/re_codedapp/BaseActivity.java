@@ -1,5 +1,6 @@
 package com.example.isma3el.re_codedapp;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -18,7 +19,7 @@ import com.google.gson.Gson;
  */
 
 public class BaseActivity extends AppCompatActivity {
-
+    public ProgressDialog pd;
     public MaterialDialog materialDialog;
     public SharedPreferences preferences;
     public static BaseActivity instance;
@@ -40,9 +41,10 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-    public void removeUser () {
+    public void removeUser() {
         saveUser(null);
     }
+
     public void saveUser(User user) {
 
         SharedPreferences.Editor editor = preferences.edit();
@@ -59,12 +61,18 @@ public class BaseActivity extends AppCompatActivity {
         } else {
             return false;
         }
-
     }
 
-    public void waitDialog(){
+    public void progressDialog() {
+        pd = new ProgressDialog(BaseActivity.this, R.style.MyTheme);
+        pd.setCancelable(true);
+        pd.setProgressStyle(android.R.style.Widget_ProgressBar_Large_Inverse);
+        pd.show();
+    }
 
-    materialDialog =  new  MaterialDialog.Builder(this)
+    public void waitDialog() {
+
+        materialDialog = new MaterialDialog.Builder(this)
                 .title("wait")
                 .content("uploading")
                 .progress(true, 0)
