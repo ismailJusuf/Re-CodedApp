@@ -71,8 +71,6 @@ public class StudentSignUpFragment extends Fragment {
     MaterialEditText studentFullNameEditText;
     @BindView(R.id.student_phone_number_edit_text)
     MaterialEditText studentPhoneNumberEditText;
-    @BindView(R.id.bootcamp_location_edit_text)
-    MaterialEditText bootcampEditText;
     @BindView(R.id.nationality_edit_text)
     MaterialEditText nationalityEditText;
     @BindView(R.id.student_sign_up_spinner)
@@ -154,6 +152,7 @@ public class StudentSignUpFragment extends Fragment {
 
     @OnClick(R.id.student_login_button)
     public void studentSignUp() {
+        BaseActivity.getInstance().progressDialog();
 
         if (BaseActivity.getInstance().isOnline()) {
 
@@ -161,7 +160,6 @@ public class StudentSignUpFragment extends Fragment {
             studentPassword = studentPasswordEditText.getText().toString().trim();
             studentFullName = studentFullNameEditText.getText().toString();
             studentPhoneNumber = studentPhoneNumberEditText.getText().toString().trim();
-            bootcamp = bootcampEditText.getText().toString().trim();
             nationality = nationalityEditText.getText().toString().trim();
 
             recodedUsersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
