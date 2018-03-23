@@ -29,6 +29,8 @@ public class ProfileActivity extends BaseActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference feedsDatabaseReference;
+    private DatabaseReference userDatabaseReference;
+    final ArrayList<FeedCard> feedArrayList = new ArrayList<>();
 
     @BindView(R.id.expandable_listview)
     ExpandableHeightListView expandableListView;
@@ -44,17 +46,28 @@ public class ProfileActivity extends BaseActivity {
         ButterKnife.bind(this);
         expandableListView.setExpanded(true);
 
-        userName.setText(getUser().getFullName());
         firebaseDatabase = FirebaseDatabase.getInstance();
         feedsDatabaseReference = firebaseDatabase.getReference().child("feeds");
+        userDatabaseReference = firebaseDatabase.getReference().child("users");
 
-        User user = getUser();
+        String userId ;
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                userId= null;
+            } else {
+                userId=  extras.getString("user_id");
+            }
+        } else {
+            userId= (String) savedInstanceState.getSerializable("user_id");
+        }
+
+        if(userId == null){
 
         userName.setText(getUser().getFullName());
-        //profilePicture.setImageURI(Uri.parse(getUser().getImage()));
 
-
-        final ArrayList<FeedCard> feedArrayList = new ArrayList<>();
+        Picasso.get().load(getUser().getImage()).into(profilePicture);
 
         feedsDatabaseReference.orderByChild("user/id").equalTo(BaseActivity.getInstance().getUser().getId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -76,7 +89,31 @@ public class ProfileActivity extends BaseActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
+
         });
+        } else {
+
+            userDatabaseReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    User intentUser = dataSnapshot.getValue(User.class);
+
+                   userName.setText(intentUser.getFullName());
+                   Picasso.get().load(intentUser.getImage()).into(profilePicture);
+
+                    addCardToArray(intentUser.getId());
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+
+            });
+
+        }
 
     }
 
@@ -98,5 +135,31 @@ public class ProfileActivity extends BaseActivity {
         Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
         startActivity(intent);
 
+    }
+
+    public void addCardToArray(String id){
+
+        feedsDatabaseReference.orderByChild("user/id").equalTo(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                FeedCard card = null;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    card = snapshot.getValue(FeedCard.class);
+                    feedArrayList.add(card);
+
+                }
+
+                FeedAdapter adapter = new FeedAdapter(ProfileActivity.this, feedArrayList);
+                expandableListView.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
     }
 }

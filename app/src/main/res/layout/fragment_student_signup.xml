@@ -45,7 +45,8 @@
             app:met_baseColor="#fff"
             app:met_errorColor="#ffba00"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="#ffba00" />
+            app:met_primaryColor="#ffba00"
+            android:maxLines="1"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/student_email_edit_text"
@@ -59,7 +60,8 @@
             android:paddingLeft="5dp"
             app:met_baseColor="#fff"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="#ffba00" />
+            app:met_primaryColor="#ffba00"
+            android:maxLines="1"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/student_password_edit_text"
@@ -73,7 +75,8 @@
             android:paddingLeft="5dp"
             app:met_baseColor="#fff"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="#ffba00" />
+            app:met_primaryColor="#ffba00"
+            android:maxLines="1"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/student_phone_number_edit_text"
@@ -88,7 +91,8 @@
             app:met_baseColor="#fff"
             app:met_errorColor="#ffffff"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="#ffba00" />
+            app:met_primaryColor="#ffba00"
+            android:maxLines="1"/>
 
         <LinearLayout
             android:id="@+id/sign_up_bootcamp_layout"
@@ -131,7 +135,8 @@
             android:paddingLeft="5dp"
             app:met_baseColor="#fff"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="#ffba00" />
+            app:met_primaryColor="#ffba00"
+            android:maxLines="1"/>
 
         <Button
             android:id="@+id/student_login_button"
