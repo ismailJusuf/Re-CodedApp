@@ -46,7 +46,6 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />
 
-
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/menu"
         android:layout_width="wrap_content"
@@ -93,8 +92,9 @@
             android:id="@+id/progress_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_done"
+            android:src="@drawable/ic_action_news_paper_white"
             fab:fab_size="mini"
+            app:fab_colorNormal="#000"
             fab:fab_label="PROGRESS" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -102,6 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_done"
+            app:fab_colorNormal="#000"
             fab:fab_size="mini"
             fab:fab_label="STATUS" />
 
@@ -109,11 +110,11 @@
             android:id="@+id/task_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_done"
+            android:src="@drawable/fab_add"
+            app:fab_colorNormal="#000"
             fab:fab_size="mini"
             fab:fab_label="TASK" />
 
     </com.github.clans.fab.FloatingActionMenu>
-
 
 </android.support.design.widget.CoordinatorLayout>
