@@ -41,7 +41,7 @@ public class taskFragment extends Fragment {
     long eventID = 221;
 
 
-    @OnClick(R.id.add_post)
+  /*  @OnClick(R.id.add_post)
     public void addPost() {
 
         long startMillis = System.currentTimeMillis();
@@ -51,7 +51,7 @@ public class taskFragment extends Fragment {
         Intent intent = new Intent(Intent.ACTION_VIEW).setData(builder.build());
         startActivity(intent);
 
-    }
+    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
