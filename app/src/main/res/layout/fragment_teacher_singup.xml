@@ -50,7 +50,8 @@
             app:met_baseColor="#fff"
             app:met_errorColor="#ffba00"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="#ffba00" />
+            app:met_primaryColor="#ffba00"
+            android:maxLines="1"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/teacher_email_edit_text"
@@ -65,7 +66,8 @@
             app:met_baseColor="#fff"
             app:met_errorColor="#ffffff"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="#ffba00" />
+            app:met_primaryColor="#ffba00"
+            android:maxLines="1"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/teacher_password_edit_text"
@@ -79,7 +81,8 @@
             android:paddingLeft="5dp"
             app:met_baseColor="#fff"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="#ffba00" />
+            app:met_primaryColor="#ffba00"
+            android:maxLines="1" />
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/teacher_phone_number_edit_text"
@@ -94,7 +97,8 @@
             app:met_baseColor="#fff"
             app:met_errorColor="#ffffff"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="#ffba00" />
+            app:met_primaryColor="#ffba00"
+            android:maxLines="1" />
 
         <Button
             android:id="@+id/teacher_login_button"

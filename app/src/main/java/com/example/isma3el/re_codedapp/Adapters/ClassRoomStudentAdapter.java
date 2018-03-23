@@ -17,10 +17,11 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-public class ClassStudentAdapter extends ArrayAdapter<User> {
+
+public class ClassRoomStudentAdapter extends ArrayAdapter<User> {
 
 
-    public ClassStudentAdapter(Activity context,ArrayList<User> cards) {
+    public ClassRoomStudentAdapter(Activity context, ArrayList<User> cards) {
         super(context,0,cards);
     }
 
