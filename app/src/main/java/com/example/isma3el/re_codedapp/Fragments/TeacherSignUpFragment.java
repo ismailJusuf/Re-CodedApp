@@ -136,7 +136,7 @@ public class TeacherSignUpFragment extends Fragment {
 
     @OnClick(R.id.teacher_login_button)
     void teacherSignUp() {
-
+        BaseActivity.getInstance().progressDialog();
 
         if (BaseActivity.getInstance().isOnline()) {
 

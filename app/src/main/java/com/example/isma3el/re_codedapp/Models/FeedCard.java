@@ -34,6 +34,8 @@ public class FeedCard {
         this.classRoom = classRoom;
     }
 
+
+
     public static int getSTATUS() {
         return STATUS;
     }
